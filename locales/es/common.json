@@ -1,5 +1,11 @@
 {
     "welcome":"Bienvenido!",
     "login":"Login",
-    "username":"Nombre de usuario"
+    "username":"Nombre de usuario",
+    "password":"Contrseña",
+    "rememberme":"Recuérdame",
+    "forgotpasswd":"Has olvidado tu contraseña?",
+    "login_button":"Entra!",
+    "dontHaveAnAccount":"No tienes una cuenta?",
+    "signup":"Registrate!"
 }

@@ -1,5 +1,11 @@
 {
-    "welcome":"欢迎",
-    "login":"登录",
-    "username":"用户名"
+        "welcome":"欢迎",
+        "login":"登录",
+        "username":"用户名",
+        "password":"密码",
+        "rememberme":"记住我",
+        "forgotpasswd":"忘记密码？",
+        "login_button":"登录！",
+        "dontHaveAnAccount":"没有账户？",
+        "signup":"注册！"    
 }

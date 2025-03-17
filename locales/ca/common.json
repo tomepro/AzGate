@@ -1,5 +1,11 @@
 {
     "welcome":"Benvingut!",
     "login":"Login",
-    "username":"Nom d'usuari"
+    "username":"Nom d'usuari",
+    "password":"Contrasenya",
+    "rememberme":"Recorda'm",
+    "forgotpasswd":"Has oblidat la contrasenya?",
+    "login_button":"Entra!",
+    "dontHaveAnAccount":"No tens un compte?",
+    "signup":"Registra't!"
 }
