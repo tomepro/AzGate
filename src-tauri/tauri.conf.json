@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "azgate",
+  "productName": "AzGate",
   "version": "0.1.0",
   "identifier": "com.azgate.app",
   "build": {
@@ -12,9 +12,10 @@
   "app": {
     "windows": [
       {
-        "title": "azgate",
+        "title": "AzGate",
         "width": 1024,
-        "height": 576
+        "height": 576,
+        "resizable":false
       }
     ],
     "security": {

@@ -1,3 +1,11 @@
 {
-    "welcome": "Welcome!"
+    "welcome": "Welcome!",
+    "login": "Login",
+    "username":"Username",
+    "password":"Password",
+    "rememberme":"Remember Me",
+    "forgotpasswd":"Forgot your password?",
+    "login_button":"Log In!",
+    "dontHaveAnAccount":"Don't have an account?",
+    "signup":"Sign up!"
 }

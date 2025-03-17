@@ -1,3 +1,5 @@
 {
-    "welcome":"Benvingut!"
+    "welcome":"Benvingut!",
+    "login":"Login",
+    "username":"Nom d'usuari"
 }
