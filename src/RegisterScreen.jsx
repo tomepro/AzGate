@@ -34,7 +34,7 @@ function RegisterScreen() {
             <button type="submit" className="registerButton">{t("register_button")}</button>
           </form>
           <div className="noAccountDiv">
-            <Link to="/LoginScreen">{t("login")}</Link>
+            <Link to="/">{t("login")}</Link>
           </div>
         </div>
       </div>
