@@ -1,8 +1,8 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
 import { useTranslation } from "react-i18next";
+import LanguagePopup from "./components/languagePopup";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
@@ -16,6 +16,7 @@ function App() {
 
   return (
     <main className="container">
+      <LanguagePopup />
       <div className="loginBox backdrop-blur-md">
         <p className="loginBoxTitle">{t("login")}</p>
         <div className="formDiv">
@@ -30,7 +31,7 @@ function App() {
           </form>
           <div className="noAccountDiv">
             <p>{t("dontHaveAnAccount")}</p><a href="#">{t("signup")}</a>
-          </div>
+            </div>
         </div>
       </div>
     </main>
