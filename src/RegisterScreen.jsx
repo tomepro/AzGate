@@ -4,6 +4,7 @@ import "./RegisterScreen.css";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import { Link } from "react-router-dom";
+import LanguagePopup from "./components/languagePopup";
 
 function RegisterScreen() {
   const [greetMsg, setGreetMsg] = useState("");
@@ -21,6 +22,7 @@ function RegisterScreen() {
 
   return (
     <main className="container">
+      <LanguagePopup/>
       <div className="registerBox backdrop-blur-md">
         <p className="registerBoxTitle">{t("register")}</p>
         <div className="formDiv">

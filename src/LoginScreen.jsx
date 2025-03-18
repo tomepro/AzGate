@@ -3,6 +3,7 @@ import { invoke } from "@tauri-apps/api/core";
 import "./LoginScreen.css";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import LanguagePopup from "./components/languagePopup";
 
 function LoginScreen() {
   const [greetMsg, setGreetMsg] = useState("");
@@ -11,6 +12,7 @@ function LoginScreen() {
 
   return (
     <main className="container">
+      <LanguagePopup/>
       <div className="loginBox backdrop-blur-md">
         <p className="loginBoxTitle">{t("login")}</p>
         <div className="formDiv">
