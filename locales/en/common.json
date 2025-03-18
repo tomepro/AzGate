@@ -3,9 +3,16 @@
     "login": "Login",
     "username":"Username",
     "password":"Password",
+    "cpasswd": "Confirm password",
     "rememberme":"Remember Me",
     "forgotpasswd":"Forgot your password?",
     "login_button":"Log In!",
     "dontHaveAnAccount":"Don't have an account?",
-    "signup":"Sign up!"
+    "signup":"Sign up!",
+    "register":"Register",
+    "email":"Email",
+    "register_button": "Register!",
+    "name":"Name",
+    "surname":"Surname",
+    "alreadyHaveAnAccount":"Already have an account?"
 }

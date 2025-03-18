@@ -2,10 +2,17 @@
     "welcome":"Bienvenido!",
     "login":"Login",
     "username":"Nombre de usuario",
-    "password":"Contrseña",
+    "password":"Contraseña",
+    "cpasswd": "Confirmar contraseña",
     "rememberme":"Recuérdame",
     "forgotpasswd":"Has olvidado tu contraseña?",
     "login_button":"Entra!",
     "dontHaveAnAccount":"No tienes una cuenta?",
-    "signup":"Registrate!"
+    "signup":"Registrate!",
+    "register":"Registrate",
+    "email":"Correo electrónico",
+    "register_button": "Registrate!",
+    "name":"Nombre",
+    "surname":"Apellido",
+    "alreadyHaveAnAccount":"Ya tienes una cuenta?"
 }

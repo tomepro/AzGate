@@ -3,9 +3,16 @@
         "login":"登录",
         "username":"用户名",
         "password":"密码",
+        "cpasswd": "确认密码",
         "rememberme":"记住我",
         "forgotpasswd":"忘记密码？",
         "login_button":"登录！",
         "dontHaveAnAccount":"没有账户？",
-        "signup":"注册！"    
+        "signup":"注册！",
+        "register":"注册",
+        "email":"电子邮件",
+        "register_button": "注册！",
+        "name":"名字",
+        "surname":"姓",
+        "alreadyHaveAnAccount":"已经有一个账户？"
 }

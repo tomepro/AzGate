@@ -3,9 +3,16 @@
     "login":"Login",
     "username":"Nom d'usuari",
     "password":"Contrasenya",
+    "cpasswd": "Confirma la contrasenya",
     "rememberme":"Recorda'm",
     "forgotpasswd":"Has oblidat la contrasenya?",
     "login_button":"Entra!",
     "dontHaveAnAccount":"No tens un compte?",
-    "signup":"Registra't!"
+    "signup":"Registra't!",
+    "register":"Registra't",
+    "email":"Correu electrònic",
+    "register_button": "Registra't!",
+    "name":"Nom",
+    "surname":"Cognom",
+    "alreadyHaveAnAccount":"Ja tens un compte?"
 }
