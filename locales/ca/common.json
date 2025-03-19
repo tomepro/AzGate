@@ -14,5 +14,10 @@
     "register_button": "Registra't!",
     "name":"Nom",
     "surname":"Cognom",
-    "alreadyHaveAnAccount":"Ja tens un compte?"
+    "alreadyHaveAnAccount":"Ja tens un compte?",
+    "resetPassword":"Restableix la contrasenya",
+    "send":"Enviar",
+    "resetCode":"Codi de restabliment",
+    "comprobate":"Comprova",
+    "back":"Tornar"
 }

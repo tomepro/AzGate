@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
-import "./RegisterScreen.css";
+import "./PasswdRecoveryScreen.css";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import { Link } from "react-router-dom";
@@ -24,20 +24,16 @@ function RegisterScreen() {
     <main className="container">
       <LanguagePopup/>
       <div className="registerBox backdrop-blur-md">
-        <p className="registerBoxTitle">{t("register")}</p>
+        <p className="registerBoxTitle">{t("resetPassword")}</p>
         <div className="formDiv">
           <form>
-            <input type="text" placeholder={t("name")} id="name" />
-            <input type="text" placeholder={t("surname")} id="surname" />
-            <input type="text" placeholder={t("username")} id="username" />
-            <input type="text" placeholder={t("email")} id="email" />
-            <input type="password" placeholder={t("password")} id="password" />
-            <input type="password" placeholder={t("cpasswd")} id="cpasswd" /><br />
-            <button type="submit" className="registerButton">{t("register_button")}</button>
+            <input type="text" placeholder={t("email")} id="email" /><br></br>
+            <button type="submit" className="resetPasswordButton">{t("send")}</button><br></br>
+            <input type="text" placeholder={t("resetCode")} id="code" /><br></br>
+            <button type="submit" className="validateCodeButton">{t("comprobate")}</button><br></br>
           </form>
           <div className="noAccountDiv">
-            <p>{t("alreadyHaveAnAccount")}</p>
-            <Link to="/">{t("login")}</Link>
+            <Link to="/">{t("back")}</Link>
           </div>
         </div>
       </div>

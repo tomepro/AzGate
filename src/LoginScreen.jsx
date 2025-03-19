@@ -21,7 +21,7 @@ function LoginScreen() {
             <input type="password" placeholder={t("password")} id="password" />
             <div className="formLabels">
               <div className="checkboxDiv"><input type="checkbox" /> <label className="checkboxLabel">{t("rememberme")}</label></div>
-              <div className="forgotDiv"><a href="#">{t("forgotpasswd")}</a></div>
+              <div className="forgotDiv"><Link to="/PasswdRecoveryScreen">{t("forgotpasswd")}</Link></div>
             </div>
             <button type="submit" className="loginButton">{t("login_button")}</button>
           </form>

@@ -14,5 +14,10 @@
         "register_button": "注册！",
         "name":"名字",
         "surname":"姓",
-        "alreadyHaveAnAccount":"已经有一个账户？"
+        "alreadyHaveAnAccount":"已经有一个账户？",
+        "resetPassword":"重置密码",
+        "send":"发送",
+        "resetCode":"重置代码",
+        "comprobate":"检查",
+        "back":"返回"
 }

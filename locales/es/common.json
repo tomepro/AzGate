@@ -14,5 +14,10 @@
     "register_button": "Registrate!",
     "name":"Nombre",
     "surname":"Apellido",
-    "alreadyHaveAnAccount":"Ya tienes una cuenta?"
+    "alreadyHaveAnAccount":"Ya tienes una cuenta?",
+    "resetPassword":"Restablece la contraseña",
+    "send":"Enviar",
+    "resetCode":"Código de restablecimiento",
+    "comprobate":"Comprueba",
+    "back":"Volver"
 }
