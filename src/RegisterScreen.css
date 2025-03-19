@@ -19,13 +19,14 @@ body {
  background-color: rgba(128, 128, 128, 0.4);
  border-radius: 20px 0 20px 0;
  padding: 30px;
- margin-top: 55px;
+ margin-top: 40px;
  text-align: center;
  backdrop-filter: blur(6px);
  box-shadow: -14px 20px 20.8px 7px rgba(0, 0, 0, 0.25);
 }
 
 .registerBoxTitle {
+  margin-top: -20px;
   font-size: 48px;
   font-family: "Belanosima", sans-serif;
   font-weight: 400;
