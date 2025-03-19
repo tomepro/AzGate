@@ -114,9 +114,8 @@ input + input { margin-top: 35px; }
 .formLabels {
   margin: auto;
   margin-top: 13px;
-  width: 350px;
+  width: 1000px;
   text-align: left;
-  display: flex;
 }
 
 .checkboxDiv {
@@ -165,7 +164,7 @@ input[type=checkbox]:checked {
 
 
 a {
-  color: rgb(108, 211, 94);
+  color: rgb(255, 0, 0);
   font-weight: 600;
   font-family: Alef;
   font-size: 15px;

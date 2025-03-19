@@ -30,7 +30,7 @@ function RegisterScreen() {
             <input type="text" placeholder={t("name")} id="name" />
             <input type="text" placeholder={t("surname")} id="surname" />
             <input type="text" placeholder={t("username")} id="username" />
-            <input type="email" placeholder={t("email")} id="email" />
+            <input type="text" placeholder={t("email")} id="email" />
             <input type="password" placeholder={t("password")} id="password" />
             <input type="password" placeholder={t("cpasswd")} id="cpasswd" /><br />
             <button type="submit" className="registerButton">{t("register_button")}</button>

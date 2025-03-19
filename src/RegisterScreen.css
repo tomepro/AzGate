@@ -12,7 +12,7 @@ body {
   color: white;
 }
 .registerBox {
- width: 820px;
+ width: 730px;
  height: 496px;
  margin: auto;
  flex-shrink: 0;
@@ -34,7 +34,7 @@ body {
 input[type=text] {
   border-radius: 10px;
   background: #e9e9e9;
-  width: 364px;
+  width: 304px;
   flex-shrink: 0;
   height: 48px;
   border:none;
@@ -66,45 +66,10 @@ input::placeholder[type=text] {
   
 }
 
-input[type=email]{
-  
-  border-radius: 10px;
-  background: #e9e9e9;
-  width: 364px;
-  flex-shrink: 0;
-  height: 48px;
-  border:none;
-  color: #000;
-  font-family: Alef;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  padding-left: 10px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-input:focus[type=email] {
-  border: none;
-  box-shadow: none;
-}
-
-input::placeholder[type=email] {
-  color: #7e7d7d;
-  font-family: Alef;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  
-}
-
 input[type=password] {
   border-radius: 10px;
   background: #e9e9e9;
-  width: 364px;
+  width: 304px;
   flex-shrink: 0;
   height: 48px;
   border:none;
