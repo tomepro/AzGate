@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { invoke } from "@tauri-apps/api/core";
+import { invoke } from '@tauri-apps/api/core';
 import "./LoginScreen.css";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -7,19 +7,47 @@ import LanguagePopup from "./components/languagePopup";
 import LoaderSpinner from "./components/LoaderSpinner";
 
 function LoginScreen() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
   const { t } = useTranslation("common");
+
+  const [username, setName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [finalMessage, setFinalMessage] = useState(null);
+  const [password, setPassword] = useState("");
+
+  async function login() {
+    finalMessage;
+    try {
+      setLoading(true);
+      const message = await invoke('log_in_request', { username, password });
+      setFinalMessage(message); // Save message to state
+  
+      if (message.status === "success") {
+        window.location.replace("/RegisterScreen");
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <main className="container">
       <LanguagePopup/>
+      <LoaderSpinner visible={loading} />
       <div className="loginBox backdrop-blur-md">
         <p className="loginBoxTitle">{t("login")}</p>
         <div className="formDiv">
-          <form>
-            <input type="text" placeholder={t("username")} id="username" />
-            <input type="password" placeholder={t("password")} id="password" />
+          <form
+            onSubmit={
+              (e) => {
+                e.preventDefault();
+                login();
+              }
+            }
+          >
+            <input type="text" placeholder={t("username")} id="username" onChange={(e) => setName(e.currentTarget.value)} />
+            <input type="password" placeholder={t("password")} id="password" onChange={(e) => setPassword(e.currentTarget.value)} />
             <div className="formLabels">
               <div className="checkboxDiv"><input type="checkbox" /> <label className="checkboxLabel">{t("rememberme")}</label></div>
               <div className="forgotDiv"><Link to="/PasswdRecoveryScreen">{t("forgotpasswd")}</Link></div>

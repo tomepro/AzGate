@@ -1,20 +1,84 @@
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
+use reqwest::Client;
+use serde::{Deserialize, Serialize};
+use serde_json::json;
+
+#[derive(Serialize)]
+struct AuthRequest {
+    username: String,
+    password: String,
 }
 
+#[derive(Debug, Deserialize)]
+#[allow(dead_code)]
+#[serde(untagged)] // Allows handling multiple response types
+enum AuthResponse {
+    Success {
+        status: String,
+        token: String,
+        account: Account,
+    },
+    Error {
+        status_code: u16,
+        message: Vec<String>,
+        error: String,
+    },
+}
+
+#[derive(Debug, Deserialize)]
+struct Account {
+    id: u32,
+    username: String,
+    reg_mail: String,
+}
+
+// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
+
 #[tauri::command]
-fn log_in_request(_username: &str, _password: &str) -> bool {
-    return false;
+async fn log_in_request(username: String, password: String) -> Result<serde_json::Value, String> {
+    let client = Client::new();
+
+    let login_data = AuthRequest {
+        username,
+        password,
+    };
+
+    let response = client
+        .post("http://172.17.42.49:3000/auth/signin")
+        .json(&login_data)
+        .send()
+        .await
+        .map_err(|err| err.to_string())?;
+    
+    #[allow(unused_variables)]
+    let status = response.status();
+    let body = response.json::<AuthResponse>().await.map_err(|err| err.to_string())?;
+
+    match body {
+        AuthResponse::Success { token, account, .. } => {
+            Ok(json!({
+                "status": "success",
+                "token": token,
+                "account": {
+                    "id": account.id,
+                    "username": account.username,
+                    "reg_mail": account.reg_mail
+                }
+            }))
+        }
+        AuthResponse::Error { message, .. } => {
+            Ok(json!({
+                "status": "error",
+                "message": message.join(", ")
+            }))
+        }
+    }
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![greet])
         .invoke_handler(tauri::generate_handler![log_in_request])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
-}
+}   
