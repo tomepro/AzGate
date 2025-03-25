@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { invoke } from '@tauri-apps/api/core';
-import "./LoginScreen.css";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import LanguagePopup from "./components/languagePopup";
 import LoaderSpinner from "./components/LoaderSpinner";
+import './LoginScreen.css';
 
 function LoginScreen() {
   const { t } = useTranslation("common");

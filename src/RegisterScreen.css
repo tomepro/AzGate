@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Belanosima:wght@400;600;700&display=swap');
-@import "tailwindcss";
 
 html {
   background-image: url('/login_wp.jpeg');
@@ -105,33 +104,6 @@ input::placeholder[type=password] {
 
 input + input { margin-top: 35px; }
 
-.checkboxLabel {
-  color: #FFF;
-  font-family: Alef;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.formLabels {
-  margin: auto;
-  margin-top: 13px;
-  width: 350px;
-  text-align: left;
-  display: flex;
-}
-
-.checkboxDiv {
-  
-  width: 50%;
-}
-
-.forgotDiv {
-  
-  width: 50%;
-  text-align: right;
-}
 
 input[type=checkbox]:checked {
   background-color: blue;

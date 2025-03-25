@@ -1,24 +1,11 @@
-import { useState } from "react";
-import { invoke } from "@tauri-apps/api/core";
-import "./RegisterScreen.css";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import { Link } from "react-router-dom";
 import LanguagePopup from "./components/languagePopup";
+import './RegisterScreen.css';
 
 function RegisterScreen() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
   const { t } = useTranslation("common");
-  const navigate = useNavigate(); // Inicializa useNavigate
-
-  async function greet() {
-    setGreetMsg(await invoke("greet", { name }));
-  }
-
-  const handleLoginClick = () => { // Función para manejar el clic en "Iniciar sesión"
-    navigate('/');
-  };
 
   return (
     <main className="container">

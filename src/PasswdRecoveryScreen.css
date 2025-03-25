@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Belanosima:wght@400;600;700&display=swap');
-@import "tailwindcss";
 
 html {
   background-image: url('/login_wp.jpeg');
@@ -11,25 +10,27 @@ body {
   font-family: 'Alef', sans-serif; 
   color: white;
 }
-.registerBox {
- width: 730px;
- height: 496px;
- margin: auto;
+.recoveryBox {
+ width: 549px;
+ height: 300px;
+ margin: auto ;
  flex-shrink: 0;
+ margin-top: 138px;
  background-color: rgba(128, 128, 128, 0.4);
  border-radius: 20px 0 20px 0;
- padding: 30px;
- margin-top: 55px;
+ padding: 40px;
  text-align: center;
  backdrop-filter: blur(6px);
  box-shadow: -14px 20px 20.8px 7px rgba(0, 0, 0, 0.25);
 }
 
-.registerBoxTitle {
-  font-size: 48px;
+.recoveryBoxTitle {
+  font-size: 4vw;
   font-family: "Belanosima", sans-serif;
   font-weight: 400;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  text-wrap: nowrap;
+  text-align: center;
 }
 
 input[type=text] {
@@ -49,7 +50,6 @@ input[type=text] {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  margin-right: 5px;
 }
 
 input:focus[type=text] {
@@ -102,68 +102,19 @@ input::placeholder[type=password] {
   
 }
 
-
 input + input { margin-top: 35px; }
-
-.checkboxLabel {
-  color: #FFF;
-  font-family: Alef;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.formLabels {
-  margin: auto;
-  margin-top: 13px;
-  width: 350px;
-  text-align: left;
-  display: flex;
-}
-
-.checkboxDiv {
-  
-  width: 50%;
-}
-
-.forgotDiv {
-  
-  width: 50%;
-  text-align: right;
-}
 
 input[type=checkbox]:checked {
   background-color: blue;
 }
 
-.resetPasswordButton {
+.sendEmailButton {
   border-radius: 10px;
   background: #D9D9D9;
   width: 257px;
   height: 38px;
   flex-shrink: 0;
-  margin-top: 35px;
-  color: #000;
-  font-family: Alef;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-bottom: 28px;
-}
-
-.resetPasswordButton:hover {
-  box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.274);
-}
-
-.validateCodeButton {
-  border-radius: 10px;
-  background: #D9D9D9;
-  width: 257px;
-  height: 38px;
-  flex-shrink: 0;
-  margin-top: 35px;
+  margin-top: 21px;
   color: #000;
   font-family: Alef;
   font-size: 20px;
@@ -172,12 +123,12 @@ input[type=checkbox]:checked {
   line-height: normal;
 }
 
-.validateCodeButton:hover {
+.sendEmailButton:hover {
   box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.274);
 }
 
-.noAccountDiv {
-  margin-top: 13px;
+.recoveryBackDiv {
+  margin-top:21px;
   color: #FFF;
   text-align: center;
   font-family: Alef;
