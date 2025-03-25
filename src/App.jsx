@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginScreen from "./LoginScreen";
 import RegisterScreen from "./RegisterScreen";
 import PasswdRecoveryScreen from "./PasswdRecoveryScreen";
+import HomeScreen from "./HomeScreen";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<LoginScreen />} />
         <Route path="/RegisterScreen" element={<RegisterScreen />} />
         <Route path="/PasswdRecoveryScreen" element={<PasswdRecoveryScreen />} />
+        <Route path="/home" element={<HomeScreen />} />
       </Routes>
     </Router>
   );
