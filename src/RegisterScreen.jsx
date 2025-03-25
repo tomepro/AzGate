@@ -8,7 +8,7 @@ function RegisterScreen() {
   const { t } = useTranslation("common");
 
   return (
-    <main className="container">
+    <main className="containerRegisterScreen">
       <LanguagePopup/>
       <div className="registerBox backdrop-blur-md">
         <p className="registerBoxTitle">{t("register")}</p>

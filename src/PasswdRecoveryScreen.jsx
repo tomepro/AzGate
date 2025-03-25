@@ -7,7 +7,7 @@ function RegisterScreen() {
   const { t } = useTranslation("common");
 
   return (
-    <main className="container">
+    <main className="containerPasswdRecovery">
       <LanguagePopup/>
       <div className="recoveryBox backdrop-blur-md">
         <p className="recoveryBoxTitle">{t("resetPassword")}</p>

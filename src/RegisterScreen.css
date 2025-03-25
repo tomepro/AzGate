@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Belanosima:wght@400;600;700&display=swap');
 
-html {
+.containerRegisterScreen {
   background-image: url('/login_wp.jpeg');
   background-repeat: no-repeat;
-  background-size: 100% auto;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  padding-top: 40px;
+  margin: 0;
 }
 
 body {
@@ -18,7 +22,6 @@ body {
  background-color: rgba(128, 128, 128, 0.4);
  border-radius: 20px 0 20px 0;
  padding: 30px;
- margin-top: 40px;
  text-align: center;
  backdrop-filter: blur(6px);
  box-shadow: -14px 20px 20.8px 7px rgba(0, 0, 0, 0.25);

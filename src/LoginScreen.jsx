@@ -33,10 +33,10 @@ function LoginScreen() {
   }
 
   return (
-    <main className="container">
+    <main className="containerLoginScreen">
       <LanguagePopup/>
       <LoaderSpinner visible={loading} />
-      <div className="loginBox backdrop-blur-md">
+      <div className="loginBox">
         <p className="loginBoxTitle">{t("login")}</p>
         <div className="formDiv">
           <form
