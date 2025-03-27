@@ -19,5 +19,19 @@
         "send":"发送",
         "resetCode":"重置代码",
         "comprobate":"检查",
-        "back":"返回"
+        "back":"返回",
+        "nameUser":"名字用户",
+        "IDuser":"ID用户",
+        "news":"新闻",
+        "shop":"商店",
+        "ranking":"排名",
+        "armory":"军械库",
+        "addons":"插件",
+        "changelog":"变更日志",
+        "versions":"版本",
+        "realms":"领域",
+        "last_news":"最新消息",
+        "server_status":"服务器状态",
+        "read_more":"阅读更多",
+        "play":"玩"
 }

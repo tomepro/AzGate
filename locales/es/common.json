@@ -19,5 +19,19 @@
     "send":"Enviar",
     "resetCode":"Código de restablecimiento",
     "comprobate":"Comprueba",
-    "back":"Volver"
+    "back":"Volver",
+    "nameUser":"NombreUsuario",
+    "IDuser":"IDusuario",
+    "news":"Noticias",
+    "shop":"Tienda",
+    "ranking":"Ranking",
+    "armory":"Armería",
+    "addons":"Addons",
+    "changelog":"Changelog",
+    "versions":"Versiones",
+    "realms":"Reinos",
+    "last_news":"Últimas Noticias",
+    "server_status":"Estado del Servidor",
+    "read_more":"Leer Más",
+    "play":"JUGAR"
 }

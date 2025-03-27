@@ -22,7 +22,7 @@ export default function CustomCursor() {
 
   return (
     <img
-      src={isPointer ? "/cast.webp" : "/gauntlet.webp"} // Swap cursor images
+      src={isPointer ? "/cursor/cast.webp" : "/cursor/gauntlet.webp"} // Swap cursor images
       alt="Custom Cursor"
       className="custom-cursor"
       style={{

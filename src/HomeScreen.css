@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Belanosima:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&display=swap');
+
+.containerHomeScreen {
+    background-image: url('launcher_wallpaper.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    font-family: 'Alef', sans-serif;
+    color: white;
+}
+
+.homeNavBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    font-family: 'Inknut Antiqua', sans-serif;
+    color: gold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), -1px 1px 2px rgba(0, 0, 0, 0.5), 1px -1px 2px rgba(0, 0, 0, 0.5), -1px -1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.contentArea {
+    display: grid;
+    grid-template-columns: 200px 1fr 300px;
+    padding: 13px;
+}
+
+.sidebar{
+    height: 448px;
+    width: 193px;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    padding: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+}
+
+.rightSidebar {
+    background-color: aqua;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    padding: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    height: 360px;
+    width: 222px;
+} 
+
+.versions, .realms, .changelog, .serverStatus {
+    margin-bottom: 10px
+}
+
+.versions button, .realms button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    cursor: none;
+
+}
+
+.realmItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.online {
+    color: green;
+}
+
+.offline {
+    color: red;
+}
+
+.contentArea{
+
+}
+
+.mainContent{
+}
+
+.newsArea {
+    background-color: greenyellow;
+    margin-right: 30px;
+    margin-left: 30px;
+    position: relative;
+    height: 219px;
+    width: 493px;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.mainNewsArea{
+    background-color: blue;
+    height: 219px;
+    width: 493px;
+}
+
+.mainNew{
+    height: 219px;
+    width: 493px;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(90, 90, 90, 0.3);
+    background-color: rgba(90, 90, 90, 0.3);
+}
+
+.mainNewText{
+    font-family: 'Inknut Antiqua', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    height: 30px;
+    width: 493px;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(45, 45, 45, 0.3);
+    background-color: rgba(45, 45, 45, 0.3);
+}
+
+.microNewArea{
+    margin-top: 40px;
+    height: 190px;
+    width: 493px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.microNew{
+    margin-left: 6px;
+    width: 154px;
+    height: 139px;
+}
+
+.microNewText{
+    margin-left: 6px;
+    font-size: 12px;
+    font-family: 'Inknut Antiqua', sans-serif;
+    width: 154px;
+    margin-top: 5px;
+    height: 42px;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(45, 45, 45, 0.3);
+    background-color: rgba(45, 45, 45, 0.3);
+    color: white;
+}
+
+.changelog_title{
+    font-family: 'Inknut Antiqua', sans-serif;
+    color: gold;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.readMore{
+    -webkit-text-fill-color: white;
+    text-decoration: none;
+    font-family: 'Inknut Antiqua', sans-serif;
+    font-size: 15px;
+    text-align: center;
+    margin-left: 28.5px;
+    margin-top: 5px;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(90, 90, 90, 0.3);
+    background-color: rgba(90, 90, 90, 0.3);
+    border-radius: 5px;
+    width: 135px;
+    height: 24px;
+}
+
+.button_container{
+    margin-top: 30px;
+    background-color: gold;
+    border-radius: 5px;
+    margin-left: -20px;
+    width: 222px;
+    height: 68px;
+
+}
+.play_button, .settings_button {
+    color: black;
+    padding: 10px;
+    border: none;
+    font-size: 20px;
+    font-family: 'Inknut Antiqua', sans-serif;
+    text-align: center;
+    cursor: none;
+}
+
+.play_button {
+    font-size: xx-large;
+}
+
+.settings_button {
+    background-color: rgba(68, 68, 68, 0.3);
+    font-size: 30px;
+    text-align: center;
+    width: 68px;
+    height: 68px;
+    border-radius: 5px;
+    margin-left: 9px;
+    position: absolute;
+}
+
+ul{
+    font-size: 15px;
+}

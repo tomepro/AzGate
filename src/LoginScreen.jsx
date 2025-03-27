@@ -23,7 +23,7 @@ function LoginScreen() {
       setFinalMessage(message); // Save message to state
   
       if (message.status === "success") {
-        window.location.replace("/RegisterScreen");
+        window.location.replace("/home");
       }
     } catch (error) {
       console.error(error);
@@ -51,13 +51,13 @@ function LoginScreen() {
             <input type="password" placeholder={t("password")} id="password" onChange={(e) => setPassword(e.currentTarget.value)} />
             <div className="formLabels">
               <div className="checkboxDiv"><input type="checkbox" /> <label className="checkboxLabel">{t("rememberme")}</label></div>
-              <div className="forgotDiv"><Link to="/PasswdRecoveryScreen">{t("forgotpasswd")}</Link></div>
+              <div className="forgotDiv"><Link to="/passwdRecoveryScreen">{t("forgotpasswd")}</Link></div>
             </div>
             <button type="submit" className="loginButton">{t("login_button")}</button>
           </form>
           <div className="noAccountDiv">
             <p>{t("dontHaveAnAccount")}</p>
-            <Link to="/RegisterScreen">{t("signup")}</Link>
+            <Link to="/registerScreen">{t("signup")}</Link>
           </div>
         </div>
       </div>

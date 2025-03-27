@@ -15,10 +15,10 @@ export default () => (
     position="top center"
     closeOnDocumentClick
     >
-    <div className='popupDiv'> <button onClick={() => changeLanguage('en')}><img src='en_gb.png' className='flagButton'/></button><hr/>
-    <button onClick={() => changeLanguage('es')}><img src='es_es.webp' className='flagButton'/></button> <hr/>
-    <button onClick={() => changeLanguage('ca')}><img src='ca_ca.png' className='flagButton'/></button><hr/>
-    <button onClick={() => changeLanguage('zh')}><img src='zh_zh.png' className='flagButton'/></button>
+    <div className='popupDiv'> <button onClick={() => changeLanguage('en')}><img src='/languages/en_gb.png' className='flagButton'/></button><hr/>
+    <button onClick={() => changeLanguage('es')}><img src='/languages/es_es.webp' className='flagButton'/></button> <hr/>
+    <button onClick={() => changeLanguage('ca')}><img src='/languages/ca_ca.png' className='flagButton'/></button><hr/>
+    <button onClick={() => changeLanguage('zh')}><img src='/languages/zh_zh.png' className='flagButton'/></button>
     </div>
   </Popup>
 );

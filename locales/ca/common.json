@@ -19,5 +19,19 @@
     "send":"Enviar",
     "resetCode":"Codi de restabliment",
     "comprobate":"Comprova",
-    "back":"Tornar"
+    "back":"Tornar",
+    "nameUser":"NomUsuari",
+    "IDuser":"IDusuari",
+    "news":"Notícies",
+    "shop":"Botiga",
+    "ranking":"Ranking",
+    "armory":"Armeria",
+    "addons":"Addons",
+    "changelog":"Changelog",
+    "versions":"Versions",
+    "realms":"Reinos",
+    "last_news":"Últimes Notícies",
+    "server_status":"Estat del Servidor",
+    "read_more":"Llegir Més",
+    "play":"JUGAR"
 }

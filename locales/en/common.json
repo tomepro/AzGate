@@ -19,5 +19,19 @@
     "send":"Send",
     "resetCode":"Reset Code",
     "comprobate":"Comprobate",
-    "back":"Back"
+    "back":"Back",
+    "nameUser":"NameUser",
+    "IDuser":"IDuser",
+    "news":"News",
+    "shop":"Shop",
+    "ranking":"Ranking",
+    "armory":"Armory",
+    "addons":"Addons",
+    "changelog":"Changelog",
+    "versions":"Versions",
+    "realms":"Realms",
+    "last_news":"Last News",
+    "server_status":"Server Status",
+    "read_more":"Read More",
+    "play":"PLAY"
 }
