@@ -93,7 +93,6 @@ body {
 }
 
 .newsArea {
-    background-color: greenyellow;
     margin-right: 30px;
     margin-left: 30px;
     position: relative;
@@ -105,7 +104,6 @@ body {
 }
 
 .mainNewsArea{
-    background-color: blue;
     height: 219px;
     width: 493px;
 }
