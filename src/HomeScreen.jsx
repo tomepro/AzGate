@@ -2,6 +2,7 @@ import React from 'react';
 import './HomeScreen.css';
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 
 function HomeScreen() {
     const { t } = useTranslation("common");
@@ -16,14 +17,12 @@ function HomeScreen() {
         <main className='containerHomeScreen'>
             <div className='launcherBackground'>
                 <div className='homeNavBar'>
-                    <button className='userButton'>
-                        {t("nameUser")}
-                        <p>{t("IDuser")}</p>
-                    </button>
+                    <button className='userButton'>{t("nameUser")}<p>{t("IDuser")}</p></button>
+                    <button><Link className='navButton' to="/home">{t("home")}</Link></button>
                     <button>{t("news")}</button>
                     <button>{t("shop")}</button>
                     <button>{t("ranking")}</button>
-                    <button>{t("armory")}</button>
+                    <button><Link className='navButton' to="/armoryScreen" >{t("armory")}</Link></button>
                     <button>{t("addons")}</button>
                     <button>{t("changelog")}</button>
                 </div>
