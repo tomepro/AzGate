@@ -189,14 +189,17 @@ body {
     height: 24px;
 }
 
-.button_container{
+.button_container {
     margin-top: 30px;
     background-color: gold;
     border-radius: 5px;
     margin-left: -20px;
-    width: 222px;
+    width: 220px;
     height: 68px;
-
+    display: flex; /* Añadir flexbox para controlar el espaciado */
+    justify-content: space-around; /* Espacio igual alrededor de los elementos */
+    align-items: center; /* Centrar verticalmente */
+    padding: 0px 0px; /* Añade un poco de padding horizontal */
 }
 .play_button, .settings_button {
     color: black;
@@ -210,6 +213,7 @@ body {
 
 .play_button {
     font-size: xx-large;
+    min-width: 170px; /* Ajusta el ancho mínimo según tus necesidades */
 }
 
 .settings_button {
@@ -219,9 +223,8 @@ body {
     width: 68px;
     height: 68px;
     border-radius: 5px;
-    margin-left: 9px;
-    position: absolute;
-}
+    /* Elimina el margen izquierdo y el position absolute */
+}   
 
 ul{
     font-size: 15px;
