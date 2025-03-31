@@ -15,7 +15,8 @@
         "title": "AzGate",
         "width": 1024,
         "height": 576,
-        "resizable":false
+        "resizable":false,
+        "decorations": false
       }
     ],
     "security": {

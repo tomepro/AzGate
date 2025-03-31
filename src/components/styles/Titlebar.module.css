@@ -1,0 +1,55 @@
+.titlebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;           
+    padding: 5px;
+    color: white;
+    -webkit-app-region: drag;     
+    cursor: none;                  
+    z-index: 1000;
+  }
+
+
+  .logo {
+    width: 21px;
+    height: 21px;
+    margin-left: 5px;
+    -webkit-app-region: no-drag;   
+  }
+  
+  .buttonContainer {
+    display: flex;
+    -webkit-app-region: no-drag;   
+  }
+
+  .titlebar > * {
+    -webkit-app-region: no-drag;
+  }
+  
+  .button {
+    height: 30px;
+    margin-left: 5px;
+    padding: 5px 10px;
+    background-color: none;
+    border: none;
+    color: #161616;
+    -webkit-app-region: no-drag;
+    font-family: "Inknut Antiqua";
+    font-size: 18px;
+    font-style: normal;
+    text-align: center;
+    display: flex;           /* Added: Makes button a flex container */
+    align-items: center;     /* Added: Vertically centers content */
+    justify-content: center; /* Added: Horizontally centers content */
+    height: 24px;            /* Optional: Fixed height for consistency */
+  }
+
+  .button i {
+    vertical-align: middle; 
+    line-height: 1;
+    -webkit-text-stroke-color: rgba(255, 0, 0, 0) !important;
+  }
