@@ -44,6 +44,7 @@ function ArmoryIframe() {
   return (
     <main className='containerHomeScreen'>
       <div className='homeNavBar'>
+            <img className='userIcon' src="user_icon.png"></img>
             <button className='userButton'>{t("nameUser")}<p>{t("IDuser")}</p></button>
             <button><Link className='navButton' to="/home">{t("home")}</Link></button>
             <button>{t("news")}</button>
@@ -51,7 +52,7 @@ function ArmoryIframe() {
             <button>{t("ranking")}</button>
             <button><Link to="/armoryScreen" className='navButton'>{t("armory")}</Link></button>
             <button>{t("addons")}</button>
-            <button>{t("changelog")}</button>
+            <button className='changelogButton'>{t("changelog")}</button>
         </div>
       <iframe id="armory-iframe" title="Armory Iframe" />
     </main>
