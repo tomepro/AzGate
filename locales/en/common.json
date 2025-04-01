@@ -34,5 +34,7 @@
     "server_status":"Server Status",
     "read_more":"Read More",
     "play":"PLAY",
-    "home":"Home"
+    "home":"Home",
+    "new_version_name":"New Version",
+    "add":"Add"
 }

@@ -1,38 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './HomeScreen.css';
 import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 
 function HomeScreen() {
     const { t } = useTranslation("common");
+    const [customVersions, setCustomVersions] = useState([]);
+    const [newVersionName, setNewVersionName] = useState("");
 
-    useEffect(() => {
-        return () => {
-            window.location.reload();
-        };
-    }, []);
+    const handleAddVersion = () => {
+        if (newVersionName.trim() !== "") {
+            const newVersion = {
+                name: newVersionName,
+                image: "default.png" // Ruta de la imagen
+            };
+            setCustomVersions([...customVersions, newVersion]);
+            setNewVersionName("");
+        }
+    };
 
     return (
         <main className='containerHomeScreen'>
             <div className='launcherBackground'>
                 <div className='homeNavBar'>
+                    <img className='userIcon' src="user_icon.png" alt="User Icon" />
                     <button className='userButton'>{t("nameUser")}<p>{t("IDuser")}</p></button>
                     <button><Link className='navButton' to="/home">{t("home")}</Link></button>
                     <button>{t("news")}</button>
                     <button>{t("shop")}</button>
-                    <button>{t("ranking")}</button>
-                    <button><Link className='navButton' to="/armoryScreen" >{t("armory")}</Link></button>
+                    <button><Link className='navButton' to="/">{t("ranking")}</Link></button>
+                    <button><Link className='navButton' to="/armoryScreen">{t("armory")}</Link></button>
                     <button>{t("addons")}</button>
-                    <button>{t("changelog")}</button>
+                    <button className='changelogButton'>{t("changelog")}</button>
                 </div>
                 <div className='contentArea'>
                     <aside className='sidebar'>
                         <div className='versions'>
                             <h3>{t("versions")}</h3>
-                            <button className='versionButton'>Classic</button>
-                            <button className='versionButton'>TBC</button>
-                            <button className='versionButton'>WotLK</button>
+                            <button className='versionButton'><img className='versionLogo' src="classic.png" alt="Classic logo" />Classic</button>
+                            <button className='versionButton'><img className='versionLogo' src="tbc.png" alt="Classic logo" />TBC</button>
+                            <button className='versionButton'><img className='versionLogo' src="wotlk.png" alt="Classic logo" />WotLK</button>
+
+                            <div className='customVersionsContainer'>
+                                {customVersions.map((version, index) => (
+                                    <button key={index} className='versionButton'>
+                                        <img className='versionLogo' src={version.image} alt={`${version.name} logo`} />
+                                        {version.name}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div className='addVersion'>
+                                <input className='addVersionInput'
+                                    value={newVersionName}
+                                    onChange={(e) => setNewVersionName(e.target.value)}
+                                    placeholder={t("new_version_name")}
+                                />
+                                <button onClick={handleAddVersion}>{"+"}</button>
+                            </div>
                         </div>
                         <div className='realms'>
                             <h3>{t("realms")}</h3>
@@ -43,24 +68,24 @@ function HomeScreen() {
                     </aside>
                     <div className='mainContent'>
                         <div className='newsArea'>
-                          <div className='mainNewsArea'>
-                            <img className='mainNew' src='patch_image.jpg'/>
-                            <button className='mainNewText'><h2>{t("last_news")}</h2></button>
-                          </div>
-                          <div className='microNewArea'>
+                            <div className='mainNewsArea'>
+                                <img className='mainNew' src='patch_image.jpg' alt="Patch" />
+                                <button className='mainNewText'><h2>{t("last_news")}</h2></button>
+                            </div>
+                            <div className='microNewArea'>
                                 <div className='new1'>
-                                    <img className='microNew' src='music_image.jpg'/>
+                                    <img className='microNew' src='music_image.jpg' alt="Music" />
                                     <button className='microNewText'><p>La blizzcon vuelve con mucho más</p></button>
                                 </div>
                                 <div className='new2'>
-                                    <img className='microNew'  src='news_image.jpg'/>
+                                    <img className='microNew' src='news_image.jpg' alt="News" />
                                     <button className='microNewText'><p>Correcciones en vivo del 12 de Marzo 2025</p></button>
                                 </div>
                                 <div className='new3'>
-                                    <img className='microNew' src='blizzcon_image.jpg'/>
+                                    <img className='microNew' src='blizzcon_image.jpg' alt="Blizzcon" />
                                     <button className='microNewText'><p>Llega la banda sonora de Minahonda</p></button>
                                 </div>
-                          </div>
+                            </div>
                         </div>
                     </div>
                     <aside className='rightSidebar'>
@@ -79,8 +104,8 @@ function HomeScreen() {
                             <button className='readMore'>{t("read_more")}</button>
                         </div>
                         <div className='button_container'>
-                          <button className='play_button'>{t("play")}</button>
-                          <button className='settings_button'><i class="fa-solid fa-gear"></i></button>
+                            <button className='play_button'>{t("play")}</button>
+                            <button className='settings_button'><i className="fa-solid fa-gear"></i></button>
                         </div>
                     </aside>
                 </div>

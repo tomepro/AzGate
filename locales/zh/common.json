@@ -34,5 +34,7 @@
         "server_status":"服务器状态",
         "read_more":"阅读更多",
         "play":"玩",
-        "home":"首页"
+        "home":"首页",
+        "new_version_name":"新版本",
+        "add":"添加"
 }

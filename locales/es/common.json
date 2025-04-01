@@ -34,5 +34,7 @@
     "server_status":"Estado del Servidor",
     "read_more":"Leer Más",
     "play":"JUGAR",
-    "home":"Inicio"
+    "home":"Inicio",
+    "new_version_name":"Nueva Versión",
+    "add":"Añadir"
 }

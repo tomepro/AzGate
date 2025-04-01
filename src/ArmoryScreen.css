@@ -6,6 +6,9 @@
   }
 
   .homeNavBar {
+    margin-top: 29px;
+    margin-left: 15px;
+    margin-right: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,4 +42,25 @@
     padding: 0;
     display: flex;
     flex-direction: column;
+}
+
+.userIcon{
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+  margin-right: -13px
+}
+
+.userButton{
+  color: white;
+  margin-right: 38px;
+}
+
+.changelogButton{
+  margin-right: 38px;
+}
+
+.customVersionsContainer {
+  max-height: 150px; /* Ajusta la altura máxima según tus necesidades */
+  overflow-y: auto;
 }
