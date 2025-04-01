@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import LanguagePopup from "./components/languagePopup";
 import LoaderSpinner from "./components/LoaderSpinner";
 import './LoginScreen.css';
+import Titlebar from "./components/Titlebar";
 
 function LoginScreen() {
   const { t } = useTranslation("common");
@@ -34,6 +35,7 @@ function LoginScreen() {
 
   return (
     <main className="containerLoginScreen">
+      <Titlebar/>
       <LanguagePopup/>
       <LoaderSpinner visible={loading} />
       <div className="loginBox">

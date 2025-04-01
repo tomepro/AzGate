@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Belanosima:wght@400;600;700&display=swap');
+@import "tailwindcss";
+
+.custom-cursor {
+    pointer-events: none;
+    z-index: 9999; 
+  }
+  html {
+    cursor: none;
+    padding:0;
+    margin: 0;
+  }
+  body {
+    margin-top: 0;
+  }
+  .fa-discord {
+    color: #738ADB;
+    color:white;
+  }

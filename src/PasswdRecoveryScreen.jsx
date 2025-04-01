@@ -2,12 +2,14 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import LanguagePopup from "./components/languagePopup";
 import("./PasswdRecoveryScreen.css");
+import Titlebar from "./components/Titlebar";
 
 function RegisterScreen() {
   const { t } = useTranslation("common");
 
   return (
     <main className="containerPasswdRecovery">
+      <Titlebar/>
       <LanguagePopup/>
       <div className="recoveryBox backdrop-blur-md">
         <p className="recoveryBoxTitle">{t("resetPassword")}</p>
