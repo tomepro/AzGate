@@ -104,8 +104,8 @@ function HomeScreen() {
                             <button className='readMore'>{t("read_more")}</button>
                         </div>
                         <div className='button_container'>
-                            <button className='play_button'>{t("play")}</button>
-                            <button className='settings_button'><i className="fa-solid fa-gear"></i></button>
+                          <button className='play_button'>{t("play")}</button>
+                          <button className='settings_button'><i className="fa-solid fa-gear"></i></button>
                         </div>
                     </aside>
                 </div>
