@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import LanguagePopup from "./components/languagePopup";
 import LoaderSpinner from "./components/LoaderSpinner";
 import './LoginScreen.css';
-import TopBar from "./components/Titlebar";
 import Titlebar from "./components/Titlebar";
 
 function LoginScreen() {

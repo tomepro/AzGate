@@ -3,12 +3,14 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import LanguagePopup from "./components/languagePopup";
 import './RegisterScreen.css';
+import Titlebar from "./components/Titlebar";
 
 function RegisterScreen() {
   const { t } = useTranslation("common");
 
   return (
     <main className="containerRegisterScreen">
+      <Titlebar/>
       <LanguagePopup/>
       <div className="registerBox backdrop-blur-md">
         <p className="registerBoxTitle">{t("register")}</p>
