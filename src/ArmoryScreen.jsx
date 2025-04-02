@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "./ArmoryScreen.css";
 import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
+import Titlebar from './components/Titlebar';
     
 
 function ArmoryIframe() {
@@ -43,6 +44,7 @@ function ArmoryIframe() {
 
   return (
     <main className='containerHomeScreen'>
+      <Titlebar/>
       <div className='homeNavBar'>
             <img className='userIcon' src="user_icon.png"></img>
             <button className='userButton'>{t("nameUser")}<p>{t("IDuser")}</p></button>

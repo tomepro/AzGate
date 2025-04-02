@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './HomeScreen.css';
 import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
+import Titlebar from "./components/Titlebar";
+
 
 function HomeScreen() {
     const { t } = useTranslation("common");
@@ -21,6 +23,7 @@ function HomeScreen() {
 
     return (
         <main className='containerHomeScreen'>
+            <Titlebar/>
             <div className='launcherBackground'>
                 <div className='homeNavBar'>
                     <img className='userIcon' src="user_icon.png" alt="User Icon" />
