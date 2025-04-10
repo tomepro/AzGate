@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Belanosima:wght@400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&display=swap');
 
-.containerHomeScreen {
-    background-image: url('launcher_wallpaper.png');
+html{
+    overflow: hidden;
+}
+.launcherBackground {
+    background-image: url('/wotlk_wallpaper.png');
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0;
@@ -18,14 +21,15 @@ body {
     width: 100vw;
 }
 
-.homeNavBar {
-    margin-top: 29px;
+#homeNavBar {
+    margin-top: 45px;
     margin-left: 15px;
     margin-right: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    height: 57px;
+    width: 994px;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(6px);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
@@ -42,63 +46,227 @@ body {
     font-family: 'Inknut Antiqua', sans-serif;
     color: gold;
     font-size: 17px;
+    border-radius: 5;
 }
 
+
+#botonUser{
+    height: 57px;
+    width: 212px;
+    display: flex;
+}
+
+/* PARTE DE LAS IMAGENES DEL USER */
+#imagenesUser{
+    height: 57px;
+    width: 73px;
+}
+
+#classIcon{
+    height: 26px;
+    width: 26;
+    position: absolute;
+    top: 28px; 
+    left: 37px; 
+    z-index: 2; 
+    border-radius: 5px;
+
+}
+
+#userIcon{
+    height: 41px;
+    width: 41px;
+    margin-left: 10px;
+    margin-top: 8px;
+    border-radius: 5px;
+}
+
+#nombreUser{
+    height: 57px;
+    width: 139px;
+}
+
+#userName{
+    color: #ffffff;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+}
+#userID{
+    color: #635D5D;
+    text-align: center;
+    font-size: 10px;
+}
+
+
+
 .contentArea {
+    z-index: 1;
     display: grid;
     grid-template-columns: 200px 1fr 300px;
     padding: 13px;
+
+    
 }
 
+/*VERSIONES*/
 .sidebar{
     height: 448px;
-    width: 220px;
+    width: 193px;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(6px);
-    padding: 20px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
     margin-right: 2000px;
+    font-family: 'Inknut Antiqua', sans-serif;
+    overflow: hidden;
+    
 }
 
+
+
+/*CHANGELOG*/
 .rightSidebar {
-    background-color: aqua;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(6px);
     padding: 20px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
-    height: 360px;
-    width: 222px;
+    height: 154px;
+    width: 212px;
     margin-left: 21px;
 } 
 
-.versions, .realms, .changelog, .serverStatus {
-    margin-bottom: 10px
+#tiendaMonedas{
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    margin-top: 14px;
+    margin-left: -20px;
+    height: 154px;
+    width: 212px;
+    font-family: 'Inknut Antiqua', sans-serif;
+    
 }
 
+.shop_title{
+    font-family: 'Inknut Antiqua', sans-serif;
+    color: gold;
+    text-align: center;
+
+    padding-top: 15px;
+}
+
+.monedaDona{
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 57px; 
+    left: 47px; 
+    z-index: 2; 
+    border-radius: 5px;
+}
+
+.monedaVota{
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 57px; 
+    left: 146px; 
+    z-index: 2; 
+    border-radius: 5px;
+}
+
+#puntosVotacion{
+    color: silver;
+    font-size: 11px;
+}
+
+#puntosDonacion{
+    color: gold;
+    font-size: 11px;
+}
+
+#donacionMoneda{
+    font-size: 16px;
+}
+
+#votacionMoneda{
+    font-size: 16px;
+}
+
+
+
+
+
+
+
+
+
+
+#estadoServer{
+    background-color: rgba(0, 180, 0, 0.5);
+    height: 34px;
+    width: 222px;
+    margin-top: 18px;
+    margin-left: -25px;
+    text-align: center;
+    backdrop-filter: blur(6px);
+    font-family: 'Inknut Antiqua', sans-serif;
+}
+
+#estadoActualServer{
+    margin-top:-3px;
+}
+
+.versions{
+    /* background-color: aqua; */
+    overflow: hidden;
+    height: 195px;
+    overflow: scroll; /* Permite el scroll */
+          /* Permite que el contenedor crezca según su contenido */
+}
 
 .versions button, .realms button{
     width: 100%;
     padding: 10px;
-    margin-bottom: 5px;
-    background-color: rgba(255, 255, 255, 0.1);
+    font-family: 'Inknut Antiqua', sans-serif;
     border: none;
     color: white;
     cursor: none;
-
+    
 }
 
-.versions button:hover, .realms button:hover{
-    background-color: rgba(255, 255, 255, 0.2);
+.versions::-webkit-scrollbar {
+    display: none; /* Oculta la barra de desplazamiento */
+}
+
+.editButton{
+    margin-left: 10px;
+}
+
+#tituloVersiones{
+    background-color: rgba(255, 255, 255, 0.1);
+    color: gold;
+    text-align: center;
+    padding: 7px;
+    font-size: 16px;
+    font-family: 'Inknut Antiqua', sans-serif;
 }
 .versions button:focus, .realms button:focus{
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-
+#realms{
+    position: fixed;  /* El div estará fijo en la pantalla */
+    top: 233px;
+    /* background-color: #00a100; */
+    width: 193px;
+}
 .realmItem {
     display: flex;
     justify-content: space-between;
-    padding: 5px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .online {
@@ -109,13 +277,26 @@ body {
     color: red;
 }
 
+#circuloVerde{
+    height:10px;
+    width:10px;
+    background:#00a100;
+    border-radius:50px;
+    margin-left: 70px;
 
+ }
+
+
+#mainContent{
+    /* display: none; */
+    z-index: 10;
+}
 
 .newsArea {
     margin-right: 10px;
     margin-left: 50px;
     position: relative;
-    height: 219px;
+    height: 218px;
     width: 493px;
     align-items: center;
     justify-content: center;
@@ -182,27 +363,41 @@ body {
     margin-bottom: 0px;
 }
 
+
+
+
 .readMore{
+    -webkit-text-fill-color: white;
+    text-decoration: none;
+    position: sticky;
+    font-family: 'Inknut Antiqua', sans-serif;
+    font-size: 15px;
+    margin-bottom: 0px;
+    margin-left: -20px;
+    backdrop-filter: blur(6px);
+    background-color: rgba(90, 90, 90, 0.3);
+    width: 212px;
+    height: 24px;
+}
+
+.verTienda{
     -webkit-text-fill-color: white;
     text-decoration: none;
     font-family: 'Inknut Antiqua', sans-serif;
     font-size: 15px;
-    text-align: center;
-    margin-left: 28.5px;
-    margin-top: 5px;
+    margin-top: 0px;
+    margin-left: 0px;
     backdrop-filter: blur(6px);
-    border: 1px solid rgba(90, 90, 90, 0.3);
     background-color: rgba(90, 90, 90, 0.3);
-    border-radius: 5px;
-    width: 135px;
+    width: 212px;
     height: 24px;
 }
 
 .button_container {
-    margin-top: 30px;
+    margin-top: 6px;
     background-color: gold;
-    border-radius: 5px;
-    margin-left: -20px;
+    
+    margin-left: -25px;
     width: 220px;
     height: 68px;
     display: flex; /* Añadir flexbox para controlar el espaciado */
@@ -232,7 +427,7 @@ body {
     text-align: center;
     width: 68px;
     height: 68px;
-    border-radius: 5px;
+    
     /* Elimina el margen izquierdo y el position absolute */
 }   
 
@@ -241,54 +436,192 @@ ul{
 }
 
 .userIcon{
-    width: 41px;
-    height: 41px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     margin-right: -13px
 }
 
-.userButton{
-    color: white;
-    margin-right: 38px;
-}
-
-.changelogButton{
-    margin-right: 38px;
+#userButton{
+    color: rgb(255, 255, 255);
 }
 
 
-.addVersionInput{
+#changelogButton{
+    margin-right: 0%;
+}
+
+.macrosButton{
+    margin-right: 26px;
+}
+
+
+.addVersion{
     flex-grow: 1;
-    padding: 5px; /* Reducir el padding */
-    border-radius: 4px;
+    height: 48px;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    margin-bottom: 3px;
-    font-size: 16px; /* Ajustar el tamaño del texto si es necesario */
+    color: gold;
+    font-size: 15px; /* Ajustar el tamaño del texto si es necesario */
     height: 100%; /* Ajustar la altura */
     width: 100%; /* Hacer que el input ocupe todo el espacio disponible */
 }
 
 .versions {
-    max-height: 280px; /* Ajusta la altura máxima según tus necesidades */
+    max-height: 230px; /* Ajusta la altura máxima según tus necesidades */
     overflow-y: auto;
 }
 
 .versionButton {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 5px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: none;
+    height: 48px;
+    
     color: white;
     cursor: none;
     display: flex; /* Añadido para usar flexbox */
     align-items: center; /* Añadido para alinear verticalmente */
+    margin:0px;
+    padding: 0px;
 }
 
 .versionLogo {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     margin-right: 20%; /* Añadido para separar la imagen del texto */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Modal */
+#modal {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 1024px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999 !important;
+}
+
+/* Contenido del modal */
+#modalContent {
+    margin-left: 25%;
+    margin-right: 25%;
+
+
+
+    background-color: rgba(128, 128, 128, 0.6);
+    border-radius: 20px 0 20px 0;
+    backdrop-filter: blur(6px);
+    background-color: rgba(68, 68, 68, 0.411);
+
+    padding: 40px ;
+    border-radius: 8px;
+    width: auto;
+    color: #ffffff; /* Texto amarillo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título centrado con subrayado azul */
+#modalContent h3 {
+    color: #ffffff;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Etiquetas */
+#modalContent label {
+    font-size: 18px;
+    font-weight: bold;
+    align-self: flex-start;
+}
+
+/* Inputs */
+#modalContent input[type="text"] {
+    background-color: rgba(68, 68, 68, 0.952);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 300px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+/* Contenedor para el input de ruta + botón carpeta */
+.inputGroup {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.inputVersionWow {
+    background-color: rgba(68, 68, 68, 0.81);
+    
+}
+
+#inputVersionButton {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: none;
+}
+
+/* Botones inferiores */
+.modelButtonA {
+    width: 150px;
+    margin-top: 20px;
+    background-color: rgba(68, 68, 68, 0.81);
+    margin-right: 45px;
+    margin-left: 50px;
+    color: gold;
+    cursor: none;
+}
+.modelButton {
+    width: 150px;
+    margin-top: 20px;
+    background-color: rgba(68, 68, 68, 0.81);
+    color: rgb(179, 0, 0);
+    cursor: none;
+}
+
+#modalContent button {
+    padding: 10px 33px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: none;
+
+}
+
+/* Texto de eliminar versión */
+#modalContent #deleteText {
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
 }
