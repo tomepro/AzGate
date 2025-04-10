@@ -8,8 +8,6 @@ html{
     background-image: url('/wotlk_wallpaper.png');
     background-repeat: no-repeat;
     background-size: cover;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
 }
