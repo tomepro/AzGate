@@ -21,6 +21,7 @@ function LoginScreen() {
     try {
       setLoading(true);
       const message = await invoke('log_in_request', { username, password });
+      console.log(message)
       setFinalMessage(message); // Save message to state
   
       if (message.status === "success") {
