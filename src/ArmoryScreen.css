@@ -45,7 +45,7 @@
 }
 
 .containerHomeScreen {
-    background-image: url('launcher_wallpaper.png');
+    background-image: url('/wotlk_wallpaper.png');
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
