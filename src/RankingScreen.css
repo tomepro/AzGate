@@ -1,0 +1,78 @@
+#ranking-iframe {
+    width: 100%;
+    height: 100vh;
+    margin-left: 15px;
+    margin-top: 10px;
+    padding-right: 30px;
+    margin-bottom: 15px;
+    border: none;
+}
+
+/* Hide scrollbar for all elements */
+::-webkit-scrollbar {
+    display: none;
+}
+
+* {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.homeNavBar {
+    margin-top: 45px;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    font-family: 'Inknut Antiqua', sans-serif;
+    color: gold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), -1px 1px 2px rgba(0, 0, 0, 0.5), 1px -1px 2px rgba(0, 0, 0, 0.5), -1px -1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.navButton{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 400;
+  font-family: 'Inknut Antiqua', sans-serif;
+  color: gold;
+  font-size: 17px;
+}
+
+.containerHomeScreen {
+    background-image: url('/wotlk_wallpaper.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.userIcon{
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+  margin-right: -13px
+}
+
+.userButton{
+  color: white;
+  margin-right: 38px;
+}
+
+.changelogButton{
+  margin-right: 38px;
+}
+
+.customVersionsContainer {
+  max-height: 150px; /* Ajusta la altura máxima según tus necesidades */
+  overflow-y: auto;
+}
