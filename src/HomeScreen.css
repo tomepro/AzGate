@@ -234,6 +234,20 @@ body {
     font-family: 'Inknut Antiqua', sans-serif;
 }
 
+
+
+.realm-row {
+    display: flex;
+    justify-content: space-between;
+    padding:17px;
+    border-bottom: 1px solid #0000008c;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Inknut Antiqua', sans-serif;
+}
+
+
 #estadoActualServer{
     margin-top:-3px;
 }
@@ -277,28 +291,39 @@ body {
 }
 
 #realms{
-    position: fixed;  /* El div estará fijo en la pantalla */
+    position: fixed;
     top: 233px;
     /* background-color: #00a100; */
     width: 193px;
 }
 .realmItem {
-    display: flex;
-    justify-content: space-between;
+    /* display: flex;
+    justify-content: space-between; */
     padding-top: 12px;
     padding-bottom: 12px;
     padding-left: 15px;
     padding-right: 15px;
 }
 
-.online {
-    color: green;
-}
-
-.offline {
+.red-circle {
     color: red;
+  }
+  
+  .green-circle {
+    color: green;
+  }
+  
+
+.realm-status{
+    scale: 0.7;
+    /* align-items: center; /* Alinea verticalmente los elementos */
+    /* gap: 1px; Espacio entre el círculo y el texto de 'online'  */
 }
 
+.realm-online{
+    position: absolute;
+    margin-left: 125px;
+}
 #circuloVerde{
     height:10px;
     width:10px;
@@ -307,6 +332,7 @@ body {
     position: sticky;
     margin-top: 0px;
     margin-bottom: 0px;
+    padding-top: 10px;
     margin-left: 68px;
 
  }
@@ -449,7 +475,7 @@ body {
     margin-bottom: 13px;
 }
 .play_button, .settings_button {
-    color: black;
+    color: rgb(0, 0, 0);
     padding: 10px;
     border: none;
     font-size: 20px;

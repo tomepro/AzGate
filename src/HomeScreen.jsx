@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import Titlebar from "./components/Titlebar";
 import NavBar from './components/navBar';
 import { motion } from "framer-motion";
-import { invoke } from '@tauri-apps/api/core';
 
 function HomeScreen() {
     const { t } = useTranslation("common");
@@ -14,18 +13,6 @@ function HomeScreen() {
     const [customVersions, setCustomVersions] = useState([]);
     const [newVersionName, setNewVersionName] = useState("");
 
-
-    // async function fetchVersion() {
-    //     try {
-    //       const result = await invoke('get_version', { path: 'E:/t/NaerZone 3.3.5 enUS/Wow.exe' });
-    //       console.log('Version result:', result); // Should print the JSON object
-    //     } catch (error) {
-    //       console.error('Error fetching version:', error); // Should print any error
-    //     }
-    //   }
-
-    // fetchVersion()
-    // Modal
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [versionName, setVersionName] = useState('');
     const [route, setRoute] = useState('');
@@ -41,29 +28,23 @@ function HomeScreen() {
         toggleModal();
     };
 
-    // Función para abrir y cerrar el modal
     const toggleModal = () => {
         setIsModalVisible(!isModalVisible);
     };
 
-    // PARA ELIMINAR UNA VERSION
     const handleDeleteVersion = () => {
         if (editingIndex !== null) {
             const updatedVersions = customVersions.filter((_, index) => index !== editingIndex);
             setCustomVersions(updatedVersions);
         }
-    
-        // Limpiar y cerrar modal
+
         setVersionName("");
         setRoute("");
         setIsEditing(false);
         setEditingIndex(null);
         toggleModal();
     };
-    
 
-
-    // Función para manejar el envío del formulario
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -75,16 +56,13 @@ function HomeScreen() {
             };
 
             if (isEditing && editingIndex !== null) {
-                // Editar versión existente
                 const updatedVersions = [...customVersions];
                 updatedVersions[editingIndex] = newVersion;
                 setCustomVersions(updatedVersions);
             } else {
-                // Añadir nueva versión
                 setCustomVersions([...customVersions, newVersion]);
             }
 
-            // Limpiar y cerrar modal
             setVersionName("");
             setRoute("");
             setIsEditing(false);
@@ -93,51 +71,68 @@ function HomeScreen() {
         }
     };
 
-    //FUNCION PARA VER EL CHANGELOG
     const [changelog, setChangelog] = useState(null);
     const [loading, setLoading] = useState(true);
-  
+
     useEffect(() => {
-      invoke("fetch_changelog")
-        .then((data) => {
-          setChangelog(data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error("Error invoking fetch_changelog:", error);
-          setLoading(false);
-        });
+        invoke("fetch_changelog")
+            .then((data) => {
+                setChangelog(data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error invoking fetch_changelog:", error);
+                setLoading(false);
+            });
     }, []);
-  
+
     const formatDate = (dateString) => {
-        if (!dateString) return ''; // Manejo de fechas vacías o nulas
-    
+        if (!dateString) return '';
+
         const date = new Date(dateString);
-        if (isNaN(date.getTime())) return ''; // Si no es una fecha válida, retornar vacío
-    
+        if (isNaN(date.getTime())) return '';
+
         const day = String(date.getDate()).padStart(2, "0");
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const year = date.getFullYear();
         const hours = String(date.getHours()).padStart(2, "0");
         const minutes = String(date.getMinutes()).padStart(2, "0");
-    
+
         return `${day}/${month}/${year} ${hours}:${minutes}`;
-      };
+    };
+
+    const getShortText = (text) => {
+        if (!text) return '';
+        return text.slice(0, 30);
+    };
+
+    const [realms, setRealms] = useState(null);
+
+    useEffect(() => {
+        invoke("fetch_realms")
+            .then((data) => {
+                console.log("Realms data:", data); // data es un array de objetos
+                setRealms(data); // Guarda los datos JSON directamente
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error invoking fetch_realms:", error);
+                setLoading(false);
+            });
+    }, []);
     
-      // Función para recortar los primeros 30 caracteres del texto
-      const getShortText = (text) => {
-        if (!text) return ''; // Si el texto es nulo o vacío, retornar vacío
-        return text.slice(0, 30); // Obtener los primeros 30 caracteres
-      };
-    
-      if (loading) {
-        return <p>Loading...</p>; // Mostrar mientras se está cargando el changelog
-      }
-    
-      // Si changelog es null o no existe, no intentar acceder a sus propiedades
-      if (!changelog) {
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (!changelog) {
         return <p>No changelog data available.</p>;
-      }
+    }
+
+    if (!realms) {
+        return <p>No realms data available.</p>;
+    }
 
     return (
         <main className='containerHomeScreen'>
@@ -206,9 +201,22 @@ function HomeScreen() {
                         {/* REINOS */}
                         <div id='realms'>
                             <h3 id="tituloVersiones">{t("realms")}</h3>
-                            <div className='realmItem'>Thalassa<span className='online'>100</span></div>
+                            {/* <div className='realmItem'>Thalassa<span className='online'>100</span></div>
                             <div className='realmItem'>Andromeda<span className='offline'>-</span></div>
-                            <div className='realmItem'>Aegwynn <span className='offline'>0</span></div>
+                            <div className='realmItem'>Aegwynn <span className='offline'>0</span></div> */}
+                            <div id="reinos">
+                            {realms.map((realm, index) => (
+                                <div key={index} className="realm-row">
+                                <span className="realm-name">{realm.realm}</span>
+                                
+                                <span className="realm-online">{realm.online}</span>
+                                <span className='realm-status'>
+                                    <i className={`fa-solid fa-circle ${realm.flag === 2 ? 'red-circle' : realm.flag === 0 ? 'green-circle' : ''}`}></i>
+                                </span>
+                                </div>
+                            ))}
+                            </div>
+                            
                         </div>
                     </aside>
 
