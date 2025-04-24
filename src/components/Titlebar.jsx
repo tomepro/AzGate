@@ -24,7 +24,7 @@ const Titlebar = () => {
 
   return (
     <div className={styles.titlebar}>
-      <img src={'./classic.png'} alt="Logo" className={styles.logo} />
+      <img src={'./icons/classic.webp'} alt="Logo" className={styles.logo} />
       <div className={styles.buttonContainer}>
         <button className={styles.button}>
           <a href="https://discord.gg/v8ye5XzVUV" target="_blank" rel="noopener noreferrer">

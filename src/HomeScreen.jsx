@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './HomeScreen.css';
 import { useTranslation } from "react-i18next";
+import { invoke } from '@tauri-apps/api/core';
 import { Link } from 'react-router-dom';
 import Titlebar from "./components/Titlebar";
 import NavBar from './components/navBar';
@@ -9,9 +10,21 @@ import { invoke } from '@tauri-apps/api/core';
 
 function HomeScreen() {
     const { t } = useTranslation("common");
+    
     const [customVersions, setCustomVersions] = useState([]);
     const [newVersionName, setNewVersionName] = useState("");
 
+
+    // async function fetchVersion() {
+    //     try {
+    //       const result = await invoke('get_version', { path: 'E:/t/NaerZone 3.3.5 enUS/Wow.exe' });
+    //       console.log('Version result:', result); // Should print the JSON object
+    //     } catch (error) {
+    //       console.error('Error fetching version:', error); // Should print any error
+    //     }
+    //   }
+
+    // fetchVersion()
     // Modal
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [versionName, setVersionName] = useState('');
@@ -48,6 +61,7 @@ function HomeScreen() {
         toggleModal();
     };
     
+
 
     // Función para manejar el envío del formulario
     const handleSubmit = (e) => {
@@ -162,7 +176,7 @@ function HomeScreen() {
                         <h3 id="tituloVersiones">{t("versions")}</h3>
                         <div className='versions'>
                             <button className='versionButton'>
-                                <img className='versionLogo' src="classic.png" alt="Classic logo" />Classic
+                                <img className='versionLogo' src="icons/classic.webp" alt="Classic logo" />Classic
                             </button>
                             {/* <button className='versionButton'>
                                 <img className='versionLogo' src="tbc.png" alt="TBC logo" />TBC
