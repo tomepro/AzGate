@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { invoke } from '@tauri-apps/api/core';
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -8,6 +10,30 @@ import Titlebar from "./components/Titlebar";
 function RegisterScreen() {
   const { t } = useTranslation("common");
 
+  const [username, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFN] = useState("");
+  const [lastName, setLN] = useState("");
+  const [passwordConfirm, setPC] = useState("");
+  const [email, setEmail] = useState("");
+
+  const [finalMessage, setFinalMessage] = useState(null);
+  async function register() {
+    finalMessage;
+    try {
+      const message = await invoke('register_user', { username, password, firstName, lastName, passwordConfirm, email });
+      console.log(message)
+      setFinalMessage(message); // Save message to state
+  
+      if (message.status === "success") {
+        window.location.replace("/");
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+    }
+  }
+
   return (
     <main className="containerRegisterScreen">
       <Titlebar/>
@@ -15,13 +41,20 @@ function RegisterScreen() {
       <div className="registerBox backdrop-blur-md">
         <p className="registerBoxTitle">{t("register")}</p>
         <div className="formDiv">
-          <form>
-            <input type="text" placeholder={t("name")} id="name" />
-            <input type="text" placeholder={t("surname")} id="surname" />
-            <input type="text" placeholder={t("username")} id="username" />
-            <input type="text" placeholder={t("email")} id="email" />
-            <input type="password" placeholder={t("password")} id="password" />
-            <input type="password" placeholder={t("cpasswd")} id="cpasswd" /><br />
+          <form
+            onSubmit={
+              (e) => {
+                e.preventDefault();
+                register();
+              }
+            }
+          >
+            <input type="text" placeholder={t("name")} id="firstName" onChange={(e) => setFN(e.currentTarget.value)}/>
+            <input type="text" placeholder={t("surname")} id="lastName" onChange={(e) => setLN(e.currentTarget.value)}/>
+            <input type="text" placeholder={t("username")} id="username" onChange={(e) => setName(e.currentTarget.value)}/>
+            <input type="text" placeholder={t("email")} id="email" onChange={(e) => setEmail(e.currentTarget.value)}/>
+            <input type="password" placeholder={t("password")} id="password" onChange={(e) => setPassword(e.currentTarget.value)}/>
+            <input type="password" placeholder={t("cpasswd")} id="passwordConfirm" onChange={(e) => setPC(e.currentTarget.value)}/><br />
             <button type="submit" className="registerButton">{t("register_button")}</button>
           </form>
           <div className="noAccountDiv">
