@@ -1,0 +1,94 @@
+.homeNavBar {
+    margin-top: 45px;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 57px;
+    width: 994px;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    font-family: 'Inknut Antiqua', sans-serif;
+    color: gold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5),
+                 -1px 1px 2px rgba(0, 0, 0, 0.5),
+                 1px -1px 2px rgba(0, 0, 0, 0.5),
+                 -1px -1px 2px rgba(0, 0, 0, 0.5);
+  }
+  
+  .navButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 400;
+    font-family: 'Inknut Antiqua', sans-serif;
+    color: gold;
+    font-size: 17px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .botonUser {
+    height: 57px;
+    width: 212px;
+    display: flex;
+    background-color: aqua;
+  }
+  
+  .imagenesUser {
+    height: 57px;
+    width: 73px;
+    position: relative;
+  }
+  
+  .classIcon {
+    height: 26px;
+    width: 26px;
+    position: absolute;
+    top: 28px;
+    left: 37px;
+    z-index: 2;
+    border-radius: 5px;
+  }
+  
+  .userIcon {
+    height: 41px;
+    width: 41px;
+    margin-left: 10px;
+    margin-top: 8px;
+    border-radius: 5px;
+  }
+  
+  .nombreUser {
+    height: 57px;
+    width: 139px;
+  }
+  
+  .userName {
+    color: #ffffff;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .userID {
+    color: #635D5D;
+    text-align: center;
+    font-size: 10px;
+  }
+  
+  .macrosButton {
+    margin-right: 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 400;
+    font-family: 'Inknut Antiqua', sans-serif;
+    color: gold;
+    font-size: 17px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  

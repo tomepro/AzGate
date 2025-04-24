@@ -10,6 +10,8 @@ html{
     background-size: cover;
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    width: 100vw;
 }
 
 body {
@@ -19,7 +21,7 @@ body {
     width: 100vw;
 }
 
-#homeNavBar {
+/* #homeNavBar {
     margin-top: 45px;
     margin-left: 15px;
     margin-right: 15px;
@@ -55,7 +57,7 @@ body {
 }
 
 /* PARTE DE LAS IMAGENES DEL USER */
-#imagenesUser{
+/* #imagenesUser{
     height: 57px;
     width: 73px;
 }
@@ -94,15 +96,15 @@ body {
     color: #635D5D;
     text-align: center;
     font-size: 10px;
-}
+} */ 
 
 
 
 .contentArea {
-    z-index: 1;
+    /* z-index: 1;
     display: grid;
     grid-template-columns: 200px 1fr 300px;
-    padding: 13px;
+    padding: 13px; */
 
     
 }
@@ -114,30 +116,36 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(6px);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
-    margin-right: 2000px;
+    margin-left: 20px;
     font-family: 'Inknut Antiqua', sans-serif;
     overflow: hidden;
+    margin-top: 13px;
     
 }
 
 
 
-/*CHANGELOG*/
+/*TODA LA BANDA DERECHA*/
+
 .rightSidebar {
-    background-color: rgba(0, 0, 0, 0.5);
+    /* background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(6px);
     padding: 20px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
     height: 154px;
     width: 212px;
-    margin-left: 21px;
+    margin-left: 21px;*/
+    margin-left: 792px;
+    margin-top: -448px;
+    position: absolute;
 } 
 
+/* BLOQUE COMPLETO */
 #tiendaMonedas{
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(6px);
     margin-top: 14px;
-    margin-left: -20px;
+    margin-left: 0px;
     height: 154px;
     width: 212px;
     font-family: 'Inknut Antiqua', sans-serif;
@@ -157,7 +165,7 @@ body {
     width: 30px;
     position: absolute;
     top: 57px; 
-    left: 47px; 
+    left: 38px; 
     z-index: 2; 
     border-radius: 5px;
 }
@@ -167,7 +175,7 @@ body {
     width: 30px;
     position: absolute;
     top: 57px; 
-    left: 146px; 
+    left: 139px; 
     z-index: 2; 
     border-radius: 5px;
 }
@@ -175,19 +183,35 @@ body {
 #puntosVotacion{
     color: silver;
     font-size: 11px;
+    position: sticky;
+    margin-top: -18px;
+    margin-bottom: 0px;
+    margin-left: 163px;
 }
 
 #puntosDonacion{
     color: gold;
     font-size: 11px;
+    position: sticky;
+    margin-top: -18px;
+    margin-bottom: 0px;
+    margin-left: 62px;
 }
 
 #donacionMoneda{
     font-size: 16px;
+    position: sticky;
+    margin-top: 47px;
+    margin-bottom: 0px;
+    margin-left: 28px;
 }
 
 #votacionMoneda{
     font-size: 16px;
+    position: sticky;
+    margin-top: -22px;
+    margin-bottom: 0px;
+    margin-left: 128px;
 }
 
 
@@ -204,7 +228,7 @@ body {
     height: 34px;
     width: 222px;
     margin-top: 18px;
-    margin-left: -25px;
+    margin-left: -5px;
     text-align: center;
     backdrop-filter: blur(6px);
     font-family: 'Inknut Antiqua', sans-serif;
@@ -280,7 +304,10 @@ body {
     width:10px;
     background:#00a100;
     border-radius:50px;
-    margin-left: 70px;
+    position: sticky;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 68px;
 
  }
 
@@ -291,9 +318,9 @@ body {
 }
 
 .newsArea {
-    margin-right: 10px;
-    margin-left: 50px;
-    position: relative;
+    margin-left: 256px;
+    margin-top: -448px;
+    position: absolute;
     height: 218px;
     width: 493px;
     align-items: center;
@@ -354,6 +381,22 @@ body {
     color: white;
 }
 
+.changelog{
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    padding: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    height: 154px;
+    width: 212px;
+}
+
+#headChange{
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+
 .changelog_title{
     font-family: 'Inknut Antiqua', sans-serif;
     color: gold;
@@ -370,6 +413,7 @@ body {
     position: sticky;
     font-family: 'Inknut Antiqua', sans-serif;
     font-size: 15px;
+    margin-top: 18px;
     margin-bottom: 0px;
     margin-left: -20px;
     backdrop-filter: blur(6px);
@@ -383,7 +427,7 @@ body {
     text-decoration: none;
     font-family: 'Inknut Antiqua', sans-serif;
     font-size: 15px;
-    margin-top: 0px;
+    margin-top: 21px;
     margin-left: 0px;
     backdrop-filter: blur(6px);
     background-color: rgba(90, 90, 90, 0.3);
@@ -395,7 +439,7 @@ body {
     margin-top: 6px;
     background-color: gold;
     
-    margin-left: -25px;
+    margin-left: -5px;
     width: 220px;
     height: 68px;
     display: flex; /* Añadir flexbox para controlar el espaciado */
@@ -521,21 +565,24 @@ ul{
 #modalContent {
     margin-left: 25%;
     margin-right: 25%;
-
-
-
-    background-color: rgba(128, 128, 128, 0.6);
     border-radius: 20px 0 20px 0;
     backdrop-filter: blur(6px);
-    background-color: rgba(68, 68, 68, 0.411);
-
+    background-color: rgba(51, 51, 51, 0.685);
     padding: 40px ;
-    border-radius: 8px;
     width: auto;
     color: #ffffff; /* Texto amarillo */
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#exeSelecionado{
+    text-align: center;
+}
+
+#selecionarExe{
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.767);
+    background-color: rgba(68, 68, 68, 0.952);
 }
 
 /* Título centrado con subrayado azul */
@@ -591,18 +638,23 @@ ul{
 .modelButtonA {
     width: 150px;
     margin-top: 20px;
-    background-color: rgba(68, 68, 68, 0.81);
+    background-color: rgba(179, 0, 0, 0.4);
     margin-right: 45px;
     margin-left: 50px;
-    color: gold;
+    color: rgb(179, 0, 0);
     cursor: none;
 }
 .modelButton {
     width: 150px;
     margin-top: 20px;
-    background-color: rgba(68, 68, 68, 0.81);
-    color: rgb(179, 0, 0);
+    background-color:rgba(255, 217, 0, 0.4);
+    color: gold;
     cursor: none;
+}
+
+.modelButtonDelete{
+    margin-left: 35%;
+    color: rgb(179, 0, 0);
 }
 
 #modalContent button {

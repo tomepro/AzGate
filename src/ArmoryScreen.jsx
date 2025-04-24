@@ -3,6 +3,7 @@ import "./ArmoryScreen.css";
 import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
 import Titlebar from './components/Titlebar';
+import NavBar from './components/navBar';
     
 
 function ArmoryIframe() {
@@ -45,7 +46,8 @@ function ArmoryIframe() {
   return (
     <main className='containerHomeScreen'>
       <Titlebar/>
-      <div className='homeNavBar'>
+      <NavBar />
+      {/* <div className='homeNavBar'>
             <img className='userIcon' src="user_icon.png"></img>
             <button className='userButton'>{t("nameUser")}<p>{t("IDuser")}</p></button>
             <button><Link className='navButton' to="/home">{t("home")}</Link></button>
@@ -55,8 +57,12 @@ function ArmoryIframe() {
             <button><Link to="/armoryScreen" className='navButton'>{t("armory")}</Link></button>
             <button>{t("addons")}</button>
             <button className='changelogButton'>{t("changelog")}</button>
-        </div>
+        </div> */}
+        
       <iframe id="armory-iframe" title="Armory Iframe" />
+
+      
+      
     </main>
   );
 }

@@ -1,6 +1,6 @@
 #armory-iframe {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     margin-left: 15px;
     margin-top: 10px;
     padding-right: 30px;
@@ -14,11 +14,11 @@
 }
 
 * {
-    scrollbar-width: none; /* For Firefox */
-    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
-.homeNavBar {
+/* .homeNavBar {
     margin-top: 45px;
     margin-left: 15px;
     margin-right: 15px;
@@ -42,7 +42,7 @@
   font-family: 'Inknut Antiqua', sans-serif;
   color: gold;
   font-size: 17px;
-}
+} */
 
 .containerHomeScreen {
     background-image: url('launcher_wallpaper.png');
@@ -56,7 +56,7 @@
     flex-direction: column;
 }
 
-.userIcon{
+/* .userIcon{
   width: 41px;
   height: 41px;
   border-radius: 50%;
@@ -70,9 +70,9 @@
 
 .changelogButton{
   margin-right: 38px;
-}
+} */
 
-.customVersionsContainer {
-  max-height: 150px; /* Ajusta la altura máxima según tus necesidades */
+/* .customVersionsContainer {
+  max-height: 150px; 
   overflow-y: auto;
-}
+} */

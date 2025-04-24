@@ -1,0 +1,45 @@
+.changelog-container {
+    background-image: url('/wotlk_wallpaper.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#changelog-content {
+    height: 441px;
+    width: 960px;
+    margin-top: 13px;
+    margin-left: 32px;
+    margin-bottom: 20px;
+    margin-right: 32px;
+    max-width: 100%;
+    overflow: auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.changelog-entry {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 20px;
+    max-width: 100%;
+  }
+  
+.changelog-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+#numChangelog{
+    font-weight: bold;
+}
+  

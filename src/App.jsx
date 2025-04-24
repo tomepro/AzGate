@@ -5,6 +5,8 @@ import RegisterScreen from "./RegisterScreen";
 import PasswdRecoveryScreen from "./PasswdRecoveryScreen";
 import HomeScreen from "./HomeScreen";
 import ArmoryScreen from "./ArmoryScreen";
+import MacrosScreen from "./MacrosScreen";
+import ChangelogScreen from "./ChangelogScreen";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route path="/passwdRecoveryScreen" element={<PasswdRecoveryScreen />} />
         <Route path="/home" element={<HomeScreen />} />
         <Route path="/armoryScreen" element={<ArmoryScreen />} />
+        <Route path="/macrosScreen" element={<MacrosScreen />} />
+        <Route path="/changelogScreen" element={<ChangelogScreen />} />
       </Routes>
     </Router>
   );
