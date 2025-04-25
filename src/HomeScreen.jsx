@@ -317,7 +317,7 @@ function HomeScreen() {
                             
                             {getShortText(changelog.text)}
 
-                            <button className='readMore'>{t("read_more")}</button>
+                            <button className='readMore'><Link to="/changelogScreen">{t("read_more")}</Link></button>
                         </div>
                         <div id="tiendaMonedas">
                             <h3 className='shop_title'>Tienda</h3>
