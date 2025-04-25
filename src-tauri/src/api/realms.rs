@@ -1,4 +1,3 @@
-use std::env;
 use serde::{Deserialize, Serialize};
 use reqwest;
 
