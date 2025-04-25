@@ -21,13 +21,14 @@
     overflow: auto;
     padding: 10px;
     box-sizing: border-box;
+    backdrop-filter: blur(6px);
 }
 
 .changelog-entry {
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: pre-wrap;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     color: white;
     padding: 20px;
     max-width: 100%;
