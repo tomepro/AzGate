@@ -15,6 +15,9 @@ function LoginScreen() {
   const [loading, setLoading] = useState(false);
   const [finalMessage, setFinalMessage] = useState(null);
   const [password, setPassword] = useState("");
+  const [rememberMe, setIsChecked] = useState(false);
+  const [jwt, setJWT] = useState("");
+  
 
   async function login() {
     finalMessage;
@@ -23,9 +26,18 @@ function LoginScreen() {
       const message = await invoke('log_in_request', { username, password });
       console.log(message)
       setFinalMessage(message); // Save message to state
-  
+      if (rememberMe) {
+        console.log("saving jwt");
+        
+        try {
+          await invoke('save_jwt', { jwt: message.token })
+        } catch (error) {
+          console.log("error saving jwt " + error)
+        }
+      }
       if (message.status === "success") {
         window.location.replace("/home");
+        console.log("success");
       }
     } catch (error) {
       console.error(error);
@@ -33,6 +45,29 @@ function LoginScreen() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    async function fetchJWT() {
+      try {
+        const storedJwt = await invoke('get_jwt');
+        console.log("JWT from backend:", storedJwt);
+        setJWT(storedJwt);
+  
+        // Only try login if JWT exists
+        if (storedJwt && storedJwt !== "") {
+          const jwtLoginMessage = await invoke("jwt_login", { jwt: storedJwt });
+          console.log("JWT login message:", jwtLoginMessage);
+          if (jwtLoginMessage.status === "success") {
+            window.location.replace("/home");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching JWT:", error);
+      }
+    }
+  
+    fetchJWT(); // Call the async function
+  }, []); // Runs once after initial render
 
   return (
     <main className="containerLoginScreen">
@@ -53,7 +88,7 @@ function LoginScreen() {
             <input type="text" placeholder={t("username")} id="username" onChange={(e) => setName(e.currentTarget.value)} />
             <input type="password" placeholder={t("password")} id="password" onChange={(e) => setPassword(e.currentTarget.value)} />
             <div className="formLabels">
-              <div className="checkboxDiv"><input type="checkbox" /> <label className="checkboxLabel">{t("rememberme")}</label></div>
+              <div className="checkboxDiv"><input type="checkbox" checked={rememberMe} onChange={(e) => setIsChecked(!rememberMe)}/> <label className="checkboxLabel">{t("rememberme")}</label></div>
               <div className="forgotDiv"><Link to="/passwdRecoveryScreen">{t("forgotpasswd")}</Link></div>
             </div>
             <button type="submit" className="loginButton">{t("login_button")}</button>
