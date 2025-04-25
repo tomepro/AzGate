@@ -160,8 +160,8 @@ function HomeScreen() {
                     <button>{t("addons")}</button>
                     <button id='changelogButton'>{t("changelog")}</button>
                     <button><Link className='navButton' to="/">{t("Macros")}</Link></button>
-                </div>
-
+                </div>*/}
+                <NavBar />
 
 
                 {/* CONTENIDO DE LA PAGINA */}

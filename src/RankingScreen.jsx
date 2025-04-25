@@ -3,6 +3,7 @@ import "./RankingScreen.css";
 import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
 import Titlebar from './components/Titlebar';
+import NavBar from './components/navBar';
     
 
 function RankingIframe() {
@@ -45,17 +46,7 @@ function RankingIframe() {
   return (
     <main className='containerHomeScreen'>
       <Titlebar/>
-      <div className='homeNavBar'>
-            <img className='userIcon' src="user_icon.png"></img>
-            <button className='userButton'>{t("nameUser")}<p>{t("IDuser")}</p></button>
-            <button><Link className='navButton' to="/home">{t("home")}</Link></button>
-            <button>{t("news")}</button>
-            <button>{t("shop")}</button>
-            <button><Link to="/rankingScreen" className='navButton'>{t("ranking")}</Link></button>
-            <button><Link to="/armoryScreen" className='navButton'>{t("armory")}</Link></button>
-            <button>{t("addons")}</button>
-            <button className='changelogButton'>{t("changelog")}</button>
-        </div>
+      <NavBar />
       <iframe id="ranking-iframe" title="Ranking Iframe" />
     </main>
   );
