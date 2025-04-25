@@ -155,13 +155,13 @@ function HomeScreen() {
                     {/* <button><Link className='navButton' to="/home">{t("home")}</Link></button>
                     <button>{t("news")}</button>
                     <button>{t("shop")}</button>
-                    <button><Link className='navButton' to="/">{t("ranking")}</Link></button>
+                    <button><Link className='navButton' to="/rankingScreen">{t("ranking")}</Link></button>
                     <button><Link className='navButton' to="/armoryScreen">{t("armory")}</Link></button>
                     <button>{t("addons")}</button>
                     <button id='changelogButton'>{t("changelog")}</button>
-                    <button className='macrosButton'>{t("Macros")}</button>
-                </div> */}
-                <NavBar />
+                    <button><Link className='navButton' to="/">{t("Macros")}</Link></button>
+                </div>
+
 
 
                 {/* CONTENIDO DE LA PAGINA */}
