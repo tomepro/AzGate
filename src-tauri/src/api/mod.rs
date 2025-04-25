@@ -3,3 +3,4 @@ pub mod jwt;
 pub mod register;
 pub mod changelog;
 pub mod realms;
+pub mod news;
