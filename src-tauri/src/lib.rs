@@ -3,6 +3,7 @@ mod game;
 use api::login::log_in_request;
 use api::changelog::fetch_changelog;
 use api::jwt::{get_jwt,save_jwt};
+use api::register::register_user;
 use api::realms::fetch_realms;
 use game::version::get_version;
 use tauri_plugin_fs::init;
@@ -19,7 +20,7 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .plugin(init())
-        .invoke_handler(tauri::generate_handler![log_in_request,get_jwt,save_jwt,get_version,fetch_changelog,fetch_realms])
+        .invoke_handler(tauri::generate_handler![log_in_request,get_jwt,save_jwt,get_version,register_user,fetch_realms,fetch_changelog])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }   
