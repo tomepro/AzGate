@@ -93,7 +93,7 @@ const NavBar = () => {
       )}
 
       <button><Link className={styles.navButton} to="/home">{t("home")}</Link></button>
-      <button>{t("news")}</button>
+      <button><Link className={styles.navButton} to="/newsScreen">{t("news")}</Link></button>
       <button>{t("shop")}</button>
       <button><Link className={styles.navButton} to="/rankingScreen">{t("ranking")}</Link></button>
       <button><Link className={styles.navButton} to="/armoryScreen">{t("armory")}</Link></button>

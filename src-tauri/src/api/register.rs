@@ -28,6 +28,7 @@ struct Account {
 }
 
 #[derive(Serialize)]
+#[allow(non_snake_case)]
 struct RegisterRequest {
     username: String,
     password: String,
@@ -39,6 +40,7 @@ struct RegisterRequest {
 }
 
 #[tauri::command]
+#[allow(non_snake_case)]
 pub async fn register_user(username: String, password: String, firstName: String, lastName: String, passwordConfirm: String, email:String) -> Result<serde_json::Value, String>{
     dotenv().ok();
     let client = Client::new();
