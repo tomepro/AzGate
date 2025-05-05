@@ -37,12 +37,9 @@ function LoginScreen() {
       }
       if (message.status === "success") {
         window.location.replace("/home");
-<<<<<<< HEAD
         localStorage.setItem("token", message.token); // Guardamos el JWT
         localStorage.setItem("username", message.account.username); // Guardamos el username
-=======
         console.log("success");
->>>>>>> 614497b01078204c61c6483cfd7316dc603a849e
       }
     } catch (error) {
       console.error(error);
