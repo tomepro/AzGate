@@ -68,6 +68,9 @@ pub async fn log_in_request(username: String, password: String) -> Result<serde_
                     "reg_mail": account.reg_mail
                 }
             }))
+
+
+            
         }
         AuthResponse::Error { message, .. } => {
             Ok(json!({

@@ -34,7 +34,7 @@
     height: 57px;
     width: 212px;
     display: flex;
-    background-color: aqua;
+    background-color: rgba(255, 255, 255, 0.1);
   }
   
   .imagenesUser {
@@ -90,5 +90,39 @@
     font-size: 17px;
     text-decoration: none;
     border-radius: 5px;
+  }
+  
+
+
+  /* MODAL CSS */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;  /* Asegúrate de que cubra toda la ventana */
+    height: 100vh; /* Asegúrate de que cubra toda la altura de la ventana */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro con transparencia */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Asegúrate de que el modal esté por encima de otros elementos */
+  }
+  
+  .modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    position: relative; /* Asegúrate de que el contenido del modal esté bien posicionado */
+  }
+  
+  .closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
   }
   

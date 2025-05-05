@@ -137,33 +137,8 @@ function HomeScreen() {
     return (
         <main className='containerHomeScreen'>
             <Titlebar />
+            <NavBar />
             <div className='launcherBackground'>
-                {/* NAV */}
-                {/* <div id='homeNavBar'>
-                    <div id='botonUser'>
-                        <div id='imagenesUser'>
-                            <img id='userIcon' src="/races/6/0.webp" alt="User Icon" />
-                            <img id='classIcon' src="/classes/11.webp" alt="Class Icon" />
-                        </div>
-                        <div id='nombreUser'>
-                            <p id='userName'>{t("Popy")}</p>
-                            <p id='userID'>{t("tomepro")}</p>
-                        </div>
-                    </div> */}
-
-                    {/* BOTONES NAV*/}
-                    {/* <button><Link className='navButton' to="/home">{t("home")}</Link></button>
-                    <button>{t("news")}</button>
-                    <button>{t("shop")}</button>
-                    <button><Link className='navButton' to="/rankingScreen">{t("ranking")}</Link></button>
-                    <button><Link className='navButton' to="/armoryScreen">{t("armory")}</Link></button>
-                    <button>{t("addons")}</button>
-                    <button id='changelogButton'>{t("changelog")}</button>
-                    <button><Link className='navButton' to="/">{t("Macros")}</Link></button>
-                </div>*/}
-                <NavBar />
-
-
                 {/* CONTENIDO DE LA PAGINA */}
                 <div className='contentArea'>
                     {/* BARRA IZQUIERDA */}

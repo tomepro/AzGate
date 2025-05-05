@@ -26,6 +26,8 @@ function LoginScreen() {
   
       if (message.status === "success") {
         window.location.replace("/home");
+        localStorage.setItem("token", message.token); // Guardamos el JWT
+        localStorage.setItem("username", message.account.username); // Guardamos el username
       }
     } catch (error) {
       console.error(error);
