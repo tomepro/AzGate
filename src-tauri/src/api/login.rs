@@ -1,8 +1,10 @@
+use dotenvy::dotenv;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
-use dotenvy::dotenv;
 use std::env;
+
+use crate::api::json::crear_json_vacio;
 
 #[derive(Serialize)]
 struct AuthRequest {
@@ -21,7 +23,7 @@ enum JWTAuthResponse {
         status_code: u16,
         message: Vec<String>,
         error: String,
-    }
+    },
 }
 
 #[derive(Debug, Deserialize)]
@@ -48,16 +50,16 @@ struct Account {
 }
 
 #[tauri::command]
-pub async fn log_in_request(username: String, password: String) -> Result<serde_json::Value, String> {
+pub async fn log_in_request(
+    username: String,
+    password: String,
+    app_handle: tauri::AppHandle,
+) -> Result<serde_json::Value, String> {
     dotenv().ok();
     let client = Client::new();
 
-    let login_data = AuthRequest {
-        username,
-        password,
-    };
-    
-    
+    let login_data = AuthRequest { username, password };
+
     let api_url = env::var("API_URL").map_err(|err| err.to_string())? + "/auth/signin";
 
     let response = client
@@ -66,13 +68,21 @@ pub async fn log_in_request(username: String, password: String) -> Result<serde_
         .send()
         .await
         .map_err(|err| err.to_string())?;
-    
+
     #[allow(unused_variables)]
     let status = response.status();
-    let body = response.json::<AuthResponse>().await.map_err(|err| err.to_string())?;
+
+    let body = response
+        .json::<AuthResponse>()
+        .await
+        .map_err(|err| err.to_string())?;
+
+    println!("Response body: {}", status);
 
     match body {
         AuthResponse::Success { token, account, .. } => {
+            crear_json_vacio(app_handle).await?;
+
             Ok(json!({
                 "status": "success",
                 "token": token,
@@ -82,25 +92,19 @@ pub async fn log_in_request(username: String, password: String) -> Result<serde_
                     "reg_mail": account.reg_mail
                 }
             }))
-
-
-            
         }
-        AuthResponse::Error { message, .. } => {
-            Ok(json!({
-                "status": "error",
-                "message": message.join(", ")
-            }))
-        }
+        AuthResponse::Error { message, .. } => Ok(json!({
+            "status": "error",
+            "message": message.join(", ")
+        })),
     }
 }
 
-
 #[tauri::command]
-pub async fn jwt_login(jwt: String) -> Result<serde_json::Value, String>{
+pub async fn jwt_login(jwt: String) -> Result<serde_json::Value, String> {
     dotenv().ok();
     let client = Client::new();
-    let token_header =  "Bearer ".to_string() + &jwt;
+    let token_header = "Bearer ".to_string() + &jwt;
     let api_url = env::var("API_URL").map_err(|err| err.to_string())? + "/auth/me";
     let response = client
         .get(&api_url)
@@ -108,20 +112,19 @@ pub async fn jwt_login(jwt: String) -> Result<serde_json::Value, String>{
         .send()
         .await
         .map_err(|err| err.to_string())?;
-    let body = response.json::<JWTAuthResponse>().await.map_err(|err| err.to_string())?;
+    let body = response
+        .json::<JWTAuthResponse>()
+        .await
+        .map_err(|err| err.to_string())?;
 
     match body {
         #[allow(unused_variables)]
-        JWTAuthResponse::Success { status, .. } => {
-            Ok(json!({
-                "status": "success"
-            }))
-        }
-        JWTAuthResponse::Error { message, .. } => {
-            Ok(json!({
-                "status": "error",
-                "message": message.join(", ")
-            }))
-        }
+        JWTAuthResponse::Success { status, .. } => Ok(json!({
+            "status": "success"
+        })),
+        JWTAuthResponse::Error { message, .. } => Ok(json!({
+            "status": "error",
+            "message": message.join(", ")
+        })),
     }
 }

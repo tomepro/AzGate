@@ -1,7 +1,8 @@
-pub mod login;
-pub mod jwt;
-pub mod register;
 pub mod changelog;
-pub mod realms;
-pub mod profile;
+pub mod json;
+pub mod jwt;
+pub mod login;
 pub mod news;
+pub mod profile;
+pub mod realms;
+pub mod register;

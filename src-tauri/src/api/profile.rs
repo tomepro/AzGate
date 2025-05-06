@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use reqwest;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Response {
@@ -15,8 +15,9 @@ pub struct Response {
 #[tauri::command]
 pub async fn fetch_profile(token: String) -> Result<Vec<Response>, String> {
     // Recupera la URL de la API desde el archivo .env
-    let api_url = std::env::var("API_URL").map_err(|err| err.to_string())? + "/characters/accountCharacters";
-    
+    let api_url =
+        std::env::var("API_URL").map_err(|err| err.to_string())? + "/characters/accountCharacters";
+
     // Crea un cliente HTTP usando reqwest
     let client = reqwest::Client::new();
 

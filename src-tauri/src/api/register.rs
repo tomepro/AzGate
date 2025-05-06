@@ -1,7 +1,7 @@
+use dotenvy::dotenv;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
-use dotenvy::dotenv;
 use std::env;
 
 #[derive(Debug, Deserialize)]
@@ -36,12 +36,19 @@ struct RegisterRequest {
     lastName: String,
     phone: String,
     passwordConfirm: String,
-    email: String
+    email: String,
 }
 
 #[tauri::command]
 #[allow(non_snake_case)]
-pub async fn register_user(username: String, password: String, firstName: String, lastName: String, passwordConfirm: String, email:String) -> Result<serde_json::Value, String>{
+pub async fn register_user(
+    username: String,
+    password: String,
+    firstName: String,
+    lastName: String,
+    passwordConfirm: String,
+    email: String,
+) -> Result<serde_json::Value, String> {
     dotenv().ok();
     let client = Client::new();
     let phone = String::from("+78005553536");
@@ -52,7 +59,7 @@ pub async fn register_user(username: String, password: String, firstName: String
         lastName,
         phone,
         passwordConfirm,
-        email
+        email,
     };
     let api_url = env::var("API_URL").map_err(|err| err.to_string())? + "/auth/signup";
 
@@ -63,24 +70,23 @@ pub async fn register_user(username: String, password: String, firstName: String
         .await
         .map_err(|err| err.to_string())?;
 
-    let body = response.json::<AuthResponse>().await.map_err(|err| err.to_string())?;
+    let body = response
+        .json::<AuthResponse>()
+        .await
+        .map_err(|err| err.to_string())?;
     match body {
-        AuthResponse::Success { token, account, .. } => {
-            Ok(json!({
-                "status": "success",
-                "token": token,
-                "account": {
-                    "id": account.id,
-                    "username": account.username,
-                    "reg_mail": account.reg_mail
-                }
-            }))
-        }
-        AuthResponse::Error { message, .. } => {
-            Ok(json!({
-                "status": "error",
-                "message": message.join(", ")
-            }))
-        }
+        AuthResponse::Success { token, account, .. } => Ok(json!({
+            "status": "success",
+            "token": token,
+            "account": {
+                "id": account.id,
+                "username": account.username,
+                "reg_mail": account.reg_mail
+            }
+        })),
+        AuthResponse::Error { message, .. } => Ok(json!({
+            "status": "error",
+            "message": message.join(", ")
+        })),
     }
 }

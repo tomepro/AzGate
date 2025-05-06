@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.14",
-    "@tauri-apps/api": "^2.3.0",
+    "@tauri-apps/api": "^2.5.0",
+    "@tauri-apps/plugin-dialog": "^2.2.1",
     "@tauri-apps/plugin-opener": "^2",
     "framer-motion": "^12.6.3",
     "i18next": "^24.2.3",

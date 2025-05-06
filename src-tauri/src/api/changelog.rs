@@ -1,20 +1,20 @@
 //use reqwest;
 //use serde::Deserialize;
- 
+
 // #[derive(Debug, Deserialize)]
 // struct Response {
 //     id: u32,
 //     created_at: String,
 //     text: String,
 // }
- 
+
 // #[tokio::main]
 // async fn main() -> Result<(), Box<dyn std::error::Error>> {
 //     //let url = format!("http://azgate.com:3000/world/changelog");
 //     let api_url = env::var("API_URL").map_err(|err| err.to_string())? + "/world/changelog";
 //     let resp = reqwest::get(api_url)
 //         .await?
-//         .json::<Response>() 
+//         .json::<Response>()
 //         .await?;
 //     // Iterate and print details
 //     println!("{}",resp.id);
@@ -23,9 +23,9 @@
 //     Ok(())
 // }
 
-use std::env;
-use serde::{Deserialize, Serialize};
 use reqwest;
+use serde::{Deserialize, Serialize};
+use std::env;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Response {
@@ -44,4 +44,3 @@ pub async fn fetch_changelog() -> Result<Response, String> {
 
     Ok(parsed)
 }
-

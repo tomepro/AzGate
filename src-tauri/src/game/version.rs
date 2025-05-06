@@ -1,8 +1,8 @@
 use regex::Regex;
+use serde_json::{json, Value};
 use std::fs::File;
 use std::io::{BufReader, Read};
 use std::path::Path;
-use serde_json::{Value, json};
 
 pub fn extract_version_from_exe<P: AsRef<Path>>(path: P) -> Option<String> {
     let file = File::open(path).ok()?;
@@ -14,8 +14,8 @@ pub fn extract_version_from_exe<P: AsRef<Path>>(path: P) -> Option<String> {
 
     let patterns = [
         r"Version\s+(\d+\.\d+\.\d+\.\d+)",
-        r"(\d+\.\d+\.\d+)\s+\((\d+)\)",    
-        r"Build\s+(\d+)",                 
+        r"(\d+\.\d+\.\d+)\s+\((\d+)\)",
+        r"Build\s+(\d+)",
     ];
 
     for pat in patterns {
@@ -50,7 +50,12 @@ pub fn expansion_from_version(version_str: &str) -> Option<&'static str> {
     }
 
     let build_map: [(&str, Vec<i32>); 11] = [
-        ("VA", vec![4297, 4544, 4695, 4735, 4878, 4983, 5178, 5360, 5464, 5595, 5810, 6005, 6141]),
+        (
+            "VA",
+            vec![
+                4297, 4544, 4695, 4735, 4878, 4983, 5178, 5360, 5464, 5595, 5810, 6005, 6141,
+            ],
+        ),
         ("TBC", vec![6180, 6299, 6692, 6898, 7318, 7741, 8606]),
         ("LK", vec![9056, 9464, 9947, 10192, 11159, 12340]),
         ("CATA", vec![13164, 13623, 14333, 15595]),
@@ -78,7 +83,7 @@ pub fn expansion_from_version(version_str: &str) -> Option<&'static str> {
                     return Some(name);
                 }
             }
-        }   
+        }
     }
     None
 }
@@ -86,14 +91,12 @@ pub fn expansion_from_version(version_str: &str) -> Option<&'static str> {
 #[tauri::command]
 pub async fn get_version(path: Option<String>) -> Result<Value, String> {
     let path = path.unwrap_or("".to_string());
-    println!("Path: {}",path);
+    println!("Path: {}", path);
     match extract_version_from_exe(&path) {
-        Some(version_str) => {
-            match expansion_from_version(&version_str) {
-                Some(expansion) => Ok(json!({ "expansion": expansion })),
-                None => Ok(json!({ "expansion": "default" })),
-            }
-        }
+        Some(version_str) => match expansion_from_version(&version_str) {
+            Some(expansion) => Ok(json!({ "expansion": expansion })),
+            None => Ok(json!({ "expansion": "default" })),
+        },
         None => Ok(json!({ "expansion": "default" })),
     }
 }

@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import Titlebar from "./components/Titlebar";
 import NavBar from './components/navBar';
 import { motion } from "framer-motion";
+import { open } from '@tauri-apps/plugin-dialog';
+
 
 function HomeScreen() {
     const { t } = useTranslation("common");
@@ -44,47 +46,162 @@ function HomeScreen() {
         setEditingIndex(null);
         toggleModal();
     };
+//AQUIIIII parte mortal!!
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
+      
         if (versionName.trim() !== "" && route.trim() !== "") {
+          try {
+            //AQUI SE OBTIENE LA EXPANSION
+            const result = await invoke("get_version", { path: route });
+            console.log("Resultado del backend:", result); 
+
+            const expansion = result.expansion;
+
             const newVersion = {
-                name: versionName,
-                route: route,
-                image: "default.png"
+              name: versionName,
+              path: route,
+              version: expansion,
             };
+      
+            console.log("Versión final a guardar:", newVersion);
+      
+            try {
+                await invoke("save_version_to_file", { version: newVersion });
+                console.log("Versión guardada en JSON.");
+              } catch (error) {
+                console.error("Error al guardar versión:", error);
+              }
 
-            if (isEditing && editingIndex !== null) {
-                const updatedVersions = [...customVersions];
-                updatedVersions[editingIndex] = newVersion;
-                setCustomVersions(updatedVersions);
-            } else {
-                setCustomVersions([...customVersions, newVersion]);
-            }
-
+      
             setVersionName("");
             setRoute("");
             setIsEditing(false);
             setEditingIndex(null);
             toggleModal();
+          } catch (error) {
+            console.error("❌ Error al obtener la versión:", error);
+            alert("Error al obtener la versión.");
+          }
+
+          invoke("get_all_versions")
+          .then((loadedVersions) => {
+              const versionsWithImages = loadedVersions.map((v) => ({
+                  ...v,
+                  image: getImageForVersion(v.version),
+              }));
+              setCustomVersions(versionsWithImages);
+          })
+          .catch((error) => {
+              console.error("Error al cargar versiones:", error);
+          });
         }
-    };
+      };
+
+    // QUIII
+      
+    
+      const handleFileSelect = async () => {
+        const filePath = await open({
+          multiple: false,
+          filters: [{ name: "Ejecutables", extensions: ["exe"] }],
+        });
+    
+        if (filePath) {
+          setRoute(filePath);
+        }
+      };
+    
+
+
+
+
+
+
+
+
+
+
+
+    
+    
 
     const [changelog, setChangelog] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    // useEffect(() => {
+    //     invoke("fetch_changelog")
+    //         .then((data) => {
+    //             setChangelog(data);
+    //             setLoading(false);
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error invoking fetch_changelog:", error);
+    //             setLoading(false);
+    //         });
+    // }, []);
+
     useEffect(() => {
-        invoke("fetch_changelog")
-            .then((data) => {
-                setChangelog(data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error("Error invoking fetch_changelog:", error);
-                setLoading(false);
-            });
-    }, []);
+      // Cargar el changelog
+      invoke("fetch_changelog")
+          .then((data) => {
+              setChangelog(data);
+          })
+          .catch((error) => {
+              console.error("Error al cargar changelog:", error);
+          })
+          .finally(() => {
+              setLoading(false);
+          });
+  
+      // Cargar versiones desde el JSON
+      invoke("get_all_versions")
+          .then((loadedVersions) => {
+              const versionsWithImages = loadedVersions.map((v) => ({
+                  ...v,
+                  image: getImageForVersion(v.version),
+              }));
+              setCustomVersions(versionsWithImages);
+          })
+          .catch((error) => {
+              console.error("Error al cargar versiones:", error);
+          });
+  }, []);
+
+  const getImageForVersion = (version) => {
+    console.log(version)
+    switch (version.toUpperCase()) {
+      case "VA":
+        return "icons/classic.webp";
+      case "TBC":
+        return "icons/tbc.webp";
+      case "LK":
+        return "icons/lk.webp";
+      case "CATA":
+        return "icons/cata.webp";
+      case "MOP":
+        return "icons/mop.webp";
+      case "WOD":
+        return "icons/wod.webp";
+      case "LG":
+        return "icons/lg.webp";
+      case "BFA":
+        return "icons/bfa.webp";
+      case "SL":
+        return "icons/sl.webp";
+      case "DF":
+        return "icons/df.webp";
+      case "TWW":
+        return "icons/tww.webp";
+      case "DEFAULT":
+        return "icons/default.webp";
+      default:
+        return "icons/default.webp"; // imagen genérica si no coincide
+    }
+  };
+
+  
 
     const formatDate = (dateString) => {
         if (!dateString) return '';
@@ -134,6 +251,30 @@ function HomeScreen() {
         return <p>No realms data available.</p>;
     }
 
+    //PARTE GUARDAR DATOS EN EL JS
+    // Función para crear el archivo JSON vacío si no existe
+const crearJsonVacio = async () => {
+    try {
+      await invoke("crear_json_vacio");
+      console.log("JSON vacío creado con éxito.");
+    } catch (error) {
+      console.error("Error al crear JSON vacío:", error);
+    }
+  };
+  
+  // Función para agregar una nueva versión
+  const addVersion = async (name, path) => {
+    const newVersion = { name, path };
+  
+    try {
+      const response = await invoke("save_version_to_file", { version: newVersion });
+      console.log(response);  // Mensaje de éxito
+    } catch (error) {
+      console.error("Error al añadir versión:", error);
+    }
+  };
+  
+
     return (
         <main className='containerHomeScreen'>
             <Titlebar />
@@ -145,10 +286,10 @@ function HomeScreen() {
                     <aside className='sidebar'>
                         <h3 id="tituloVersiones">{t("versions")}</h3>
                         <div className='versions'>
-                            <button className='versionButton'>
+                            {/*<button className='versionButton'>
                                 <img className='versionLogo' src="icons/classic.webp" alt="Classic logo" />Classic
                             </button>
-                            {/* <button className='versionButton'>
+                             <button className='versionButton'>
                                 <img className='versionLogo' src="tbc.png" alt="TBC logo" />TBC
                             </button>
                             <button className='versionButton'>
@@ -157,16 +298,26 @@ function HomeScreen() {
                             </button> */}
 
                             {/* Para añadir nuevas versiones */}
-                            {customVersions.map((version, index) => (
+                            {/* {customVersions.map((version, index) => (
                                 <div key={index} className='versionContainer'>
                                     <button className='versionButton'>
                                         <img className='versionLogo' src={version.image} alt="Custom logo" />
                                         {version.name}
-                                        {/* Botón de editar */}
+                                      
                                         <button className="editButton" onClick={() => openEditModal(index)}><i class="fa-solid fa-screwdriver-wrench"></i></button>
                                     </button>
                                 </div>
-                            ))}
+                            ))} */}
+
+                        {customVersions.map((version, index) => (
+                                  <div key={index} className='versionContainer'>
+                                    <button className='versionButton'>
+                                      <img className='versionLogo' src={version.image} alt={`${version.name} logo`} />
+                                      {version.name}
+                                      <button className="editButton" onClick={() => openEditModal(index)}><i className="fa-solid fa-screwdriver-wrench"></i></button>
+                                    </button>
+                                  </div>
+                                ))}
 
                             {/* Botón para abrir el modal */}
                             <div className='addVersion'>
@@ -197,68 +348,117 @@ function HomeScreen() {
 
 
                     <div id='mainContent'>
-                        {/* Modal */}
-                        {isModalVisible && (
-                            <div id="modal">
-                                <div id="modalContent">
-                                    <h3>Ruta de la versión</h3>
-                                    <form onSubmit={handleSubmit}>
-                                        <label>
-                                            <p>Nombre</p>
-                                            <input
-                                                type="text"
-                                                value={versionName}
-                                                onChange={(e) => setVersionName(e.target.value)}
-                                                required
-                                            />
-                                        </label>
-                                        {/* <label className='inputGroup'>
-                                            <p>Ruta</p>
-                                            <input className='inputVersionWow'
-                                                type="file"
-                                                accept=".exe"
-                                                onChange={(e) => {
-                                                    const file = e.target.files[0];
-                                                    if (file) {
-                                                        setRoute(file.name); // Usar file.name o file en sí si quieres subirlo
-                                                    }
-                                                }}
-                                                required
-                                            />
-                                        </label> */}
-                                        <label className='inputGroup'>
-                                            <p>Ruta</p>
-                                            <input
-                                                id="hiddenFileInput"
-                                                className='inputVersionWow'
-                                                type="file"
-                                                accept=".exe"
-                                                onChange={(e) => {
-                                                    const file = e.target.files[0];
-                                                    if (file) {
-                                                        setRoute(file.name);
-                                                    }
-                                                }}
-                                                style={{ display: 'none' }}
-                                            />
-                                            <button
-                                                id='selecionarExe'
-                                                type="button"
-                                                onClick={() => document.getElementById('hiddenFileInput').click()}
-                                            >
-                                                
-                                                Pulsa para seleccionar el ejecutable
-                                            </button>
-                                            <p id='exeSelecionado'>{route && `${route}`}</p>
-                                        </label>
+                            {/* AQUI SE GUARDA ¡¡BIEN!! RUTA */}
+                            {/* {isModalVisible && (
+        <div id="modal">
+          <div id="modalContent">
+            <h3>Ruta de la versión</h3>
+            <form onSubmit={handleSubmit}>
+              <label>
+                <p>Nombre</p>
+                <input
+                  type="text"
+                  value={versionName}
+                  onChange={(e) => setVersionName(e.target.value)}
+                  required
+                />
+              </label>
 
-                                        <button className="modelButtonA" type="button" onClick={toggleModal}>Cancelar</button>
-                                        <button className="modelButton" type="submit">Añadir</button>
-                                        <button className="modelButtonDelete" type="button" onClick={handleDeleteVersion}>Eliminar</button>
-                                    </form>
-                                </div>
-                            </div>
-                        )}
+              <label className="inputGroup">
+                <p>Ruta</p>
+                <button
+                  id="seleccionarExe"
+                  type="button"
+                  onClick={handleFileSelect}
+                >
+                  Pulsa para seleccionar el ejecutable
+                </button>
+                <p id="exeSeleccionado">
+                  {route && `Seleccionado: ${route.split("\\").pop()}`}
+                </p>
+              </label>
+
+              <button className="modelButtonA" type="button" onClick={toggleModal}>
+                Cancelar
+              </button>
+              <button className="modelButton" type="submit">
+                Añadir
+              </button>
+              <button
+                className="modelButtonDelete"
+                type="button"
+                onClick={handleDeleteVersion}
+              >
+                Eliminar
+              </button>
+            </form>
+          </div>
+        </div>
+      )} */}
+                            
+
+                            {isModalVisible && (
+        <div id="modal">
+          <div id="modalContent">
+            <h3>Ruta de la versión</h3>
+            <form onSubmit={handleSubmit}>
+              <label>
+                <p>Nombre</p>
+                <input
+                  type="text"
+                  value={versionName}
+                  onChange={(e) => setVersionName(e.target.value)}
+                  required
+                />
+              </label>
+
+              <label className="inputGroup">
+                <p>Ruta</p>
+                <button
+                  id="seleccionarExe"
+                  type="button"
+                  onClick={handleFileSelect}
+                >
+                  Pulsa para seleccionar el ejecutable
+                </button>
+                <p id="exeSeleccionado">
+                  {route && `Seleccionado: ${route.split("\\").pop()}`}
+                </p>
+              </label>
+
+              <button className="modelButtonA" type="button" onClick={toggleModal}>
+                Cancelar
+              </button>
+              <button className="modelButton" type="submit">
+                Añadir
+              </button>
+              <button
+                className="modelButtonDelete"
+                type="button"
+                onClick={handleDeleteVersion}
+              >
+                Eliminar
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         <div className='newsArea'>
                             <div className='mainNewsArea'>
                                 <img className='mainNew' src='patch_image.jpg' alt="Patch" />
