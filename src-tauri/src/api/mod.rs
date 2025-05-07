@@ -6,3 +6,4 @@ pub mod news;
 pub mod profile;
 pub mod realms;
 pub mod register;
+pub mod account_points;

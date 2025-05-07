@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { invoke } from '@tauri-apps/api/core';
 import { Link } from 'react-router-dom';
 import Titlebar from "./components/Titlebar";
-import NavBar from './components/navBar';
+import NavBar from './components/NavBar';
 import { motion } from "framer-motion";
 import { open } from '@tauri-apps/plugin-dialog';
 
@@ -14,6 +14,9 @@ function HomeScreen() {
     
     const [customVersions, setCustomVersions] = useState([]);
     const [newVersionName, setNewVersionName] = useState("");
+
+    const [coins, setCoins] = useState(0);
+    const [points, setPoints] = useState(0);
 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [versionName, setVersionName] = useState('');
@@ -81,8 +84,7 @@ function HomeScreen() {
             setEditingIndex(null);
             toggleModal();
           } catch (error) {
-            console.error("❌ Error al obtener la versión:", error);
-            alert("Error al obtener la versión.");
+            console.error("Error al obtener la versión:", error);
           }
 
           invoke("get_all_versions")
@@ -169,6 +171,13 @@ function HomeScreen() {
           });
   }, []);
 
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken && storedToken.trim() !== "") {
+      obtenerMonedas(storedToken);
+    }
+  }, []);
+
   const getImageForVersion = (version) => {
     console.log(version)
     switch (version.toUpperCase()) {
@@ -251,6 +260,107 @@ function HomeScreen() {
         return <p>No realms data available.</p>;
     }
 
+  // Función para llamar a la función fetch_coins de Tauri
+//   async function obtenerMonedas(token) {
+//     try {
+//         // Llamar al comando Tauri fetch_coins
+//         const response = await invoke('fetch_coins', { token });
+
+//         // Mostrar las monedas y los puntos
+//         console.log(`Monedas: ${response.coins}`);
+//         console.log(`Puntos: ${response.points}`);
+
+//         // Mostrar las monedas en la UI
+//         const coinsElement = document.getElementById('coins-display');
+//         coinsElement.innerHTML = `Monedas: ${response.coins}, Puntos: ${response.points}`;
+
+//     } catch (error) {
+//         console.error("Error al obtener las monedas:", error);
+//     }
+// }
+
+// const [coins, setCoins] = useState(0);
+// const [points, setPoints] = useState(0);
+
+// useEffect(() => {
+//   const token = localStorage.getItem("token");
+//   if (token && token.trim() !== "") {
+//     obtenerMonedas(token);
+// }
+
+// }, []);
+
+// async function obtenerMonedas(token) {
+//   try {
+//       const response = await invoke('fetch_coins', { token });
+//       setCoins(response.coins);
+//       setPoints(response.points);
+//   } catch (error) {
+//       console.error("Error al obtener las monedas:", error);
+//   }
+// }
+
+
+
+// BUENA AQUI FUNCIONA!!!!
+// async function obtenerMonedas(token) {
+//   try {
+//       // Llamar al comando Tauri fetch_coins
+//       const response = await invoke('fetch_coins', { token });
+
+//       // Mostrar las monedas y los puntos
+//       console.log(`Monedas: ${response.coins}`);
+//       console.log(`Puntos: ${response.points}`);
+
+//       // Mostrar las monedas en la UI
+//       const coinsElement = document.getElementById('coins-display');
+//       coinsElement.innerHTML = `Monedas: ${response.coins}, Puntos: ${response.points}`;
+
+//   } catch (error) {
+//       console.error("Error al obtener las monedas:", error);
+//   }
+// }
+
+// Ejemplo de uso
+//const token = "your_token_here";  // Sustituir con el token real
+//obtenerMonedas(token);
+
+
+
+
+// Ejemplo de uso
+// const token = "your_token_here";  // Sustituir con el token real
+//  const token = localStorage.getItem("token");
+//  obtenerMonedas(token);
+
+
+async function obtenerMonedas(token) {
+  try {
+      const response = await invoke('fetch_coins', { token });
+
+      console.log(`Monedas: ${response.coins}`);
+      console.log(`Puntos: ${response.points}`);
+
+      setCoins(response.coins);
+      setPoints(response.points);
+  } catch (error) {
+      console.error("Error al obtener las monedas:", error);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //PARTE GUARDAR DATOS EN EL JS
     // Función para crear el archivo JSON vacío si no existe
 const crearJsonVacio = async () => {
@@ -273,6 +383,8 @@ const crearJsonVacio = async () => {
       console.error("Error al añadir versión:", error);
     }
   };
+
+  
   
 
     return (
@@ -498,8 +610,8 @@ const crearJsonVacio = async () => {
                             <h3 className='shop_title'>Tienda</h3>
                             <img className='monedaDona' src='/moneda_donacion.png' alt="Donación" />
                             <img className='monedaVota' src='/moneda_votacion.png' alt="Votación" />
-                            <p id='donacionMoneda'>100</p><p id='puntosDonacion'>P.D</p>
-                            <p id='votacionMoneda'>100</p><p id='puntosVotacion'>P.V</p>
+                            <p id='donacionMoneda'>{coins}</p><p id='puntosDonacion'>P.D</p>
+                            <p id='votacionMoneda'>{points}</p><p id='puntosVotacion'>P.V</p>
                             <button className='verTienda'>{t("read_more")}</button>
                         </div>
                         <div id="estadoServer">
