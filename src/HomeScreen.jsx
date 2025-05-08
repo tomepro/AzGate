@@ -375,29 +375,29 @@ const launchVersion = async (name) => {
 const getBackgroundByVersion = (versionCode) => {
   switch (versionCode) {
     case 'VA':
-      return '/public/classic.webp';
+      return 'classic.webp';
     case 'TBC':
-      return '/public/tbc.webp';
+      return 'tbc.webp';
     case 'LK':
-      return '/public/wotlk_wallpaper.png';
+      return 'wotlk_wallpaper.png';
     case 'CATA':
-      return '/public/cata.webp';
+      return 'cata.webp';
     case 'MOP':
-      return '/public/mop.webp';
+      return 'mop.webp';
     case 'WOD':
-      return '/public/wod.webp';
+      return 'wod.webp';
     case 'LG':
-      return '/public/legion.webp';
+      return 'legion.webp';
     case 'BFA':
-      return '/images/fondo_lk.jpg';
+      return 'bfa.webp';
     case 'SL':
-      return '/images/fondo_lk.jpg';
+      return 'shadowlands.webp';
     case 'DF':
-      return '/images/fondo_lk.jpg';
+      return 'df.webp';
     case 'TWW':
-      return '/images/fondo_lk.jpg';
+      return 'tww.webp';
     default:
-      return '/public/wod.webp'; // fondo por defecto
+      return 'classic.webp'; // fondo por defecto
   }
 };
 
