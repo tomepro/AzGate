@@ -18,7 +18,9 @@ function HomeScreen() {
     const [coins, setCoins] = useState(0);
     const [points, setPoints] = useState(0);
 
-    const [selectedVersion, setSelectedVersion] = useState(null); 
+    const [selectedVersion, setSelectedVersion] = useState(null);
+    const [backgroundImage, setBackgroundImage] = useState('');
+
 
 
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -370,6 +372,41 @@ const launchVersion = async (name) => {
   }
 };
 
+const getBackgroundByVersion = (versionCode) => {
+  switch (versionCode) {
+    case 'VA':
+      return '/public/classic.webp';
+    case 'TBC':
+      return '/public/tbc.webp';
+    case 'LK':
+      return '/public/wotlk_wallpaper.png';
+    case 'CATA':
+      return '/public/cata.webp';
+    case 'MOP':
+      return '/public/mop.webp';
+    case 'WOD':
+      return '/public/wod.webp';
+    case 'LG':
+      return '/public/legion.webp';
+    case 'BFA':
+      return '/images/fondo_lk.jpg';
+    case 'SL':
+      return '/images/fondo_lk.jpg';
+    case 'DF':
+      return '/images/fondo_lk.jpg';
+    case 'TWW':
+      return '/images/fondo_lk.jpg';
+    default:
+      return '/public/wod.webp'; // fondo por defecto
+  }
+};
+
+const handleVersionSelect = (version) => {
+  setSelectedVersion(version.name);
+  const bg = getBackgroundByVersion(version.version);
+  setBackgroundImage(bg);
+};
+
 
 
 
@@ -408,9 +445,10 @@ const crearJsonVacio = async () => {
 
     return (
         <main className='containerHomeScreen'>
-            <Titlebar />
+            
+            <div className='launcherBackground' style={{ backgroundImage: `url(${backgroundImage})` }}>
+            <Titlebar version={loading}/>
             <NavBar />
-            <div className='launcherBackground'>
                 {/* CONTENIDO DE LA PAGINA */}
                 <div className='contentArea'>
                     {/* BARRA IZQUIERDA */}
@@ -440,7 +478,7 @@ const crearJsonVacio = async () => {
                                 </div>
                             ))} */}
 
-{customVersions.map((version, index) => (
+{/* {customVersions.map((version, index) => (
   <div
     key={index}
     className={`versionContainer ${selectedVersion === version.name ? 'selected' : ''}`}
@@ -460,7 +498,30 @@ const crearJsonVacio = async () => {
       </button>
     </button>
   </div>
+))} */}
+
+{customVersions.map((version, index) => (
+  <div
+    key={index}
+    className={`versionContainer ${selectedVersion === version.name ? 'selected' : ''}`}
+    onClick={() => handleVersionSelect(version)}
+  >
+    <button className='versionButton'>
+      <img className='versionLogo' src={version.image} alt={`${version.name} logo`} />
+      {version.name}
+      <button
+        className="editButton"
+        onClick={(e) => {
+          e.stopPropagation(); // evita que se seleccione cuando editas
+          openEditModal(index);
+        }}
+      >
+        <i className="fa-solid fa-screwdriver-wrench"></i>
+      </button>
+    </button>
+  </div>
 ))}
+
 
 
                         {/* {customVersions.map((version, index) => (
@@ -661,7 +722,7 @@ const crearJsonVacio = async () => {
                             <p id='circuloVerde'></p><p id='estadoActualServer'>Online</p>
                         </div>
                         <div className='button_container'>
-                            <button className='play_button' disabled={!selectedVersion} onClick={handlePlay}>{t("play")}</button>
+                            <button className='play_button' onClick={() => handlePlay(selectedVersion)}>{t("play")}</button>
                             <button className='settings_button'><i className="fa-solid fa-gear"></i></button>
                         </div>
                     </aside>

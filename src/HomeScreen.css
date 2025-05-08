@@ -3,15 +3,18 @@
 
 html{
     overflow: hidden;
+
 }
+
 .launcherBackground {
-    background-image: url('/wotlk_wallpaper.png');
+    background-image: url('/public/cata.webp');
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
     flex-direction: column;
     height: 100vh;
     width: 100vw;
+    
 }
 
 body {
@@ -19,12 +22,11 @@ body {
     color: white;
     height: 100vh;
     width: 100vw;
+    
+    
 }
 
-.selected {
-    border: 2px solid #00bfff;
-    background-color: #1e1e1e;
-  }
+
   
 
 
