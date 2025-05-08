@@ -11,6 +11,7 @@ use api::realms::fetch_realms;
 use api::register::register_user;
 use api::json::get_all_versions;
 use api::account_points::fetch_coins;
+use api::json::launch_version;
 
 use api::login::jwt_login;
 use game::version::get_version;
@@ -44,7 +45,8 @@ pub fn run() {
             crear_json_vacio,
             save_version_to_file,
             get_all_versions,
-            fetch_coins
+            fetch_coins,
+            launch_version
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

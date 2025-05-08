@@ -18,6 +18,9 @@ function HomeScreen() {
     const [coins, setCoins] = useState(0);
     const [points, setPoints] = useState(0);
 
+    const [selectedVersion, setSelectedVersion] = useState(null); 
+
+
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [versionName, setVersionName] = useState('');
     const [route, setRoute] = useState('');
@@ -31,6 +34,14 @@ function HomeScreen() {
         setEditingIndex(index);
         setIsEditing(true);
         toggleModal();
+    };
+
+    const handlePlay = () => {
+      if (selectedVersion) {
+        invoke("launch_version", { name: selectedVersion })
+          .then(() => console.log("Juego lanzado"))
+          .catch((err) => console.error("Error al lanzar versión:", err));
+      }
     };
 
     const toggleModal = () => {
@@ -350,6 +361,14 @@ async function obtenerMonedas(token) {
 
 
 
+const launchVersion = async (name) => {
+  try {
+    await invoke("launch_version", { name });
+    console.log(`Versión "${name}" ejecutada.`);
+  } catch (error) {
+    console.error("Error al ejecutar la versión:", error);
+  }
+};
 
 
 
@@ -421,7 +440,30 @@ const crearJsonVacio = async () => {
                                 </div>
                             ))} */}
 
-                        {customVersions.map((version, index) => (
+{customVersions.map((version, index) => (
+  <div
+    key={index}
+    className={`versionContainer ${selectedVersion === version.name ? 'selected' : ''}`}
+    onClick={() => setSelectedVersion(version.name)}
+  >
+    <button className='versionButton'>
+      <img className='versionLogo' src={version.image} alt={`${version.name} logo`} />
+      {version.name}
+      <button
+        className="editButton"
+        onClick={(e) => {
+          e.stopPropagation(); // evita que se seleccione cuando editas
+          openEditModal(index);
+        }}
+      >
+        <i className="fa-solid fa-screwdriver-wrench"></i>
+      </button>
+    </button>
+  </div>
+))}
+
+
+                        {/* {customVersions.map((version, index) => (
                                   <div key={index} className='versionContainer'>
                                     <button className='versionButton'>
                                       <img className='versionLogo' src={version.image} alt={`${version.name} logo`} />
@@ -429,7 +471,8 @@ const crearJsonVacio = async () => {
                                       <button className="editButton" onClick={() => openEditModal(index)}><i className="fa-solid fa-screwdriver-wrench"></i></button>
                                     </button>
                                   </div>
-                                ))}
+                                ))} */}
+
 
                             {/* Botón para abrir el modal */}
                             <div className='addVersion'>
@@ -618,7 +661,7 @@ const crearJsonVacio = async () => {
                             <p id='circuloVerde'></p><p id='estadoActualServer'>Online</p>
                         </div>
                         <div className='button_container'>
-                            <button className='play_button'>{t("play")}</button>
+                            <button className='play_button' disabled={!selectedVersion} onClick={handlePlay}>{t("play")}</button>
                             <button className='settings_button'><i className="fa-solid fa-gear"></i></button>
                         </div>
                     </aside>

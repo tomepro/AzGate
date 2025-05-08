@@ -1,6 +1,8 @@
 use serde::{Deserialize, Serialize};
 use tauri::{AppHandle, Manager};
 use tokio::fs;
+use std::process::Command;
+
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct Version {
@@ -74,4 +76,30 @@ pub async fn get_all_versions(app_handle: AppHandle) -> Result<Vec<Version>, Str
         serde_json::from_str(&data).unwrap_or_else(|_| vec![]);
 
     Ok(versions)
+}
+
+#[tauri::command]
+pub async fn launch_version(app_handle: AppHandle, name: String) -> Result<(), String> {
+    let config_dir = app_handle
+        .path()
+        .app_config_dir()
+        .map_err(|e| format!("Error al obtener config_dir: {}", e))?;
+    let json_path = config_dir.join("versiones_wow.json");
+
+    let data = fs::read_to_string(&json_path)
+        .await
+        .map_err(|e| format!("Error al leer el archivo JSON: {}", e))?;
+    let versions: Vec<Version> =
+        serde_json::from_str(&data).map_err(|e| format!("Error al parsear JSON: {}", e))?;
+
+    if let Some(version) = versions.iter().find(|v| v.name == name) {
+        // Ejecutar el archivo .exe
+        Command::new(&version.path)
+            .spawn()
+            .map_err(|e| format!("Error al ejecutar el archivo: {}", e))?;
+
+        Ok(())
+    } else {
+        Err(format!("No se encontró la versión con nombre '{}'", name))
+    }
 }

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './MacrosScreen.css';  // Asegúrate de tener la ruta correcta
 import Titlebar from "./components/Titlebar";
-import NavBar from './components/navBar';
+import NavBar from './components/NavBar';
+
 
 function MacrosScreen() {
   const [fileContent, setFileContent] = useState('');
@@ -26,6 +27,8 @@ function MacrosScreen() {
   };
 
   return (
+    
+
     <div className="macros-container">
         <Titlebar />
         <NavBar />
@@ -45,7 +48,10 @@ function MacrosScreen() {
           <pre>{fileContent}</pre>
         </div>
       )}
+
     </div>
+
+    
   );
 }
 

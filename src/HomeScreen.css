@@ -21,6 +21,13 @@ body {
     width: 100vw;
 }
 
+.selected {
+    border: 2px solid #00bfff;
+    background-color: #1e1e1e;
+  }
+  
+
+
 /* #homeNavBar {
     margin-top: 45px;
     margin-left: 15px;
@@ -48,6 +55,7 @@ body {
     font-size: 17px;
     border-radius: 5;
 }
+
 
 
 #botonUser{
