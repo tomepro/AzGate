@@ -711,3 +711,8 @@ ul{
     margin-top: 10px;
     text-align: center;
 }
+.config-options-container {
+    overflow-y: auto;
+    max-height: 400px;
+    padding: 10px;
+}
