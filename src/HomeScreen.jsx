@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 function HomeScreen() {
     const { t } = useTranslation("common");
-    
+
     const [customVersions, setCustomVersions] = useState([]);
     const [newVersionName, setNewVersionName] = useState("");
 
@@ -18,6 +18,24 @@ function HomeScreen() {
     const [route, setRoute] = useState('');
     const [isEditing, setIsEditing] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
+
+    // Estados para la configuración
+    const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
+    const [configSettings, setConfigSettings] = useState({
+        locale: "esES",
+        gxRefresh: "60",
+        Gamma: "1.000000",
+        Sound_MusicVolume: "0.40000000596046",
+        Sound_AmbienceVolume: "0.60000002384186",
+        groundEffectDensity: "64",
+        projectedTextures: "1",
+        gxResolution: "1920x1080",
+        shadowLevel: "0",
+        groundEffectDist: "140",
+        environmentDetail: "1.5",
+        extShadowQuality: "5",
+        weatherDensity: "3",
+    });
 
     const openEditModal = (index) => {
         const versionToEdit = customVersions[index];
@@ -111,8 +129,8 @@ function HomeScreen() {
     useEffect(() => {
         invoke("fetch_realms")
             .then((data) => {
-                console.log("Realms data:", data); // data es un array de objetos
-                setRealms(data); // Guarda los datos JSON directamente
+                console.log("Realms data:", data);
+                setRealms(data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -120,7 +138,28 @@ function HomeScreen() {
                 setLoading(false);
             });
     }, []);
-    
+
+    const openSettingsModal = () => {
+        setIsSettingsModalVisible(true);
+    };
+
+    const closeSettingsModal = () => {
+        setIsSettingsModalVisible(false);
+    };
+
+    const handleConfigChange = (e) => {
+        const { name, value } = e.target;
+        setConfigSettings(prevSettings => ({
+            ...prevSettings,
+            [name]: value
+        }));
+    };
+
+    const saveConfigSettings = () => {
+        console.log("Configuración guardada:", configSettings);
+        closeSettingsModal();
+        alert("Configuración guardada");
+    };
 
     if (loading) {
         return <p>Loading...</p>;
@@ -148,26 +187,16 @@ function HomeScreen() {
                             <button className='versionButton'>
                                 <img className='versionLogo' src="icons/classic.webp" alt="Classic logo" />Classic
                             </button>
-                            {/* <button className='versionButton'>
-                                <img className='versionLogo' src="tbc.png" alt="TBC logo" />TBC
-                            </button>
-                            <button className='versionButton'>
-                                <img className='versionLogo' src="wotlk.png" alt="WotLK logo" />WotLK
-                                <button className="editButton" onClick={() => openEditModal(0)}>E</button>
-                            </button> */}
-
-                            {/* Para añadir nuevas versiones */}
                             {customVersions.map((version, index) => (
                                 <div key={index} className='versionContainer'>
                                     <button className='versionButton'>
                                         <img className='versionLogo' src={version.image} alt="Custom logo" />
                                         {version.name}
                                         {/* Botón de editar */}
-                                        <button className="editButton" onClick={() => openEditModal(index)}><i class="fa-solid fa-screwdriver-wrench"></i></button>
+                                        <button className="editButton" onClick={() => openEditModal(index)}><i className="fa-solid fa-screwdriver-wrench"></i></button>
                                     </button>
                                 </div>
                             ))}
-
                             {/* Botón para abrir el modal */}
                             <div className='addVersion'>
                                 <button id="nuevaEntrada" onClick={toggleModal}>{"+"}</button>
@@ -176,28 +205,22 @@ function HomeScreen() {
                         {/* REINOS */}
                         <div id='realms'>
                             <h3 id="tituloVersiones">{t("realms")}</h3>
-                            {/* <div className='realmItem'>Thalassa<span className='online'>100</span></div>
-                            <div className='realmItem'>Andromeda<span className='offline'>-</span></div>
-                            <div className='realmItem'>Aegwynn <span className='offline'>0</span></div> */}
                             <div id="reinos">
-                            {realms.map((realm, index) => (
-                                <div key={index} className="realm-row">
-                                <span className="realm-name">{realm.realm}</span>
-                                
-                                <span className="realm-online">{realm.online}</span>
-                                <span className='realm-status'>
-                                    <i className={`fa-solid fa-circle ${realm.flag === 2 ? 'red-circle' : realm.flag === 0 ? 'green-circle' : ''}`}></i>
-                                </span>
-                                </div>
-                            ))}
+                                {realms.map((realm, index) => (
+                                    <div key={index} className="realm-row">
+                                        <span className="realm-name">{realm.realm}</span>
+                                        <span className="realm-online">{realm.online}</span>
+                                        <span className='realm-status'>
+                                            <i className={`fa-solid fa-circle ${realm.flag === 2 ? 'red-circle' : realm.flag === 0 ? 'green-circle' : ''}`}></i>
+                                        </span>
+                                    </div>
+                                ))}
                             </div>
-                            
                         </div>
                     </aside>
 
-
                     <div id='mainContent'>
-                        {/* Modal */}
+                        {/* Modal para añadir/editar versiones */}
                         {isModalVisible && (
                             <div id="modal">
                                 <div id="modalContent">
@@ -212,20 +235,6 @@ function HomeScreen() {
                                                 required
                                             />
                                         </label>
-                                        {/* <label className='inputGroup'>
-                                            <p>Ruta</p>
-                                            <input className='inputVersionWow'
-                                                type="file"
-                                                accept=".exe"
-                                                onChange={(e) => {
-                                                    const file = e.target.files[0];
-                                                    if (file) {
-                                                        setRoute(file.name); // Usar file.name o file en sí si quieres subirlo
-                                                    }
-                                                }}
-                                                required
-                                            />
-                                        </label> */}
                                         <label className='inputGroup'>
                                             <p>Ruta</p>
                                             <input
@@ -246,7 +255,6 @@ function HomeScreen() {
                                                 type="button"
                                                 onClick={() => document.getElementById('hiddenFileInput').click()}
                                             >
-                                                
                                                 Pulsa para seleccionar el ejecutable
                                             </button>
                                             <p id='exeSelecionado'>{route && `${route}`}</p>
@@ -259,6 +267,35 @@ function HomeScreen() {
                                 </div>
                             </div>
                         )}
+
+                        {/* Modal de configuración */}
+                        {isSettingsModalVisible && (
+                            <div id="modal">
+                                <div id="modalContent">
+                                    <h3>Configuración</h3>
+                                    <div className="config-options-container">
+                                        <form>
+                                            {Object.entries(configSettings).map(([key, value]) => (
+                                                <div key={key}>
+                                                    <label>
+                                                        <p>{key}</p>
+                                                        <input
+                                                            type="text"
+                                                            name={key}
+                                                            value={value}
+                                                            onChange={handleConfigChange}
+                                                        />
+                                                    </label>
+                                                </div>
+                                            ))}
+                                            <button type="button" onClick={closeSettingsModal}>Cancelar</button>
+                                            <button type="button" onClick={saveConfigSettings}>Guardar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         <div className='newsArea'>
                             <div className='mainNewsArea'>
                                 <img className='mainNew' src='patch_image.jpg' alt="Patch" />
@@ -283,15 +320,11 @@ function HomeScreen() {
                     <aside className='rightSidebar'>
                         <div className='changelog'>
                             <h3 className='changelog_title'>{t("changelog")}</h3>
-                            {/* <p>Última Actualización - Version 2.3.1</p> */}
-                            {/* CHANGELOG ACTUAL */}
                             <div id='headChange'>
                                 <span id='numChangelog'>Changelog: {changelog.id}</span>
                                 <span>{formatDate(changelog.created_at)}</span>
                             </div>
-                            
                             {getShortText(changelog.text)}
-
                             <button className='readMore'><Link to="/changelogScreen">{t("read_more")}</Link></button>
                         </div>
                         <div id="tiendaMonedas">
@@ -303,11 +336,11 @@ function HomeScreen() {
                             <button className='verTienda'>{t("read_more")}</button>
                         </div>
                         <div id="estadoServer">
-                            <p id='circuloVerde'></p><p id='estadoActualServer'>Online</p>
+                            <p id='estadoActualServer'>Online</p>
                         </div>
                         <div className='button_container'>
                             <button className='play_button'>{t("play")}</button>
-                            <button className='settings_button'><i className="fa-solid fa-gear"></i></button>
+                            <button className='settings_button' onClick={openSettingsModal}><i className="fa-solid fa-gear"></i></button>
                         </div>
                     </aside>
                 </div>
