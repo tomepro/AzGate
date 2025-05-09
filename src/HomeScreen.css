@@ -259,7 +259,8 @@ body {
 
 
 #estadoActualServer{
-    margin-top:-3px;
+    margin-top:-40px;
+    margin-left: 10px;
 }
 
 .versions{
@@ -321,6 +322,14 @@ body {
   
   .green-circle {
     color: green;
+  }
+
+  .green {
+    color: green;
+    position: relative;
+    margin-left: -80px;
+    margin-top: 11px;
+    font-size: 11px;
   }
   
 

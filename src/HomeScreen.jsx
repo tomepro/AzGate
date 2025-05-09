@@ -776,7 +776,8 @@ const crearJsonVacio = async () => {
                             <button className='verTienda'>{t("read_more")}</button>
                         </div>
                         <div id="estadoServer">
-                            <p id='estadoActualServer'>Online</p>
+                        <i className="fa-solid fa-circle green"></i>                  
+                        <p id='estadoActualServer'>Online</p>
                         </div>
                         <div className='button_container'>
                             <button className='play_button' onClick={() => handlePlay(selectedVersion)}>{t("play")}</button>

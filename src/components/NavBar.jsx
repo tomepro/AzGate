@@ -10,6 +10,10 @@ const NavBar = () => {
   const username = localStorage.getItem("username");
   const token = localStorage.getItem("token");
 
+  const [status, setStatus] = useState('');
+
+  
+
   // Estado para almacenar los datos del perfil
   const [profile, setProfile] = useState({
     name: '',
@@ -62,6 +66,16 @@ const NavBar = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const handleDelete = async () => {
+    try {
+      await invoke('delete_jwt');
+      setStatus('Token eliminado correctamente.');
+    } catch (error) {
+      console.error('Error al eliminar el token:', error);
+      setStatus('Error al eliminar el token.');
+    }
+  };
+
   return (
     <div className={styles.homeNavBar}>
       <div className={styles.botonUser} onClick={toggleModal}>
@@ -84,10 +98,8 @@ const NavBar = () => {
             <span className={styles.closeButton} onClick={toggleModal}>&times;</span>
             <h2>Perfil de Usuario</h2>
             <p><strong>Nombre:</strong> {profile.name}</p>
-            <p><strong>Raza:</strong> {profile.race}</p>
-            <p><strong>Género:</strong> {profile.gender}</p>
-            <p><strong>Clase:</strong> {profile.class}</p>
-            <p><strong>Horas Totales:</strong> {profile.totalTime}</p>
+            <button onClick={handleDelete}><Link to="/">{t("Cerrar Sesion")}</Link></button>
+            
           </div>
         </div>
       )}
