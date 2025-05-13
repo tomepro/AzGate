@@ -7,3 +7,5 @@ pub mod profile;
 pub mod realms;
 pub mod register;
 pub mod account_points;
+pub mod send_password_reset;
+pub mod reset_password;
