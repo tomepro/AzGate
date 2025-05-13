@@ -36,5 +36,9 @@
     "play":"JUGAR",
     "home":"Inicio",
     "new_version_name":"Nueva Versión",
-    "add":"Añadir"
+    "add":"Añadir",
+    "newPassword":"Nueva contraseña",
+    "confirmNewPassword":"Confirmar Nueva Contraseña",
+    "codverificacion": "Código de verificación",
+    "tengocodigo": "Ya he recibido mí código"
 }

@@ -9,6 +9,7 @@ import RankingScreen from "./RankingScreen";
 import MacrosScreen from "./MacrosScreen";
 import ChangelogScreen from "./ChangelogScreen";
 import NewsScreen from "./NewsScreen";
+import NewPassword from "./NewPassword";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/macrosScreen" element={<MacrosScreen />} />
         <Route path="/changelogScreen" element={<ChangelogScreen />} />
         <Route path="/newsScreen" element={<NewsScreen />} />
+        <Route path="/newPassword" element={<NewPassword />} />
       </Routes>
     </Router>
   );
