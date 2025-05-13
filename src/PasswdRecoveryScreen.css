@@ -150,3 +150,96 @@ a {
   font-style: normal;
   line-height: normal;
 }
+
+/* Overlay transition for smooth background fade */
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  transition: opacity 0.3s ease-in-out;
+}
+
+.popup-overlay[aria-hidden="true"] {
+  opacity: 0;
+}
+
+.popup-overlay[aria-hidden="false"] {
+  opacity: 1;
+}
+
+/* Base popup content styles */
+.popup-content {
+  background: none !important;
+  border: none !important;
+  will-change: opacity, transform; /* Optimize for animation performance */
+  animation: popupOpen 0.3s ease-in-out forwards;
+}
+
+.popup-content[aria-hidden="true"] {
+  animation: popupClose 0.3s ease-in-out forwards;
+}
+
+/* Custom popup content styling */
+.pwrs-popup-content {
+  background-color: rgb(77, 76, 76);
+  border-radius: 20px 0 20px 0;
+  text-align: center;
+  width: 900px; /* Note: Overridden by max-width */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px); /* Vendor prefix for Safari */
+  box-shadow: -14px 20px 20.8px 7px rgba(0, 0, 0, 0.25);
+  padding: 20px;
+  max-width: 400px;
+  margin: auto;
+}
+
+/* Ensure blur in open state */
+.pwrs-popup-content[aria-hidden="false"] {
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Text styling */
+.pwrs-popup-content p {
+  margin: 0 0 15px;
+  color: white;
+  font-size: larger;
+}
+
+/* Button styling */
+.pwrs-popup-content button {
+  padding: 8px 16px;
+  background-color: rgb(108, 211, 94);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: none;
+}
+
+.pwrs-popup-content button:hover {
+  background-color: rgb(77, 170, 65);
+}
+
+/* Keyframe animations */
+@keyframes popupOpen {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes popupClose {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+}
