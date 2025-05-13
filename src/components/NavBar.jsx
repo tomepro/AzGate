@@ -12,6 +12,9 @@ const NavBar = () => {
 
   const [status, setStatus] = useState('');
 
+  const [allCharacters, setAllCharacters] = useState([]);
+
+
   
 
   // Estado para almacenar los datos del perfil
@@ -31,6 +34,9 @@ const NavBar = () => {
     invoke("fetch_profile", { token })
       .then(data => {
         console.log("Perfil recibido:", data);
+
+        setAllCharacters(data); // Guardamos todos los personajes
+
 
         // Encuentra el personaje con más horas de juego
         const maxHoursCharacter = data.reduce((prev, current) => {
@@ -96,9 +102,29 @@ const NavBar = () => {
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <span className={styles.closeButton} onClick={toggleModal}>&times;</span>
-            <h2>Perfil de Usuario</h2>
-            <p><strong>Nombre:</strong> {profile.name}</p>
-            <button onClick={handleDelete}><Link to="/">{t("Cerrar Sesion")}</Link></button>
+            <h2 className={styles.tituloDC}>Detalles de cuenta</h2>
+            <div className={styles.cuadradoInterior}>
+              <img className={styles.userIconBig} src={getRaceImage(profile.race, profile.gender)} alt="Big User Icon" />
+              <img className={styles.classIconBig} src={getClassImage(profile.class)} alt="Big Class Icon" />
+              <p className={styles.userNameBig}>{profile.name}</p>
+              <p className={styles.userIDBig}>{username}</p>
+              <h2 className={styles.Pjmasusados}>Personajes mas usados</h2>
+              <div className={styles.characterList}>
+                {allCharacters.map((char, index) => (
+                  <div key={index} className={styles.characterCard}>
+                    <img className={styles.userIconList} src={getRaceImage(char.race, char.gender)} alt="Race Icon" />
+                    <img className={styles.classIconList} src={getClassImage(char.class)} alt="Class Icon" />
+
+                    <p className={styles.userNameList}>{char.name}</p>
+                    <p className={styles.userTime}>Tiempo jugado: </p>
+                    <p className={styles.userTimeList}>{Math.floor(char.totaltime / 3600)}h {Math.floor((char.totaltime % 3600) / 60)}min</p>
+                    <hr />
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <button onClick={handleDelete}><Link className={styles.closeSesion} to="/">{t("Cerrar Sesion")}</Link></button>
             
           </div>
         </div>
