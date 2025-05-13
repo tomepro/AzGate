@@ -19,6 +19,9 @@ function RegisterScreen() {
             <button type="submit" className="sendEmailButton">{t("send")}</button><br></br>
           </form>
           <div className="recoveryBackDiv">
+            <Link to="/newPassword">{t("tengocodigo")}</Link>
+            <br></br>
+            <br></br>
             <Link to="/">{t("back")}</Link>
           </div>
         </div>
