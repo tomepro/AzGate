@@ -1,0 +1,23 @@
+.popupDiv {
+    text-align: center;
+    background-color: #00141C;
+    width: 100px;
+    border-radius: 5px;
+}
+
+.popupDiv button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    transition: 300ms ease;
+}
+
+.popupDiv button:hover {
+    scale: 1.1;
+    box-shadow: -1px -1px 15px 0px rgba(104, 113, 117, 0.322);
+
+}
+
+.icon {
+    color: white;
+    transform: translate(0,2px);
+}

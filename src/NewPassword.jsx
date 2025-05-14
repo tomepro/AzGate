@@ -33,7 +33,6 @@ function NewPasswordScreen() {
   return (
     <main className="containerNewPassword">
       <Titlebar/>
-      <LanguagePopup/>
       <div className="recoveryBoxNewPass backdrop-blur-md">
         <p className="recoveryBoxTitleNewPass">{t("resetPassword")}</p>
         <div className="formDiv">

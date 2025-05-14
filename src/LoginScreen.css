@@ -1,5 +1,5 @@
 
-/* background-image: url('/login_wp.jpeg'); */
+/* background-image: url('/login_wp.webp'); */
 /* background-image: url('/pajaro.gif'); */
 /* background-image: url('/perro.gif'); */
 /*   background-image: url('/enano.gif'); */
@@ -10,7 +10,7 @@
 /* background-image: url('/taberna.gif'); */
 
 .containerLoginScreen {
-  background-image: url('/login_wp.jpeg');
+  background-image: url('/login_wp.webp');
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;

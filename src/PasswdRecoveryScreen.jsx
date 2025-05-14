@@ -31,7 +31,6 @@ function RegisterScreen() {
   return (
     <main className="containerPasswdRecovery">
       <Titlebar />
-      <LanguagePopup />
       <div className="recoveryBox backdrop-blur-md">
         <p className="recoveryBoxTitle">{t("resetPassword")}</p>
         <div className="formDiv">

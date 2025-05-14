@@ -37,7 +37,6 @@ function RegisterScreen() {
   return (
     <main className="containerRegisterScreen">
       <Titlebar/>
-      <LanguagePopup/>
       <div className="registerBox backdrop-blur-md">
         <p className="registerBoxTitle">{t("register")}</p>
         <div className="formDiv">

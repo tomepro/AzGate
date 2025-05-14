@@ -94,7 +94,6 @@ function LoginScreen() {
   return (
     <main className="containerLoginScreen">
       <Titlebar />
-      <LanguagePopup />
       <LoaderSpinner visible={loading} />
       <div className="loginBox">
         <p className="loginBoxTitle">{t("login")}</p>

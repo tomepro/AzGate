@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import styles from './styles/Titlebar.module.css'; // Import the CSS module
+import TitlebarLanguages from './TitlebarLanguages';
 
 const Titlebar = () => {
   useEffect(() => {
@@ -26,6 +27,7 @@ const Titlebar = () => {
     <div className={styles.titlebar}>
       <img src={'./icons/classic.webp'} alt="Logo" className={styles.logo} />
       <div className={styles.buttonContainer}>
+        <TitlebarLanguages />
         <button className={styles.button}>
           <a href="https://discord.gg/v8ye5XzVUV" target="_blank" rel="noopener noreferrer">
             <i className="fa-brands fa-discord"></i>

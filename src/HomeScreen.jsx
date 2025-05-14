@@ -418,7 +418,7 @@ const getBackgroundByVersion = (versionCode) => {
     case 'TBC':
       return 'tbc.webp';
     case 'LK':
-      return 'wotlk_wallpaper.png';
+      return 'wotlk_wallpaper.webp';
     case 'CATA':
       return 'cata.webp';
     case 'MOP':
