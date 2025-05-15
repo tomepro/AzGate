@@ -53,35 +53,15 @@ function HomeScreen() {
         weatherDensity: "3",
     });
 
-    // OPEN EDIT MODAL 
-    // const openEditModal = (index) => {
-    //     const versionToEdit = customVersions[index];
-    //     setVersionName(versionToEdit.name);
-    //     setRoute(versionToEdit.route);
-    //     setEditingIndex(index);
-    //     setIsEditing(true);
-    //     toggleModal();
-    // };
-
-    // LA PARTE DE ELIMINAR FUNCIONA BIEN
-
-  // const openEditModal = (index) => {
-  // const version = customVersions[index];
-  // setSelectedVersion(version);
-  // setVersionName(version.name);
-  // setRoute(version.path); // ← asegúrate que cada versión tiene "path"
-  // setIsModalVisible(true);
-
-  const openEditModal = (index) => {
-  const version = customVersions[index];
-  setVersionName(version.name);
-  setRoute(version.path);
-  setIsEditing(true);
-  setEditingIndex(index);
-  setSelectedVersion(version);
-  setOriginalName(version.name); // aquí está el truco
-  toggleModal();
-// };
+    const openEditModal = (index) => {
+    const version = customVersions[index];
+    setVersionName(version.name);
+    setRoute(version.path);
+    setIsEditing(true);
+    setEditingIndex(index);
+    setSelectedVersion(version);
+    setOriginalName(version.name); // aquí está el truco
+    toggleModal();
 
 };
 
@@ -97,20 +77,6 @@ function HomeScreen() {
     const toggleModal = () => {
         setIsModalVisible(!isModalVisible);
     };
-
-    // PARTE DE ELIMINAR, NO SE ELIMINAN DEL JS
-    // const handleDeleteVersion = () => {
-    //     if (editingIndex !== null) {
-    //         const updatedVersions = customVersions.filter((_, index) => index !== editingIndex);
-    //         setCustomVersions(updatedVersions);
-    //     }
-
-    //     setVersionName("");
-    //     setRoute("");
-    //     setIsEditing(false);
-    //     setEditingIndex(null);
-    //     toggleModal();
-    // };
 
     const handleDeleteVersion = async () => {
   try {
@@ -133,128 +99,6 @@ function HomeScreen() {
     console.error("Error al eliminar la versión:", error);
   }
 };
-
-//AQUIIIII parte mortal!!
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-      
-    //     if (versionName.trim() !== "" && route.trim() !== "") {
-    //       try {
-    //         //AQUI SE OBTIENE LA EXPANSION
-    //         const result = await invoke("get_version", { path: route });
-    //         console.log("Resultado del backend:", result); 
-
-    //         const expansion = result.expansion;
-
-    //         const newVersion = {
-    //           name: versionName,
-    //           path: route,
-    //           version: expansion,
-    //         };
-      
-    //         console.log("Versión final a guardar:", newVersion);
-      
-    //         try {
-    //             await invoke("save_version_to_file", { version: newVersion });
-    //             console.log("Versión guardada en JSON.");
-    //           } catch (error) {
-    //             console.error("Error al guardar versión:", error);
-    //           }
-
-      
-    //         setVersionName("");
-    //         setRoute("");
-    //         setIsEditing(false);
-    //         setEditingIndex(null);
-    //         toggleModal();
-    //       } catch (error) {
-    //         console.error("Error al obtener la versión:", error);
-    //       }
-
-    //       invoke("get_all_versions")
-    //       .then((loadedVersions) => {
-    //           const versionsWithImages = loadedVersions.map((v) => ({
-    //               ...v,
-    //               image: getImageForVersion(v.version),
-    //           }));
-    //           setCustomVersions(versionsWithImages);
-    //       })
-    //       .catch((error) => {
-    //           console.error("Error al cargar versiones:", error);
-    //       });
-    //     }
-    //   };
-
-
-
-    // LA PARTE DE ELIMINA FUNCIONA BIEN
-//     const handleSubmit = async (e) => {
-//   e.preventDefault();
-
-//   if (versionName.trim() !== "" && route.trim() !== "") {
-//     try {
-//       // OBTENER EXPANSIÓN DESDE EL BACKEND
-//       const result = await invoke("get_version", { path: route });
-//       console.log("Resultado del backend:", result); 
-
-//       const expansion = result.expansion;
-
-//       const newVersion = {
-//         name: versionName,
-//         path: route,
-//         version: expansion,
-//       };
-
-//       console.log("Versión final a guardar:", newVersion);
-
-//       if (isEditing && selectedVersion) {
-//         // ESTÁS EDITANDO UNA VERSIÓN EXISTENTE
-//         try {
-//           await invoke("update_version", {
-//             oldName: selectedVersion.name,  // nombre original antes de editar
-//             newVersion: newVersion,         // nueva versión a guardar
-//           });
-//           console.log("Versión actualizada correctamente.");
-//         } catch (error) {
-//           console.error("Error al actualizar versión:", error);
-//         }
-//       } else {
-//         // ESTÁS AÑADIENDO UNA NUEVA VERSIÓN
-//         try {
-//           await invoke("save_version_to_file", { version: newVersion });
-//           console.log("Versión guardada en JSON.");
-//         } catch (error) {
-//           console.error("Error al guardar versión:", error);
-//         }
-//       }
-
-//       // LIMPIAR Y CERRAR MODAL
-//       setVersionName("");
-//       setRoute("");
-//       setIsEditing(false);
-//       setEditingIndex(null);
-//       setSelectedVersion(null);
-//       toggleModal();
-
-//       // RECARGAR VERSIONES
-//       invoke("get_all_versions")
-//         .then((loadedVersions) => {
-//           const versionsWithImages = loadedVersions.map((v) => ({
-//             ...v,
-//             image: getImageForVersion(v.version),
-//           }));
-//           setCustomVersions(versionsWithImages);
-//         })
-//         .catch((error) => {
-//           console.error("Error al cargar versiones:", error);
-//         });
-
-//     } catch (error) {
-//       console.error("Error al obtener la versión:", error);
-//     }
-//   }
-// };
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -325,11 +169,6 @@ const handleSubmit = async (e) => {
 };
 
 
-
-      
-
-    // QUIII
-      
     
       const handleFileSelect = async () => {
         const filePath = await open({
@@ -341,35 +180,9 @@ const handleSubmit = async (e) => {
           setRoute(filePath);
         }
       };
-    
-
-
-
-
-
-
-
-
-
-
-
-    
-    
 
     const [changelog, setChangelog] = useState(null);
     const [loading, setLoading] = useState(true);
-
-    // useEffect(() => {
-    //     invoke("fetch_changelog")
-    //         .then((data) => {
-    //             setChangelog(data);
-    //             setLoading(false);
-    //         })
-    //         .catch((error) => {
-    //             console.error("Error invoking fetch_changelog:", error);
-    //             setLoading(false);
-    //         });
-    // }, []);
 
     useEffect(() => {
       readNews()
@@ -509,79 +322,6 @@ const handleSubmit = async (e) => {
         return <p>No realms data available.</p>;
     }
 
-  // Función para llamar a la función fetch_coins de Tauri
-//   async function obtenerMonedas(token) {
-//     try {
-//         // Llamar al comando Tauri fetch_coins
-//         const response = await invoke('fetch_coins', { token });
-
-//         // Mostrar las monedas y los puntos
-//         console.log(`Monedas: ${response.coins}`);
-//         console.log(`Puntos: ${response.points}`);
-
-//         // Mostrar las monedas en la UI
-//         const coinsElement = document.getElementById('coins-display');
-//         coinsElement.innerHTML = `Monedas: ${response.coins}, Puntos: ${response.points}`;
-
-//     } catch (error) {
-//         console.error("Error al obtener las monedas:", error);
-//     }
-// }
-
-// const [coins, setCoins] = useState(0);
-// const [points, setPoints] = useState(0);
-
-// useEffect(() => {
-//   const token = localStorage.getItem("token");
-//   if (token && token.trim() !== "") {
-//     obtenerMonedas(token);
-// }
-
-// }, []);
-
-// async function obtenerMonedas(token) {
-//   try {
-//       const response = await invoke('fetch_coins', { token });
-//       setCoins(response.coins);
-//       setPoints(response.points);
-//   } catch (error) {
-//       console.error("Error al obtener las monedas:", error);
-//   }
-// }
-
-
-
-// BUENA AQUI FUNCIONA!!!!
-// async function obtenerMonedas(token) {
-//   try {
-//       // Llamar al comando Tauri fetch_coins
-//       const response = await invoke('fetch_coins', { token });
-
-//       // Mostrar las monedas y los puntos
-//       console.log(`Monedas: ${response.coins}`);
-//       console.log(`Puntos: ${response.points}`);
-
-//       // Mostrar las monedas en la UI
-//       const coinsElement = document.getElementById('coins-display');
-//       coinsElement.innerHTML = `Monedas: ${response.coins}, Puntos: ${response.points}`;
-
-//   } catch (error) {
-//       console.error("Error al obtener las monedas:", error);
-//   }
-// }
-
-// Ejemplo de uso
-//const token = "your_token_here";  // Sustituir con el token real
-//obtenerMonedas(token);
-
-
-
-
-// Ejemplo de uso
-// const token = "your_token_here";  // Sustituir con el token real
-//  const token = localStorage.getItem("token");
-//  obtenerMonedas(token);
-
 
 async function obtenerMonedas(token) {
   try {
@@ -656,16 +396,6 @@ const handleVersionSelect = (version) => {
   setBackgroundImage(bg);
 };
 
-
-
-
-
-
-
-
-
-
-
     //PARTE GUARDAR DATOS EN EL JS
     // Función para crear el archivo JSON vacío si no existe
 const crearJsonVacio = async () => {
@@ -719,85 +449,27 @@ const crearJsonVacio = async () => {
                     <aside className='sidebar'>
                         <h3 id="tituloVersiones">{t("versions")}</h3>
                         <div className='versions'>
-                            {/*<button className='versionButton'>
-                                <img className='versionLogo' src="icons/classic.webp" alt="Classic logo" />Classic
-                            </button>
-                             <button className='versionButton'>
-                                <img className='versionLogo' src="tbc.png" alt="TBC logo" />TBC
-                            </button>
+                        {customVersions.map((version, index) => (
+                          <div
+                            key={index}
+                            className={`versionContainer ${selectedVersion === version.name ? 'selected' : ''}`}
+                            onClick={() => handleVersionSelect(version)}
+                          >
                             <button className='versionButton'>
-                                <img className='versionLogo' src="wotlk.png" alt="WotLK logo" />WotLK
-                                <button className="editButton" onClick={() => openEditModal(0)}>E</button>
-                            </button> */}
-
-                            {/* Para añadir nuevas versiones */}
-                            {/* {customVersions.map((version, index) => (
-                                <div key={index} className='versionContainer'>
-                                    <button className='versionButton'>
-                                        <img className='versionLogo' src={version.image} alt="Custom logo" />
-                                        {version.name}
-                                      
-                                        <button className="editButton" onClick={() => openEditModal(index)}><i className="fa-solid fa-screwdriver-wrench"></i></button>
-                                    </button>
-                                </div>
-                            ))} */}
-
-{/* {customVersions.map((version, index) => (
-  <div
-    key={index}
-    className={`versionContainer ${selectedVersion === version.name ? 'selected' : ''}`}
-    onClick={() => setSelectedVersion(version.name)}
-  >
-    <button className='versionButton'>
-      <img className='versionLogo' src={version.image} alt={`${version.name} logo`} />
-      {version.name}
-      <button
-        className="editButton"
-        onClick={(e) => {
-          e.stopPropagation(); // evita que se seleccione cuando editas
-          openEditModal(index);
-        }}
-      >
-        <i className="fa-solid fa-screwdriver-wrench"></i>
-      </button>
-    </button>
-  </div>
-))} */}
-
-{customVersions.map((version, index) => (
-  <div
-    key={index}
-    className={`versionContainer ${selectedVersion === version.name ? 'selected' : ''}`}
-    onClick={() => handleVersionSelect(version)}
-  >
-    <button className='versionButton'>
-      <img className='versionLogo' src={version.image} alt={`${version.name} logo`} />
-      {version.name}
-      <button
-        className="editButton"
-        onClick={(e) => {
-          e.stopPropagation(); // evita que se seleccione cuando editas
-          openEditModal(index);
-        }}
-      >
-        <i className="fa-solid fa-screwdriver-wrench"></i>
-      </button>
-    </button>
-  </div>
-))}
-
-
-
-                        {/* {customVersions.map((version, index) => (
-                                  <div key={index} className='versionContainer'>
-                                    <button className='versionButton'>
-                                      <img className='versionLogo' src={version.image} alt={`${version.name} logo`} />
-                                      {version.name}
-                                      <button className="editButton" onClick={() => openEditModal(index)}><i className="fa-solid fa-screwdriver-wrench"></i></button>
-                                    </button>
-                                  </div>
-                                ))} */}
-
+                              <img className='versionLogo' src={version.image} alt={`${version.name} logo`} />
+                              {version.name}
+                              <button
+                                className="editButton"
+                                onClick={(e) => {
+                                  e.stopPropagation(); // evita que se seleccione cuando editas
+                                  openEditModal(index);
+                                }}
+                              >
+                                <i className="fa-solid fa-screwdriver-wrench"></i>
+                              </button>
+                            </button>
+                          </div>
+                        ))}
                             {/* Botón para abrir el modal */}
                             <div className='addVersion'>
                                 <button id="nuevaEntrada" onClick={toggleModal}>{"+"}</button>
@@ -821,118 +493,53 @@ const crearJsonVacio = async () => {
                     </aside>
 
                     <div id='mainContent'>
-                            {/* AQUI SE GUARDA ¡¡BIEN!! RUTA */}
-                            {/* {isModalVisible && (
-        <div id="modal">
-          <div id="modalContent">
-            <h3>Ruta de la versión</h3>
-            <form onSubmit={handleSubmit}>
-              <label>
-                <p>Nombre</p>
-                <input
-                  type="text"
-                  value={versionName}
-                  onChange={(e) => setVersionName(e.target.value)}
-                  required
-                />
-              </label>
-
-              <label className="inputGroup">
-                <p>Ruta</p>
-                <button
-                  id="seleccionarExe"
-                  type="button"
-                  onClick={handleFileSelect}
-                >
-                  Pulsa para seleccionar el ejecutable
-                </button>
-                <p id="exeSeleccionado">
-                  {route && `Seleccionado: ${route.split("\\").pop()}`}
-                </p>
-              </label>
-
-              <button className="modelButtonA" type="button" onClick={toggleModal}>
-                Cancelar
-              </button>
-              <button className="modelButton" type="submit">
-                Añadir
-              </button>
-              <button
-                className="modelButtonDelete"
-                type="button"
-                onClick={handleDeleteVersion}
-              >
-                Eliminar
-              </button>
-            </form>
-          </div>
-        </div>
-      )} */}
-                            
-
                             {isModalVisible && (
-        <div id="modal">
-          <div id="modalContent">
-            <h3>Ruta de la versión</h3>
-            <form onSubmit={handleSubmit}>
-              <label>
-                <p>Nombre</p>
-                <input
-                  type="text"
-                  value={versionName}
-                  onChange={(e) => setVersionName(e.target.value)}
-                  required
-                />
-              </label>
+                              <div id="modal">
+                                <div id="modalContent">
+                                  <h3>Ruta de la versión</h3>
+                                  <form onSubmit={handleSubmit}>
+                                    <label>
+                                      <p>Nombre</p>
+                                      <input
+                                        type="text"
+                                        value={versionName}
+                                        onChange={(e) => setVersionName(e.target.value)}
+                                        required
+                                      />
+                                    </label>
 
-              <label className="inputGroup">
-                <p>Ruta</p>
-                <button
-                  id="seleccionarExe"
-                  type="button"
-                  onClick={handleFileSelect}
-                >
-                  Pulsa para seleccionar el ejecutable
-                </button>
-                <p id="exeSeleccionado">
-                  {route && `Seleccionado: ${route.split("\\").pop()}`}
-                </p>
-              </label>
+                                    <label className="inputGroup">
+                                      <p>Ruta</p>
+                                      <button
+                                        id="seleccionarExe"
+                                        type="button"
+                                        onClick={handleFileSelect}
+                                      >
+                                        Pulsa para seleccionar el ejecutable
+                                      </button>
+                                      <p id="exeSeleccionado">
+                                        {route && `Seleccionado: ${route.split("\\").pop()}`}
+                                      </p>
+                                    </label>
 
-              <button className="modelButtonA" type="button" onClick={toggleModal}>
-                Cancelar
-              </button>
-              <button className="modelButton" type="submit">
-                Añadir
-              </button>
-              <button
-                className="modelButtonDelete"
-                type="button"
-                onClick={handleDeleteVersion}
-              >
-                Eliminar
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+                                    <button className="modelButtonA" type="button" onClick={toggleModal}>
+                                      Cancelar
+                                    </button>
+                                    <button className="modelButton" type="submit">
+                                      Añadir
+                                    </button>
+                                    <button
+                                      className="modelButtonDelete"
+                                      type="button"
+                                      onClick={handleDeleteVersion}
+                                    >
+                                      Eliminar
+                                    </button>
+                                  </form>
+                                </div>
+                              </div>
+                            )}
                 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         {/* Modal de configuración */}
                         {isSettingsModalVisible && (
                             <div id="modal">
