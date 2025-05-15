@@ -13,6 +13,8 @@ use api::json::get_all_versions;
 use api::account_points::fetch_coins;
 use api::json::launch_version;
 use api::send_password_reset::send_password_email;
+use api::json::update_version;
+use api::json::delete_version;
 
 use api::reset_password::reset_password;
 
@@ -51,7 +53,9 @@ pub fn run() {
             fetch_coins,
             launch_version,
             send_password_email,
-            reset_password
+            reset_password,
+            update_version,
+            delete_version
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
