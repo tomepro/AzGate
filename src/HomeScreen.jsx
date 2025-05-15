@@ -28,6 +28,8 @@ function HomeScreen() {
     const [route, setRoute] = useState('');
     const [isEditing, setIsEditing] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
+    const [originalName, setOriginalName] = useState(null);
+
 
     // Estados para la configuración
     const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
@@ -47,14 +49,38 @@ function HomeScreen() {
         weatherDensity: "3",
     });
 
-    const openEditModal = (index) => {
-        const versionToEdit = customVersions[index];
-        setVersionName(versionToEdit.name);
-        setRoute(versionToEdit.route);
-        setEditingIndex(index);
-        setIsEditing(true);
-        toggleModal();
-    };
+    // OPEN EDIT MODAL 
+    // const openEditModal = (index) => {
+    //     const versionToEdit = customVersions[index];
+    //     setVersionName(versionToEdit.name);
+    //     setRoute(versionToEdit.route);
+    //     setEditingIndex(index);
+    //     setIsEditing(true);
+    //     toggleModal();
+    // };
+
+    // LA PARTE DE ELIMINAR FUNCIONA BIEN
+
+  // const openEditModal = (index) => {
+  // const version = customVersions[index];
+  // setSelectedVersion(version);
+  // setVersionName(version.name);
+  // setRoute(version.path); // ← asegúrate que cada versión tiene "path"
+  // setIsModalVisible(true);
+
+  const openEditModal = (index) => {
+  const version = customVersions[index];
+  setVersionName(version.name);
+  setRoute(version.path);
+  setIsEditing(true);
+  setEditingIndex(index);
+  setSelectedVersion(version);
+  setOriginalName(version.name); // aquí está el truco
+  toggleModal();
+// };
+
+};
+
 
     const handlePlay = () => {
       if (selectedVersion) {
@@ -68,69 +94,235 @@ function HomeScreen() {
         setIsModalVisible(!isModalVisible);
     };
 
-    const handleDeleteVersion = () => {
-        if (editingIndex !== null) {
-            const updatedVersions = customVersions.filter((_, index) => index !== editingIndex);
-            setCustomVersions(updatedVersions);
-        }
+    // PARTE DE ELIMINAR, NO SE ELIMINAN DEL JS
+    // const handleDeleteVersion = () => {
+    //     if (editingIndex !== null) {
+    //         const updatedVersions = customVersions.filter((_, index) => index !== editingIndex);
+    //         setCustomVersions(updatedVersions);
+    //     }
 
-        setVersionName("");
-        setRoute("");
-        setIsEditing(false);
-        setEditingIndex(null);
-        toggleModal();
-    };
+    //     setVersionName("");
+    //     setRoute("");
+    //     setIsEditing(false);
+    //     setEditingIndex(null);
+    //     toggleModal();
+    // };
+
+    const handleDeleteVersion = async () => {
+  try {
+    await invoke('delete_version', { name: selectedVersion.name });
+
+    toggleModal();
+    // refreshVersions();
+    invoke("get_all_versions")
+        .then((loadedVersions) => {
+          const versionsWithImages = loadedVersions.map((v) => ({
+            ...v,
+            image: getImageForVersion(v.version),
+          }));
+          setCustomVersions(versionsWithImages);
+        })
+        .catch((error) => {
+          console.error("Error al cargar versiones:", error);
+        });
+  } catch (error) {
+    console.error("Error al eliminar la versión:", error);
+  }
+};
+
 //AQUIIIII parte mortal!!
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
       
-        if (versionName.trim() !== "" && route.trim() !== "") {
-          try {
-            //AQUI SE OBTIENE LA EXPANSION
-            const result = await invoke("get_version", { path: route });
-            console.log("Resultado del backend:", result); 
+    //     if (versionName.trim() !== "" && route.trim() !== "") {
+    //       try {
+    //         //AQUI SE OBTIENE LA EXPANSION
+    //         const result = await invoke("get_version", { path: route });
+    //         console.log("Resultado del backend:", result); 
 
-            const expansion = result.expansion;
+    //         const expansion = result.expansion;
 
-            const newVersion = {
-              name: versionName,
-              path: route,
-              version: expansion,
-            };
+    //         const newVersion = {
+    //           name: versionName,
+    //           path: route,
+    //           version: expansion,
+    //         };
       
-            console.log("Versión final a guardar:", newVersion);
+    //         console.log("Versión final a guardar:", newVersion);
       
-            try {
-                await invoke("save_version_to_file", { version: newVersion });
-                console.log("Versión guardada en JSON.");
-              } catch (error) {
-                console.error("Error al guardar versión:", error);
-              }
+    //         try {
+    //             await invoke("save_version_to_file", { version: newVersion });
+    //             console.log("Versión guardada en JSON.");
+    //           } catch (error) {
+    //             console.error("Error al guardar versión:", error);
+    //           }
 
       
-            setVersionName("");
-            setRoute("");
-            setIsEditing(false);
-            setEditingIndex(null);
-            toggleModal();
-          } catch (error) {
-            console.error("Error al obtener la versión:", error);
-          }
+    //         setVersionName("");
+    //         setRoute("");
+    //         setIsEditing(false);
+    //         setEditingIndex(null);
+    //         toggleModal();
+    //       } catch (error) {
+    //         console.error("Error al obtener la versión:", error);
+    //       }
 
-          invoke("get_all_versions")
-          .then((loadedVersions) => {
-              const versionsWithImages = loadedVersions.map((v) => ({
-                  ...v,
-                  image: getImageForVersion(v.version),
-              }));
-              setCustomVersions(versionsWithImages);
-          })
-          .catch((error) => {
-              console.error("Error al cargar versiones:", error);
-          });
-        }
+    //       invoke("get_all_versions")
+    //       .then((loadedVersions) => {
+    //           const versionsWithImages = loadedVersions.map((v) => ({
+    //               ...v,
+    //               image: getImageForVersion(v.version),
+    //           }));
+    //           setCustomVersions(versionsWithImages);
+    //       })
+    //       .catch((error) => {
+    //           console.error("Error al cargar versiones:", error);
+    //       });
+    //     }
+    //   };
+
+
+
+    // LA PARTE DE ELIMINA FUNCIONA BIEN
+//     const handleSubmit = async (e) => {
+//   e.preventDefault();
+
+//   if (versionName.trim() !== "" && route.trim() !== "") {
+//     try {
+//       // OBTENER EXPANSIÓN DESDE EL BACKEND
+//       const result = await invoke("get_version", { path: route });
+//       console.log("Resultado del backend:", result); 
+
+//       const expansion = result.expansion;
+
+//       const newVersion = {
+//         name: versionName,
+//         path: route,
+//         version: expansion,
+//       };
+
+//       console.log("Versión final a guardar:", newVersion);
+
+//       if (isEditing && selectedVersion) {
+//         // ESTÁS EDITANDO UNA VERSIÓN EXISTENTE
+//         try {
+//           await invoke("update_version", {
+//             oldName: selectedVersion.name,  // nombre original antes de editar
+//             newVersion: newVersion,         // nueva versión a guardar
+//           });
+//           console.log("Versión actualizada correctamente.");
+//         } catch (error) {
+//           console.error("Error al actualizar versión:", error);
+//         }
+//       } else {
+//         // ESTÁS AÑADIENDO UNA NUEVA VERSIÓN
+//         try {
+//           await invoke("save_version_to_file", { version: newVersion });
+//           console.log("Versión guardada en JSON.");
+//         } catch (error) {
+//           console.error("Error al guardar versión:", error);
+//         }
+//       }
+
+//       // LIMPIAR Y CERRAR MODAL
+//       setVersionName("");
+//       setRoute("");
+//       setIsEditing(false);
+//       setEditingIndex(null);
+//       setSelectedVersion(null);
+//       toggleModal();
+
+//       // RECARGAR VERSIONES
+//       invoke("get_all_versions")
+//         .then((loadedVersions) => {
+//           const versionsWithImages = loadedVersions.map((v) => ({
+//             ...v,
+//             image: getImageForVersion(v.version),
+//           }));
+//           setCustomVersions(versionsWithImages);
+//         })
+//         .catch((error) => {
+//           console.error("Error al cargar versiones:", error);
+//         });
+
+//     } catch (error) {
+//       console.error("Error al obtener la versión:", error);
+//     }
+//   }
+// };
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (versionName.trim() !== "" && route.trim() !== "") {
+    try {
+      // OBTENER EXPANSIÓN DESDE EL BACKEND
+      const result = await invoke("get_version", { path: route });
+      console.log("Resultado del backend:", result); 
+
+      const expansion = result.expansion;
+
+      const newVersion = {
+        name: versionName,
+        path: route,
+        version: expansion,
       };
+
+      console.log("Versión final a guardar:", newVersion);
+
+      if (isEditing && originalName) {
+        // ESTÁS EDITANDO UNA VERSIÓN EXISTENTE
+        try {
+          await invoke("update_version", {
+            oldName: originalName,  // nombre original antes de editar
+            newVersion: newVersion, // nueva versión a guardar
+          });
+          console.log("Versión actualizada correctamente.");
+        } catch (error) {
+          console.error("Error al actualizar versión:", error);
+        }
+      } else {
+        // ESTÁS AÑADIENDO UNA NUEVA VERSIÓN
+        try {
+          await invoke("save_version_to_file", { version: newVersion });
+          console.log("Versión guardada en JSON.");
+        } catch (error) {
+          console.error("Error al guardar versión:", error);
+        }
+      }
+
+      // LIMPIAR Y CERRAR MODAL
+      setVersionName("");
+      setRoute("");
+      setIsEditing(false);
+      setEditingIndex(null);
+      setSelectedVersion(null);
+      setOriginalName(null); // Limpiamos el originalName también
+      toggleModal();
+
+      // RECARGAR VERSIONES
+      invoke("get_all_versions")
+        .then((loadedVersions) => {
+          const versionsWithImages = loadedVersions.map((v) => ({
+            ...v,
+            image: getImageForVersion(v.version),
+          }));
+          setCustomVersions(versionsWithImages);
+        })
+        .catch((error) => {
+          console.error("Error al cargar versiones:", error);
+        });
+
+    } catch (error) {
+      console.error("Error al obtener la versión:", error);
+    }
+  }
+};
+
+
+
+      
 
     // QUIII
       

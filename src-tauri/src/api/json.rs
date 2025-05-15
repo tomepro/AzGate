@@ -103,3 +103,61 @@ pub async fn launch_version(app_handle: AppHandle, name: String) -> Result<(), S
         Err(format!("No se encontró la versión con nombre '{}'", name))
     }
 }
+
+#[tauri::command]
+pub async fn update_version(
+    app_handle: AppHandle,
+    old_name: String,          // nombre antes de editar
+    new_version: Version,      // versión con los campos modificados
+) -> Result<(), String> {
+    let config_dir = app_handle
+        .path()
+        .app_config_dir()
+        .map_err(|e| format!("Error al obtener config_dir: {}", e))?;
+    let json_path = config_dir.join("versiones_wow.json");
+
+    // Leer el archivo (o vector vacío si no existe)
+    let mut versions: Vec<Version> = if json_path.exists() {
+        let data = fs::read_to_string(&json_path).await.map_err(|e| e.to_string())?;
+        serde_json::from_str(&data).unwrap_or_default()
+    } else {
+        Vec::new()
+    };
+
+    // Buscar el elemento a actualizar
+    if let Some(pos) = versions.iter().position(|v| v.name == old_name) {
+        versions[pos] = new_version;
+    } else {
+        return Err(format!("No se encontró la versión '{}'", old_name));
+    }
+
+    // Guardar el vector actualizado
+    let data = serde_json::to_string_pretty(&versions).map_err(|e| e.to_string())?;
+    fs::write(&json_path, data).await.map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub async fn delete_version(app_handle: AppHandle, name: String) -> Result<(), String> {
+    let config_dir = app_handle
+        .path()
+        .app_config_dir()
+        .map_err(|e| format!("Error al obtener config_dir: {}", e))?;
+    let json_path = config_dir.join("versiones_wow.json");
+
+    let mut versions: Vec<Version> = if json_path.exists() {
+        let data = fs::read_to_string(&json_path).await.map_err(|e| e.to_string())?;
+        serde_json::from_str(&data).unwrap_or_default()
+    } else {
+        return Ok(()); // nada que borrar
+    };
+
+    let before_len = versions.len();
+    versions.retain(|v| v.name != name);
+
+    if versions.len() == before_len {
+        return Err(format!("No se encontró la versión '{}'", name));
+    }
+
+    let data = serde_json::to_string_pretty(&versions).map_err(|e| e.to_string())?;
+    fs::write(&json_path, data).await.map_err(|e| e.to_string())
+}
