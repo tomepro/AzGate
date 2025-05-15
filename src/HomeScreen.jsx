@@ -21,6 +21,10 @@ function HomeScreen() {
     const [selectedVersion, setSelectedVersion] = useState(null);
     const [backgroundImage, setBackgroundImage] = useState('');
 
+    const [mainNew, setMainNew] = useState('Last News');
+    const [firstNew, setFirstNew] = useState('Last News');
+    const [secondNew, setSecondNew] = useState('Last News');
+    const [thirdNew, setThirdNew] = useState('Last News');
 
 
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -176,6 +180,7 @@ function HomeScreen() {
     // }, []);
 
     useEffect(() => {
+      readNews()
       // Cargar el changelog
       invoke("fetch_changelog")
           .then((data) => {
@@ -412,30 +417,43 @@ const launchVersion = async (name) => {
 };
 
 const getBackgroundByVersion = (versionCode) => {
+  const img = new Image();
   switch (versionCode) {
     case 'VA':
+      img.src = 'classic.webp';
       return 'classic.webp';
     case 'TBC':
+      img.src = 'tbc.webp';
       return 'tbc.webp';
     case 'LK':
+      img.src = 'wotlk_wallpaper.webp';
       return 'wotlk_wallpaper.webp';
     case 'CATA':
+      img.src = 'cata.webp';
       return 'cata.webp';
     case 'MOP':
+      img.src = 'mop.webp';
       return 'mop.webp';
     case 'WOD':
+      img.src = 'wod.webp';
       return 'wod.webp';
     case 'LG':
+      img.src = 'legion.webp';
       return 'legion.webp';
     case 'BFA':
+      img.src = 'bfa.webp';
       return 'bfa.webp';
     case 'SL':
+      img.src = 'shadowlands.webp';
       return 'shadowlands.webp';
     case 'DF':
+      img.src = 'df.webp';
       return 'df.webp';
     case 'TWW':
+      img.src = 'tww.webp';
       return 'tww.webp';
     default:
+      img.src = 'classic.webp';
       return 'classic.webp'; // fondo por defecto
   }
 };
@@ -480,7 +498,22 @@ const crearJsonVacio = async () => {
   };
 
   
-  
+  async function readNews() {
+    try {
+      const response = await invoke('fetch_news');
+      const mainNew = response.find(item => item.type === 1)
+      if (mainNew) {
+        setMainNew(mainNew)
+      }
+      const firstThreeTypeZero = response.filter(item => item.type === 2).slice(0, 3);
+      setFirstNew(firstThreeTypeZero[0])
+      setSecondNew(firstThreeTypeZero[1])
+      setThirdNew(firstThreeTypeZero[2])
+      console.log("MAIN NEW:" + mainNew.title)
+    } catch (error) {
+      console.error("Error fetching news")
+    }
+  }
 
     return (
         <main className='containerHomeScreen'>
@@ -737,22 +770,22 @@ const crearJsonVacio = async () => {
                         )}
 
                         <div className='newsArea'>
-                            <div className='mainNewsArea'>
-                                <img className='mainNew' src='patch_image.jpg' alt="Patch" />
-                                <button className='mainNewText'><h2>{t("last_news")}</h2></button>
+                            <div className='mainNewsArea' onClick={() => { window.location.href = '/newsScreen'; }}>
+                                <img className='mainNew' src={mainNew.image} alt="Patch" />
+                                <button className='mainNewText'><h2>{mainNew.title}</h2></button>
                             </div>
                             <div className='microNewArea'>
-                                <div className='new1'>
-                                    <img className='microNew' src='music_image.jpg' alt="Music" />
-                                    <button className='microNewText'><p>La blizzcon vuelve con mucho más</p></button>
+                                <div className='new1' onClick={() => { window.location.href = '/newsScreen'; }}>
+                                    <img className='microNew' src={firstNew.image} alt="Music" />
+                                    <button className='microNewText'><p>{firstNew.title}</p></button>
                                 </div>
-                                <div className='new2'>
-                                    <img className='microNew' src='news_image.jpg' alt="News" />
-                                    <button className='microNewText'><p>Correcciones en vivo del 12 de Marzo 2025</p></button>
+                                <div className='new2' onClick={() => { window.location.href = '/newsScreen'; }}>
+                                    <img className='microNew' src={secondNew.image} alt="News" />
+                                    <button className='microNewText'><p>{secondNew.title}</p></button>
                                 </div>
-                                <div className='new3'>
-                                    <img className='microNew' src='blizzcon_image.jpg' alt="Blizzcon" />
-                                    <button className='microNewText'><p>Llega la banda sonora de Minahonda</p></button>
+                                <div className='new3' onClick={() => { window.location.href = '/newsScreen'; }}>
+                                    <img className='microNew' src={thirdNew.image} alt="Blizzcon" />
+                                    <button className='microNewText'><p>{thirdNew.title}</p></button>
                                 </div>
                             </div>
                         </div>

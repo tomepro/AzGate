@@ -411,6 +411,7 @@ body {
     margin-top: 5px;
     width: 154px;
     height: 139px;
+    object-fit: cover;
 }
 
 .microNewText{
