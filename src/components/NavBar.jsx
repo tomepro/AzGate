@@ -135,7 +135,7 @@ const NavBar = () => {
       <button>{t("shop")}</button>
       <button><Link className={styles.navButton} to="/rankingScreen">{t("ranking")}</Link></button>
       <button><Link className={styles.navButton} to="/armoryScreen">{t("armory")}</Link></button>
-      <button>{t("addons")}</button>
+      <button><Link className={styles.navButton} to="/addonsScreen">{t("addons")}</Link></button>
       <button><Link className={styles.navButton} to="/changelogScreen">{t("changelog")}</Link></button>
       <button><Link className={styles.macrosButton} to="/macrosScreen">{t("Macros")}</Link></button>
     </div>
