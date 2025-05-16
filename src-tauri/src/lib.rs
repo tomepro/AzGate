@@ -12,8 +12,9 @@ use api::register::register_user;
 use api::json::get_all_versions;
 use api::account_points::fetch_coins;
 use api::json::launch_version;
-
+use api::shop::fetch_shop_items;
 use api::login::jwt_login;
+use api::buy::buy_shop_item;
 use game::version::get_version;
 use std::path::Path;
 use tauri_plugin_fs::init;
@@ -46,7 +47,9 @@ pub fn run() {
             save_version_to_file,
             get_all_versions,
             fetch_coins,
-            launch_version
+            launch_version,
+            fetch_shop_items,
+            buy_shop_item,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

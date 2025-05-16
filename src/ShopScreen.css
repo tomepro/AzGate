@@ -1,0 +1,138 @@
+/* General Layout and Background */
+.containerHomeScreen {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.launcherBackground {
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Shop Component Styles */
+#shop-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.item-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.item-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+}
+
+.item-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.item-price {
+    font-size: 1.1em;
+    margin-bottom: 0;
+    align-items: center; /* Centrar verticalmente precio e imagen */
+    display: flex; /* Añadido para alinear precio e imagen */
+}
+
+.vote-item-price {
+    font-size: 1.1em;
+    color: #828282;
+    margin-bottom: 0;
+    display: flex; /* Añadido para alinear precio e imagen */
+    align-items: center; /* Centrar verticalmente precio e imagen */
+}
+
+.donation-item-price {
+    font-size: 1.1em;
+    color: #ffd900;
+    margin-bottom: 0;
+    display: flex; /* Añadido para alinear precio e imagen */
+    align-items: center; /* Centrar verticalmente precio e imagen */
+}
+
+.no-items {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.1em;
+    color: #555;
+}
+
+/* Badge Styles */
+.vote-badge,
+.donation-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    border-radius: 12px;
+    color: white;
+    font-size: 0.8em;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.vote-badge {
+    background-color: #4CAF50;
+}
+
+.donation-badge {
+    background-color: #007bff;
+}
+
+/* Loading and Error states */
+.loading {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.error {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2em;
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+/* moneda y puntos */
+.monedaDonador,
+.monedaVotador {
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+}
+

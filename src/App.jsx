@@ -9,6 +9,8 @@ import RankingScreen from "./RankingScreen";
 import MacrosScreen from "./MacrosScreen";
 import ChangelogScreen from "./ChangelogScreen";
 import NewsScreen from "./NewsScreen";
+import ShopScreen from "./ShopScreen";
+import ShoppingCartScreen from "./ShoppingCartScreen";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         <Route path="/macrosScreen" element={<MacrosScreen />} />
         <Route path="/changelogScreen" element={<ChangelogScreen />} />
         <Route path="/newsScreen" element={<NewsScreen />} />
+        <Route path="/shopScreen" element={<ShopScreen />} />
+        <Route path="/shoppingCartScreen" element={<ShoppingCartScreen />} />
       </Routes>
     </Router>
   );

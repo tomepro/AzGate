@@ -7,7 +7,6 @@ html{
 }
 
 .launcherBackground {
-    background-image: url('/public/cata.webp');
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
