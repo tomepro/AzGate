@@ -1,0 +1,118 @@
+/* ShoppingCartScreen.css */
+.containerHomeScreen {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.launcherBackground {
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.shopping-cart-item {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    margin: 20px auto;
+    overflow-y: auto; /* Añadido para que el contenido dentro sea scrollable si es necesario */
+    max-height: 80vh; /* O ajusta la altura máxima según tu preferencia */
+}
+
+.shopping-cart-item .item-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.shopping-cart-item .item-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    overflow-wrap: break-word; /* Permite que el texto largo se rompa en varias líneas */
+}
+
+/* Estilos para el contenedor del precio y la imagen */
+.price-container {
+    display: flex; /* Alinea el precio y la imagen en la misma línea */
+    align-items: center; /* Centra verticalmente el precio y la imagen */
+    justify-content: center; /* Centra horizontalmente el precio y la imagen */
+    margin-bottom: 10px; /* Añade un poco de espacio debajo del precio/imagen */
+}
+
+.shopping-cart-item .item-price {
+    font-size: 1.3em; /* Ajusta el tamaño del precio si es necesario */
+    margin-right: 5px; /* Añade un margen de 5px a la derecha del precio */
+    margin-bottom: 0; /* Elimina el margen inferior que podría tener por defecto */
+}
+
+.shopping-cart-item .monedaDonador,
+.shopping-cart-item .monedaVotador {
+    width: 20px; /* Ajusta el tamaño de la imagen si es necesario */
+    height: 20px;
+    margin-left: 5px; /* Añade un margen de 5px a la izquierda de la imagen */
+}
+
+.shopping-cart-item .character-selection {
+    margin-bottom: 20px;
+}
+
+.shopping-cart-item label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.shopping-cart-item select {
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+
+.payButton{
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+.payButton:hover {
+    background-color: #0056b3;
+}
+
+.backButton{
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+.backButton:hover {
+    background-color: #5a6268;
+}
+
+.character-selector{
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+}

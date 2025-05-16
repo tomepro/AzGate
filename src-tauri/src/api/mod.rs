@@ -8,4 +8,5 @@ pub mod realms;
 pub mod register;
 pub mod account_points;
 pub mod send_password_reset;
-pub mod reset_password;
+pub mod reset_password;pub mod shop;
+pub mod buy;
