@@ -15,6 +15,9 @@ use api::json::launch_version;
 use api::send_password_reset::send_password_email;
 use api::json::update_version;
 use api::json::delete_version;
+use api::list_addons::list_addons;
+use api::list_addons::open_folder;
+use api::list_addons::unzip_and_move;
 
 use api::reset_password::reset_password;
 
@@ -55,7 +58,10 @@ pub fn run() {
             send_password_email,
             reset_password,
             update_version,
-            delete_version
+            delete_version,
+            list_addons,
+            open_folder,
+            unzip_and_move
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

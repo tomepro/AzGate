@@ -18,6 +18,8 @@ function HomeScreen() {
     const [coins, setCoins] = useState(0);
     const [points, setPoints] = useState(0);
 
+    const [addonsPath, setAddonsPath] = useState("");
+
     const [selectedVersion, setSelectedVersion] = useState(null);
     const [backgroundImage, setBackgroundImage] = useState('');
 
@@ -100,6 +102,16 @@ function HomeScreen() {
   }
 };
 
+const handleAddonSelect = async () => {
+  const selected = await open({
+    directory: true,
+    multiple: false,
+  });
+  if (selected) {
+    setAddonsPath(selected);
+  }
+};
+
 const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -115,6 +127,7 @@ const handleSubmit = async (e) => {
         name: versionName,
         path: route,
         version: expansion,
+        addons_path: addonsPath,
       };
 
       console.log("Versión final a guardar:", newVersion);
@@ -143,6 +156,7 @@ const handleSubmit = async (e) => {
       // LIMPIAR Y CERRAR MODAL
       setVersionName("");
       setRoute("");
+      setAddonsPath("");
       setIsEditing(false);
       setEditingIndex(null);
       setSelectedVersion(null);
@@ -218,6 +232,7 @@ const handleSubmit = async (e) => {
       obtenerMonedas(storedToken);
     }
   }, []);
+
 
   const getImageForVersion = (version) => {
     console.log(version)
@@ -392,6 +407,8 @@ const getBackgroundByVersion = (versionCode) => {
 
 const handleVersionSelect = (version) => {
   setSelectedVersion(version.name);
+  localStorage.setItem("nameAddons", version.addons_path);
+  localStorage.setItem("versionSelected", version.version);
   const bg = getBackgroundByVersion(version.version);
   setBackgroundImage(bg);
 };
@@ -418,6 +435,13 @@ const crearJsonVacio = async () => {
       console.error("Error al añadir versión:", error);
     }
   };
+
+  const handleAddonsFileSelect = async () => {
+  // Reemplaza esto con la lógica adecuada si usas Electron o input type="file"
+  const path = await selectAddonsFolder(); // Esto depende de tu implementación
+  if (path) setAddonsRoute(path);
+  };
+
 
   
   async function readNews() {
@@ -521,6 +545,22 @@ const crearJsonVacio = async () => {
                                         {route && `Seleccionado: ${route.split("\\").pop()}`}
                                       </p>
                                     </label>
+
+                                  {/* Parte de los addons */}
+                                    <label className="inputGroup">
+                                      <p>Ruta de Addons</p>
+                                      <button
+                                        id="seleccionarAddons"
+                                        type="button"
+                                        onClick={handleAddonSelect}
+                                      >
+                                        Pulsa para seleccionar la carpeta de addons
+                                      </button>
+                                      <p id="addonsSeleccionado">
+                                        {addonsPath && `Seleccionado: ${addonsPath}`}
+                                      </p>
+                                    </label>
+
 
                                     <button className="modelButtonA" type="button" onClick={toggleModal}>
                                       Cancelar

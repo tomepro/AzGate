@@ -9,3 +9,4 @@ pub mod register;
 pub mod account_points;
 pub mod send_password_reset;
 pub mod reset_password;
+pub mod list_addons;

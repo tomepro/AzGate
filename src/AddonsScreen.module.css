@@ -1,5 +1,5 @@
 .addonsContainer{
-    background-image: url('/wotlk_wallpaper.png');
+    background-image: url('/wotlk_wallpaper.webp');
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
@@ -11,12 +11,77 @@
 }
 
 .addonsContent{
-    background-color: rgba(0, 177, 38, 0.5);
-    backdrop-filter: blur(6px);
+    
     margin-top: 13px;
     margin-left: 32px;
     margin-right: 32px;
     margin-bottom: 20px;
     height: 441px;
     width: 960px;
+    
+}
+
+.addonsList{
+    overflow: auto;
+    height: 441px;
+    width: 730px;
+    margin-left: 236px;
+    margin-top: -375px;
+    
+}
+
+.addon{
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    display: flex;
+    border-radius: 20px 0 20px 0;
+    justify-content: space-between;
+    margin: 10px;
+    height: 52px;
+    width: 714px;
+    padding-left: 22px;
+    align-items: center;
+    padding-right: 22px;
+    
+}
+
+.addonsUnzip{
+    height: 195px;
+    width: 206px;
+    margin-top: 69px;
+    border-radius: 0 20px 0 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    text-align: center;
+}
+
+.titlezip{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.addonsUnzipBox{
+    height: 115px;
+    width: 115px;
+    padding-top: 40px;
+    background-color: rgba(150, 150, 150, 0.041);
+    border-radius: 0 20px 0 20px;
+    margin-left: 45px;
+}
+
+.usezip{
+    padding-top: 5px;
+}
+
+.addonsFolder{
+    border-radius: 0 20px 0 20px;
+    height: 80px;
+    width: 106px;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    margin-top: 30px;
+    padding-left: 0px;
+    padding-top: 15px;
+    margin-left: 48px;
+    
 }
