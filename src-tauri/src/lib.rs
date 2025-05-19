@@ -24,8 +24,33 @@ use api::reset_password::reset_password;
 use api::login::jwt_login;
 use game::version::get_version;
 use std::path::Path;
+
 use tauri_plugin_fs::init;
 
+// --- API Modules ---
+use api::{
+    account_points::fetch_coins,
+    buy::buy_shop_item,
+    changelog::fetch_changelog,
+    json::{
+        crear_json_vacio, delete_version, get_all_versions, launch_version, save_version_to_file,
+        update_version,
+    },
+    jwt::{delete_jwt, get_jwt, save_jwt},
+    login::{jwt_login, log_in_request},
+    news::fetch_news,
+    profile::fetch_profile,
+    realms::fetch_realms,
+    register::register_user,
+    reset_password::reset_password,
+    send_password_reset::send_password_email,
+    shop::fetch_shop_items,
+    tickets,
+};
+
+use game::version::get_version;
+
+// --- Entry Point ---
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let env_path = Path::new(env!("CARGO_MANIFEST_DIR")).join(".env");
@@ -39,24 +64,31 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .plugin(init())
         .invoke_handler(tauri::generate_handler![
+            // Auth & Session
             log_in_request,
+            jwt_login,
             get_jwt,
             save_jwt,
-            get_version,
+            delete_jwt,
+
+            // Account
             register_user,
+            reset_password,
+            send_password_email,
+            fetch_profile,
+            fetch_coins,
+
+            // Game & UI
+            get_version,
             fetch_realms,
             fetch_changelog,
             fetch_news,
-            jwt_login,
-            delete_jwt,
-            fetch_profile,
+
+            // Version Management
             crear_json_vacio,
             save_version_to_file,
             get_all_versions,
-            fetch_coins,
             launch_version,
-            send_password_email,
-            reset_password,
             update_version,
             delete_version,
             list_addons,

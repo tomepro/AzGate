@@ -11,6 +11,8 @@ import ChangelogScreen from "./ChangelogScreen";
 import NewsScreen from "./NewsScreen";
 import NewPassword from "./NewPassword";
 import AddonsScreen from "./AddonsScreen";
+import ShopScreen from "./ShopScreen";
+import ShoppingCartScreen from "./ShoppingCartScreen";
 
 function App() {
   return (
@@ -25,8 +27,6 @@ function App() {
         <Route path="/macrosScreen" element={<MacrosScreen />} />
         <Route path="/changelogScreen" element={<ChangelogScreen />} />
         <Route path="/newsScreen" element={<NewsScreen />} />
-        <Route path="/newPassword" element={<NewPassword />} />
-        <Route path="/addonsScreen" element={<AddonsScreen />} />
       </Routes>
     </Router>
   );

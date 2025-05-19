@@ -10,3 +10,6 @@ pub mod account_points;
 pub mod send_password_reset;
 pub mod reset_password;
 pub mod list_addons;
+pub mod shop;
+pub mod buy;
+pub mod tickets;

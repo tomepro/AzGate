@@ -15,16 +15,18 @@
     width: 960px;
     margin-top: 13px;
     margin-bottom: 20px;
+    height: 425px; /* Already set, good for triggering the scrollbar */
     max-width: 90%; /* Hacerlo más responsive */
     overflow-y: auto; /* Solo scroll vertical */
+    overflow-x: hidden; /* Prevent horizontal scroll */
     padding: 15px;
     box-sizing: border-box;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Diseño de grid responsivo */
     gap: 20px;
-  }
-  
-  .news-item-preview {
+}
+
+.news-item-preview {
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
     border-radius: 8px;
@@ -32,8 +34,9 @@
     transition: transform 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
-    width: 41vw;
-  }
+    width: 100%; /* Changed from 41vw to 100% to fit the grid cell */
+    min-height: 150px; /* Optional: Ensure a minimum height for consistency */
+}
   
   .news-item-preview:hover {
     transform: scale(1.03);
