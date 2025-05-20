@@ -52,6 +52,22 @@ pub fn open_folder(path: String) -> Result<(), String> {
 }
 
 
+// #[tauri::command]
+// pub fn list_addons(path: String) -> Result<Vec<String>, String> {
+//     match fs::read_dir(&path) {
+//         Ok(entries) => {
+//             let mut names = Vec::new();
+//             for entry in entries.flatten() {
+//                 if let Some(name) = entry.file_name().to_str() {
+//                     names.push(name.to_string());
+//                 }
+//             }
+//             Ok(names)
+//         }
+//         Err(e) => Err(format!("Error leyendo directorio: {}", e)),
+//     }
+// }
+
 #[tauri::command]
 pub fn list_addons(path: String) -> Result<Vec<String>, String> {
     match fs::read_dir(&path) {
@@ -59,7 +75,9 @@ pub fn list_addons(path: String) -> Result<Vec<String>, String> {
             let mut names = Vec::new();
             for entry in entries.flatten() {
                 if let Some(name) = entry.file_name().to_str() {
-                    names.push(name.to_string());
+                    if !name.starts_with("Blizzard") {
+                        names.push(name.to_string());
+                    }
                 }
             }
             Ok(names)

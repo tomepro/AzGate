@@ -13,6 +13,9 @@ function AddonsScreen() {
   const [addons, setAddons] = useState([]);
   const [error, setError] = useState(null);
 
+  const storedPath = localStorage.getItem("nameAddons");
+  const path = localStorage.getItem("nameAddons");
+
   const version = localStorage.getItem("versionSelected");
 
   console.log(version)
@@ -48,8 +51,7 @@ function AddonsScreen() {
 
   const backgroundImage = getImageForVersion(version);
 
-  const storedPath = localStorage.getItem("nameAddons");
-  const path = localStorage.getItem("nameAddons");
+
 
 
   const handleOpenFolder = () => {
@@ -106,7 +108,6 @@ const onDrop = useCallback(async (event) => {
   }, [path]);
 
   const onDragOver = (e) => e.preventDefault();
-
 
     useEffect(() => {
     
