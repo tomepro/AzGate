@@ -4,12 +4,22 @@ use tokio::fs;
 use std::process::Command;
 
 
+// #[derive(Serialize, Deserialize, Clone)]
+// pub struct Version {
+//     pub name: String,
+//     pub path: String, // Ruta del .exe proporcionada desde el frontend
+//     pub version: String,
+    
+// }
+
 #[derive(Serialize, Deserialize, Clone)]
 pub struct Version {
     pub name: String,
-    pub path: String, // Ruta del .exe proporcionada desde el frontend
+    pub path: String,         // Ruta del ejecutable
     pub version: String,
+    pub addons_path: String,  // Nueva ruta de los addons
 }
+
 
 #[tauri::command]
 pub async fn crear_json_vacio(app_handle: AppHandle) -> Result<(), String> {
