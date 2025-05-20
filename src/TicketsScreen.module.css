@@ -1,0 +1,242 @@
+.ticketsContainer{
+    background-image: url('/wotlk_wallpaper.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.ticketsContent{
+    margin-top: 13px;
+    margin-left: 15px;
+    margin-bottom: 23px;
+    height: 440px;
+    width: 992px;
+    overflow-y:scroll;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+
+}
+
+.ticketsList {
+  display: grid;
+  grid-template-columns: auto-fill;
+  gap: 0px;
+  margin-top: 20px;
+  overflow-y:visible;
+  
+}
+
+.ticketCard {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  width: 95%;
+  margin: 20px auto;
+  border-radius: 20px 0;
+  background: rgba(217, 217, 217, 0.05);
+  font-family: "Inknut Antiqua";
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.ticketCard:hover {
+  transform: translateY(-4px);
+}
+
+.playerImage {
+  width: 58px;
+  height: 58px;
+  border-radius: 5px;
+  margin: auto;
+}
+
+.responseBox {
+  margin-top: 0px;
+  padding: 8px;
+  width: 100%;
+  height: 80px;
+  border-radius: 8px;
+  resize: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-family: inherit;
+  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.responseBox:disabled {
+  opacity: 0.6;
+  cursor: none;
+}
+
+.buttonRow {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.buttonRow button {
+  padding: 8px 14px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  transition: background 0.2s;
+}
+
+.buttonRow button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.respondButton {
+    background-color: rgba(22, 141, 36, 0.4) !important;
+    color: rgb(130, 250, 144) !important;
+}
+
+.respondButton:hover {
+    background-color: rgba(22, 141, 36, 0.555) !important;
+}
+
+.closeButton {
+    background: rgba(255, 89, 0, 0.40) !important;
+    color: rgb(247, 166, 123) !important;
+}
+
+.closeButton:hover {
+    background-color: rgba(255, 89, 0, 0.555) !important;
+}
+
+.deleteButton {
+    background: rgba(230, 0, 0, 0.4) !important;
+    color: rgb(250, 99, 99) !important;
+}
+
+.deleteButton:hover {
+    background-color: rgba(230, 0, 0, 0.555) !important;
+}
+
+.descriptionBox {
+  width: 100%;
+  resize: none;
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  border: none;
+  padding: 5px;
+  font-family: inherit;
+  font-size: 13px;
+  pointer-events: none;
+  overflow-y: scroll;
+  border: 2px groove rgba(53, 53, 53, 0.521) !important;
+  margin-bottom: 10px;
+}
+
+.notickets {
+    margin:auto;
+    font-size: xx-large;
+}
+
+.ticketDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ticketMeta {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 4px;
+  justify-content: center;
+  margin-right: 30px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.ticketInfo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.descriptionBox,
+.responseBox {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  padding: 8px;
+  resize: none;
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.descriptionBox:disabled {
+  opacity: 0.7;
+}
+
+.responseBox:disabled {
+  opacity: 0.6;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.respondButton {
+  background-color: #216e39;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: none;
+}
+
+.closeButton {
+  background-color: #7f3d00;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: none;
+}
+
+.deleteButton {
+  background-color: #8b0000;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: none;
+}
+
+.completed,
+.notCompleted {
+    font-weight: bold;
+    font-size:smaller;
+    text-align: center;
+}
+
+.completed {
+  color: green;
+}
+
+.notCompleted {
+  color: red;
+  
+}
+
+.label {
+  font-weight: 100;
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: white;
+}
