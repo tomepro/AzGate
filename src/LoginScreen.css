@@ -9,7 +9,7 @@
 /*   background-image: url('/noche.gif'); */
 /* background-image: url('/taberna.gif'); */
 
-.containerLoginScreen {
+/* .containerLoginScreen {
   background-image: url('/login_wp.webp');
   background-repeat: no-repeat;
   background-size: cover;
@@ -17,7 +17,72 @@
   width: 100vw;
   padding-top: 50px;
   margin: 0;
+} */
+
+/* styles.css */
+.containerLoginScreen {
+ 
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  padding-top: 50px;
+  margin: 0;
 }
+
+/* Clases para cada fondo */
+.fondo-df-molino{
+ background-image: url('/login_wp.webp');
+}
+
+.fondo-ancestros {
+  background-image: url('/dia-ancestros.png');
+}
+
+.fondo-enamorados {
+  background-image: url('/dia-enamorados.png');
+}
+
+.fondo-pascua {
+  background-image: url('/dia-pascua.png');
+}
+
+.fondo-ninos {
+  background-image: url('/dia-ninos.png');
+}
+
+.fondo-solsticio {
+  background-image: url('/dia-solsticio.png');
+}
+
+.fondo-piratas {
+  background-image: url('/dia-piratas.png');
+}
+
+.fondo-cerveza {
+  background-image: url('/dia-cerveza.png');
+}
+
+.fondo-halloween {
+  background-image: url('/dia-halloween.png');
+}
+
+.fondo-muertos {
+  background-image: url('/dia-muertos.png');
+}
+
+.fondo-pelegrino {
+  background-image: url('/dia-pelegrino.png');
+}
+
+.fondo-navidad {
+  background-image: url('/dia-navidad.png');
+}
+
+
+
+
+/* ---------------------------------------------- */
 
 body {
   font-family: 'Alef', sans-serif; 
