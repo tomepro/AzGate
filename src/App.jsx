@@ -6,7 +6,6 @@ import PasswdRecoveryScreen from "./PasswdRecoveryScreen";
 import HomeScreen from "./HomeScreen";
 import ArmoryScreen from "./ArmoryScreen";
 import RankingScreen from "./RankingScreen";
-import MacrosScreen from "./MacrosScreen";
 import ChangelogScreen from "./ChangelogScreen";
 import NewsScreen from "./NewsScreen";
 import NewPassword from "./NewPassword";

@@ -78,6 +78,15 @@ pub fn run() {
             fetch_shop_items,
             buy_shop_item,
 
+            unzip_and_move,
+            open_folder,
+
+            tickets::fetch_tickets,
+            tickets::complete_ticket,
+            tickets::update_ticket_response,
+            tickets::delete_ticket,
+            
+
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
