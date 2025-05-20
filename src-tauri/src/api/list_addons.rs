@@ -1,8 +1,5 @@
 use std::fs;
 use std::process::Command;
-use std::fs::File;
-
-use tauri::command;
 use std::path::Path;
 use std::io::Cursor;
 use zip::ZipArchive;

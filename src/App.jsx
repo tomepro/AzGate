@@ -23,6 +23,7 @@ function App() {
         <Route path="/registerScreen" element={<RegisterScreen />} />
         <Route path="/passwdRecoveryScreen" element={<PasswdRecoveryScreen />} />
         <Route path="/home" element={<HomeScreen />} />
+        <Route path="/shopScreen" element={<ShopScreen />} />
         <Route path="/armoryScreen" element={<ArmoryScreen />} />
         <Route path="/rankingScreen" element={<RankingScreen />} />
         <Route path="/ticketsScreen" element={<TicketsScreen />} />
