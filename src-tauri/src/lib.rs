@@ -5,14 +5,11 @@ use std::path::Path;
 
 use tauri_plugin_fs::init;
 
-use api::list_addons::list_addons;
-use api::list_addons::unzip_and_move;
-use api::list_addons::open_folder;
+
 
 // --- API Modules ---
 use api::{
     account_points::fetch_coins,
-    buy::buy_shop_item,
     changelog::fetch_changelog,
     json::{
         crear_json_vacio, delete_version, get_all_versions, launch_version, save_version_to_file,
@@ -28,6 +25,10 @@ use api::{
     send_password_reset::send_password_email,
     shop::fetch_shop_items,
     tickets,
+    list_addons::list_addons,
+    list_addons::unzip_and_move,
+    list_addons::open_folder,
+    buy::buy_shop_item,
 };
 
 // --- Entry Point ---
@@ -72,17 +73,21 @@ pub fn run() {
             launch_version,
             update_version,
             delete_version,
+            list_addons,
+            open_folder,
+            unzip_and_move,
             fetch_shop_items,
             buy_shop_item,
-            send_password_email,
-            reset_password,
-            fetch_coins,
-            fetch_shop_items,
-            buy_shop_item,
-            send_password_email,
-            reset_password,
-            fetch_coins,
-            fetch_shop_items,
+
+            unzip_and_move,
+            open_folder,
+
+            tickets::fetch_tickets,
+            tickets::complete_ticket,
+            tickets::update_ticket_response,
+            tickets::delete_ticket,
+            
+
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

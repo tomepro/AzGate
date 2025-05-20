@@ -14,6 +14,8 @@ pub struct Ticket {
     create_time: u64,
     response: String,
     completed: u32,
+    race: u32,
+    gender: u32
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -44,12 +46,12 @@ pub async fn fetch_tickets(token: String) -> Result<TicketResponse, String> {
 
 
 #[tauri::command]
-pub async fn complete_ticket(ticket_id: u32, token: String) -> Result<String, String> {
+pub async fn complete_ticket(ticketId: u32, token: String) -> Result<String, String> {
     let api_url = format!(
         "{}{}{}",
         env::var("API_URL").map_err(|e| e.to_string())?,
-        "/tickets/complete/",
-        ticket_id
+        "/characters/tickets/complete/",
+        ticketId
     );
 
     let client = reqwest::Client::new();
@@ -69,19 +71,19 @@ pub async fn complete_ticket(ticket_id: u32, token: String) -> Result<String, St
 }
 
 #[tauri::command]
-pub async fn update_ticket_response(ticket_id: u32, response_msg: String, token: String) -> Result<String, String> {
+pub async fn update_ticket_response(ticketId: u32, responseMsg: String, token: String) -> Result<String, String> {
     let api_url = format!(
         "{}{}{}",
         env::var("API_URL").map_err(|e| e.to_string())?,
-        "/tickets/response/",
-        ticket_id
+        "/characters/tickets/response/",
+        ticketId
     );
 
     let client = reqwest::Client::new();
     let res = client
         .patch(&api_url)
         .bearer_auth(token)
-        .json(&json!({ "response": response_msg }))
+        .json(&json!({ "response": responseMsg }))
         .send()
         .await
         .map_err(|e| e.to_string())?;
@@ -95,12 +97,12 @@ pub async fn update_ticket_response(ticket_id: u32, response_msg: String, token:
 }
 
 #[tauri::command]
-pub async fn delete_ticket(ticket_id: u32, token: String) -> Result<String, String> {
+pub async fn delete_ticket(ticketId: u32, token: String) -> Result<String, String> {
     let api_url = format!(
         "{}{}{}",
         env::var("API_URL").map_err(|e| e.to_string())?,
-        "/tickets/",
-        ticket_id
+        "/characters/tickets/",
+        ticketId
     );
 
     let client = reqwest::Client::new();
@@ -115,6 +117,6 @@ pub async fn delete_ticket(ticket_id: u32, token: String) -> Result<String, Stri
         let response_text = res.text().await.map_err(|e| e.to_string())?;
         Ok(response_text)
     } else {
-        Err(format!("Failed to delete ticket: {}", res.status()))
+        Err(format!("Failed to delete ticket FROM RUST: {}", res.status()))
     }
 }
