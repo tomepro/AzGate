@@ -52,7 +52,20 @@ pub fn run() {
             save_version_to_file,
             get_all_versions,
             fetch_coins,
-            launch_version
+            launch_version,
+            update_version,
+            delete_version,
+            fetch_shop_items,
+            buy_shop_item,
+            send_password_email,
+            reset_password,
+            fetch_coins,
+            fetch_shop_items,
+            buy_shop_item,
+            send_password_email,
+            reset_password,
+            fetch_coins,
+            fetch_shop_items,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

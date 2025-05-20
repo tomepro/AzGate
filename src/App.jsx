@@ -27,6 +27,10 @@ function App() {
         <Route path="/macrosScreen" element={<MacrosScreen />} />
         <Route path="/changelogScreen" element={<ChangelogScreen />} />
         <Route path="/newsScreen" element={<NewsScreen />} />
+        <Route path="/newPassword" element={<NewPassword />} />
+        <Route path="/addonsScreen" element={<AddonsScreen />} />
+        <Route path="/shopScreen" element={<ShopScreen />} />
+        <Route path="/shoppingCartScreen" element={<ShoppingCartScreen />} />
       </Routes>
     </Router>
   );
