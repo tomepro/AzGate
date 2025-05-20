@@ -8,28 +8,20 @@ import NavBar from './components/NavBar';
 import { motion } from "framer-motion";
 import { open } from '@tauri-apps/plugin-dialog';
 
-
 function HomeScreen() {
   const { t } = useTranslation("common");
 
   const [customVersions, setCustomVersions] = useState([]);
   const [newVersionName, setNewVersionName] = useState("");
-
   const [coins, setCoins] = useState(0);
   const [points, setPoints] = useState(0);
-
-    const [addonsPath, setAddonsPath] = useState("");
-
-
+  const [addonsPath, setAddonsPath] = useState("");
   const [selectedVersion, setSelectedVersion] = useState(null);
   const [backgroundImage, setBackgroundImage] = useState('');
-
   const [mainNew, setMainNew] = useState('Last News');
   const [firstNew, setFirstNew] = useState('Last News');
   const [secondNew, setSecondNew] = useState('Last News');
   const [thirdNew, setThirdNew] = useState('Last News');
-
-
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [versionName, setVersionName] = useState('');
   const [route, setRoute] = useState('');
@@ -37,26 +29,81 @@ function HomeScreen() {
   const [editingIndex, setEditingIndex] = useState(null);
   const [originalName, setOriginalName] = useState(null);
 
-
-  // Estados para la configuración
+  // Estado para la configuración (del Código 1)
   const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
-  const [configSettings, setConfigSettings] = useState({
-    locale: "esES",
-    gxRefresh: "60",
-    Gamma: "1.000000",
-    Sound_MusicVolume: "0.40000000596046",
-    Sound_AmbienceVolume: "0.60000002384186",
-    groundEffectDensity: "64",
-    projectedTextures: "1",
-    gxResolution: "1920x1080",
-    shadowLevel: "0",
-    groundEffectDist: "140",
-    environmentDetail: "1.5",
-    extShadowQuality: "5",
-    weatherDensity: "3",
-  });
+  const [configSettings, setConfigSettings] = useState({}); // Objeto vacío como en Código 1
+  const [selectedVersionPath, setSelectedVersionPath] = useState('');
 
+  // Función para obtener la imagen de la versión (del Código 2)
+  const getImageForVersion = (version) => {
+    console.log(version);
+    switch (version.toUpperCase()) {
+      case "VA":
+        return "icons/classic.webp";
+      case "TBC":
+        return "icons/tbc.webp";
+      case "LK":
+        return "icons/lk.webp"; // Cambiado de wotlk_wallpaper.webp
+      case "CATA":
+        return "icons/cata.webp";
+      case "MOP":
+        return "icons/mop.webp";
+      case "WOD":
+        return "icons/wod.webp";
+      case "LG":
+        return "icons/lg.webp"; // Cambiado de legion.webp
+      case "BFA":
+        return "icons/bfa.webp";
+      case "SL":
+        return "icons/sl.webp"; // Cambiado de shadowlands.webp
+      case "DF":
+        return "icons/df.webp";
+      case "TWW":
+        return "icons/tww.webp";
+      case "DEFAULT":
+        return "icons/default.webp";
+      default:
+        return "icons/default.webp"; // imagen genérica si no coincide
+    }
+  };
 
+  // Función para abrir el modal de configuración y leer Config.wtf (del Código 1)
+  const openSettingsModal = async () => {
+    if (selectedVersionPath) {
+      try {
+        // Llamar a la función Rust para leer el Config.wtf
+        const configContent = await invoke("read_config_wtf", { gamePath: selectedVersionPath });
+        console.log("Contenido de Config.wtf:", configContent);
+
+        // Parsear el contenido para llenar los estados
+        const parsedConfig = {};
+        configContent.split('\n').forEach(line => {
+          const trimmedLine = line.trim();
+          if (trimmedLine.startsWith('SET')) { // Solo procesar líneas que empiezan con SET
+            const parts = trimmedLine.split(' ');
+            if (parts.length >= 2) {
+              const key = parts[1].trim(); // El segundo elemento es la clave (ej. "locale")
+              const value = parts.slice(2).join(' ').replace(/"/g, '').trim(); // El resto es el valor
+              parsedConfig[key] = value;
+            }
+          }
+        });
+        // Seteamos el estado con todas las opciones encontradas en el archivo
+        setConfigSettings(parsedConfig);
+        setIsSettingsModalVisible(true);
+      } catch (error) {
+        console.error("Error al leer Config.wtf:", error);
+        alert("No se pudo leer el archivo Config.wtf. Asegúrate de que la ruta de la versión es correcta y la carpeta WTF existe.");
+        // Si hay un error, inicializamos con un objeto vacío
+        setConfigSettings({});
+        setIsSettingsModalVisible(true);
+      }
+    } else {
+      alert("Por favor, selecciona una versión del juego primero.");
+    }
+  };
+
+  // Resto de las funciones y estados (sin cambios, como en Código 1)
   const openEditModal = (index) => {
     const version = customVersions[index];
     setVersionName(version.name);
@@ -64,12 +111,9 @@ function HomeScreen() {
     setIsEditing(true);
     setEditingIndex(index);
     setSelectedVersion(version);
-    setOriginalName(version.name); // aquí está el truco
+    setOriginalName(version.name);
     toggleModal();
-    // };
-
   };
-
 
   const handlePlay = () => {
     if (selectedVersion) {
@@ -83,13 +127,10 @@ function HomeScreen() {
     setIsModalVisible(!isModalVisible);
   };
 
-
   const handleDeleteVersion = async () => {
     try {
       await invoke('delete_version', { name: selectedVersion.name });
-
       toggleModal();
-      // refreshVersions();
       invoke("get_all_versions")
         .then((loadedVersions) => {
           const versionsWithImages = loadedVersions.map((v) => ({
@@ -101,54 +142,46 @@ function HomeScreen() {
         .catch((error) => {
           console.error("Error al cargar versiones:", error);
         });
-  } catch (error) {
-    console.error("Error al eliminar la versión:", error);
-  }
-};
+    } catch (error) {
+      console.error("Error al eliminar la versión:", error);
+    }
+  };
 
-const handleAddonSelect = async () => {
-  const selected = await open({
-    directory: true,
-    multiple: false,
-  });
-  if (selected) {
-    setAddonsPath(selected);
-  }
-};
+  const handleAddonSelect = async () => {
+    const selected = await open({
+      directory: true,
+      multiple: false,
+    });
+    if (selected) {
+      setAddonsPath(selected);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (versionName.trim() !== "" && route.trim() !== "") {
       try {
-        // OBTENER EXPANSIÓN DESDE EL BACKEND
         const result = await invoke("get_version", { path: route });
         console.log("Resultado del backend:", result);
-
         const expansion = result.expansion;
-
-      const newVersion = {
-        name: versionName,
-        path: route,
-        version: expansion,
-        addons_path: addonsPath,
-      };
-
+        const newVersion = {
+          name: versionName,
+          path: route,
+          version: expansion,
+          addons_path: addonsPath,
+        };
         console.log("Versión final a guardar:", newVersion);
-
         if (isEditing && originalName) {
-          // ESTÁS EDITANDO UNA VERSIÓN EXISTENTE
           try {
             await invoke("update_version", {
-              oldName: originalName,  // nombre original antes de editar
-              newVersion: newVersion, // nueva versión a guardar
+              oldName: originalName,
+              newVersion: newVersion,
             });
             console.log("Versión actualizada correctamente.");
           } catch (error) {
             console.error("Error al actualizar versión:", error);
           }
         } else {
-          // ESTÁS AÑADIENDO UNA NUEVA VERSIÓN
           try {
             await invoke("save_version_to_file", { version: newVersion });
             console.log("Versión guardada en JSON.");
@@ -156,18 +189,14 @@ const handleAddonSelect = async () => {
             console.error("Error al guardar versión:", error);
           }
         }
-
-      // LIMPIAR Y CERRAR MODAL
-      setVersionName("");
-      setRoute("");
-      setAddonsPath("");
-      setIsEditing(false);
-      setEditingIndex(null);
-      setSelectedVersion(null);
-      setOriginalName(null); // Limpiamos el originalName también
-      toggleModal();
-
-        // RECARGAR VERSIONES
+        setVersionName("");
+        setRoute("");
+        setAddonsPath("");
+        setIsEditing(false);
+        setEditingIndex(null);
+        setSelectedVersion(null);
+        setOriginalName(null);
+        toggleModal();
         invoke("get_all_versions")
           .then((loadedVersions) => {
             const versionsWithImages = loadedVersions.map((v) => ({
@@ -179,7 +208,6 @@ const handleAddonSelect = async () => {
           .catch((error) => {
             console.error("Error al cargar versiones:", error);
           });
-
       } catch (error) {
         console.error("Error al obtener la versión:", error);
       }
@@ -191,7 +219,6 @@ const handleAddonSelect = async () => {
       multiple: false,
       filters: [{ name: "Ejecutables", extensions: ["exe"] }],
     });
-
     if (filePath) {
       setRoute(filePath);
     }
@@ -200,10 +227,8 @@ const handleAddonSelect = async () => {
   const [changelog, setChangelog] = useState(null);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
-    readNews()
-    // Cargar el changelog
+    readNews();
     invoke("fetch_changelog")
       .then((data) => {
         setChangelog(data);
@@ -214,8 +239,6 @@ const handleAddonSelect = async () => {
       .finally(() => {
         setLoading(false);
       });
-
-    // Cargar versiones desde el JSON
     invoke("get_all_versions")
       .then((loadedVersions) => {
         const versionsWithImages = loadedVersions.map((v) => ({
@@ -236,53 +259,15 @@ const handleAddonSelect = async () => {
     }
   }, []);
 
-
-  const getImageForVersion = (version) => {
-    console.log(version)
-    switch (version.toUpperCase()) {
-      case "VA":
-        return "icons/classic.webp";
-      case "TBC":
-        return "icons/tbc.webp";
-      case "LK":
-        return "icons/lk.webp";
-      case "CATA":
-        return "icons/cata.webp";
-      case "MOP":
-        return "icons/mop.webp";
-      case "WOD":
-        return "icons/wod.webp";
-      case "LG":
-        return "icons/lg.webp";
-      case "BFA":
-        return "icons/bfa.webp";
-      case "SL":
-        return "icons/sl.webp";
-      case "DF":
-        return "icons/df.webp";
-      case "TWW":
-        return "icons/tww.webp";
-      case "DEFAULT":
-        return "icons/default.webp";
-      default:
-        return "icons/default.webp"; // imagen genérica si no coincide
-    }
-  };
-
-
-
   const formatDate = (dateString) => {
     if (!dateString) return '';
-
     const date = new Date(dateString);
     if (isNaN(date.getTime())) return '';
-
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
-
     return `${day}/${month}/${year} ${hours}:${minutes}`;
   };
 
@@ -306,10 +291,6 @@ const handleAddonSelect = async () => {
       });
   }, []);
 
-  const openSettingsModal = () => {
-    setIsSettingsModalVisible(true);
-  };
-
   const closeSettingsModal = () => {
     setIsSettingsModalVisible(false);
   };
@@ -322,40 +303,37 @@ const handleAddonSelect = async () => {
     }));
   };
 
-  const saveConfigSettings = () => {
-    console.log("Configuración guardada:", configSettings);
-    closeSettingsModal();
-    alert("Configuración guardada");
+  const saveConfigSettings = async () => {
+    if (selectedVersionPath) {
+      try {
+        let configString = '';
+        for (const key in configSettings) {
+          configString += `SET ${key} "${configSettings[key]}"\n`;
+        }
+        await invoke("write_config_wtf", { gamePath: selectedVersionPath, content: configString });
+        console.log("Configuración guardada:", configSettings);
+        closeSettingsModal();
+        alert("Configuración guardada correctamente.");
+      } catch (error) {
+        console.error("Error al guardar la configuración de Config.wtf:", error);
+        alert("Error al guardar la configuración. Asegúrate de que la ruta de la versión es correcta y tienes permisos de escritura.");
+      }
+    } else {
+      alert("No hay una versión seleccionada para guardar la configuración.");
+    }
   };
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (!changelog) {
-    return <p>No changelog data available.</p>;
-  }
-
-  if (!realms) {
-    return <p>No realms data available.</p>;
-  }
-
 
   async function obtenerMonedas(token) {
     try {
       const response = await invoke('fetch_coins', { token });
-
       console.log(`Monedas: ${response.coins}`);
       console.log(`Puntos: ${response.points}`);
-
       setCoins(response.coins);
       setPoints(response.points);
     } catch (error) {
       console.error("Error al obtener las monedas:", error);
     }
   }
-
-
 
   const launchVersion = async (name) => {
     try {
@@ -404,21 +382,21 @@ const handleAddonSelect = async () => {
         return 'tww.webp';
       default:
         img.src = 'classic.webp';
-        return 'classic.webp'; // fondo por defecto
+        return 'classic.webp';
     }
   };
 
-const handleVersionSelect = (version) => {
-  setSelectedVersion(version.name);
-  localStorage.setItem("nameAddons", version.addons_path);
-  localStorage.setItem("versionSelected", version.version);
-  const bg = getBackgroundByVersion(version.version);
-  setBackgroundImage(bg);
-};
+  const handleVersionSelect = (version) => {
+    setSelectedVersion(version.name);
+    setSelectedVersionPath(version.path);
+    localStorage.setItem("nameAddons", version.addons_path);
+    localStorage.setItem("versionSelected", version.version);
+    localStorage.setItem("config", version.addons_path);
+    const bg = getBackgroundByVersion(version.version);
+    setBackgroundImage(bg);
+  };
 
-    //PARTE GUARDAR DATOS EN EL JS
-    // Función para crear el archivo JSON vacío si no existe
-const crearJsonVacio = async () => {
+  const crearJsonVacio = async () => {
     try {
       await invoke("crear_json_vacio");
       console.log("JSON vacío creado con éxito.");
@@ -427,190 +405,183 @@ const crearJsonVacio = async () => {
     }
   };
 
-  // Función para agregar una nueva versión
   const addVersion = async (name, path) => {
     const newVersion = { name, path };
-
     try {
       const response = await invoke("save_version_to_file", { version: newVersion });
-      console.log(response);  // Mensaje de éxito
+      console.log(response);
     } catch (error) {
       console.error("Error al añadir versión:", error);
     }
   };
 
   const handleAddonsFileSelect = async () => {
-  // Reemplaza esto con la lógica adecuada si usas Electron o input type="file"
-  const path = await selectAddonsFolder(); // Esto depende de tu implementación
-  if (path) setAddonsRoute(path);
+    const path = await selectAddonsFolder();
+    if (path) setAddonsRoute(path);
   };
-
-
 
   async function readNews() {
     try {
       const response = await invoke('fetch_news');
-      const mainNew = response.find(item => item.type === 1)
+      const mainNew = response.find(item => item.type === 1);
       if (mainNew) {
-        setMainNew(mainNew)
+        setMainNew(mainNew);
       }
       const firstThreeTypeZero = response.filter(item => item.type === 2).slice(0, 3);
-      setFirstNew(firstThreeTypeZero[0])
-      setSecondNew(firstThreeTypeZero[1])
-      setThirdNew(firstThreeTypeZero[2])
-      console.log("MAIN NEW:" + mainNew.title)
+      setFirstNew(firstThreeTypeZero[0]);
+      setSecondNew(firstThreeTypeZero[1]);
+      setThirdNew(firstThreeTypeZero[2]);
+      console.log("MAIN NEW:" + mainNew.title);
     } catch (error) {
-      console.error("Error fetching news")
+      console.error("Error fetching news");
     }
   }
 
-    return (
-        <main className='containerHomeScreen'>
-            
-            <div className='launcherBackground' style={{ backgroundImage: `url(${backgroundImage})` }}>
-            <Titlebar version={loading}/>
-            <NavBar />
-                {/* CONTENIDO DE LA PAGINA */}
-                <div className='contentArea'>
-                    {/* BARRA IZQUIERDA */}
-                    <aside className='sidebar'>
-                        <h3 id="tituloVersiones">{t("versions")}</h3>
-                        <div className='versions'>
-                        {customVersions.map((version, index) => (
-                          <div
-                            key={index}
-                            className={`versionContainer ${selectedVersion === version.name ? 'selected' : ''}`}
-                            onClick={() => handleVersionSelect(version)}
-                          >
-                            <button className='versionButton'>
-                              <img className='versionLogo' src={version.image} alt={`${version.name} logo`} />
-                              {version.name}
-                              <button
-                                className="editButton"
-                                onClick={(e) => {
-                                  e.stopPropagation(); // evita que se seleccione cuando editas
-                                  openEditModal(index);
-                                }}
-                              >
-                                <i className="fa-solid fa-screwdriver-wrench"></i>
-                              </button>
-                            </button>
-                          </div>
-                        ))}
-                            {/* Botón para abrir el modal */}
-                            <div className='addVersion'>
-                                <button id="nuevaEntrada" onClick={toggleModal}>{"+"}</button>
-                            </div>
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!changelog) {
+    return <p>No changelog data available.</p>;
+  }
+
+  if (!realms) {
+    return <p>No realms data available.</p>;
+  }
+
+  return (
+    <main className='containerHomeScreen'>
+      <div className='launcherBackground' style={{ backgroundImage: `url(${backgroundImage})` }}>
+        <Titlebar version={loading}/>
+        <NavBar />
+        <div className='contentArea'>
+          <aside className='sidebar'>
+            <h3 id="tituloVersiones">{t("versions")}</h3>
+            <div className='versions'>
+              {customVersions.map((version, index) => (
+                <div
+                  key={index}
+                  className={`versionContainer ${selectedVersion === version.name ? 'selected' : ''}`}
+                  onClick={() => handleVersionSelect(version)}
+                >
+                  <button className='versionButton'>
+                    <img className='versionLogo' src={version.image} alt={`${version.name} logo`} />
+                    {version.name}
+                    <button
+                      className="editButton"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openEditModal(index);
+                      }}
+                    >
+                      <i className="fa-solid fa-screwdriver-wrench"></i>
+                    </button>
+                  </button>
+                </div>
+              ))}
+              <div className='addVersion'>
+                <button id="nuevaEntrada" onClick={toggleModal}>{"+"}</button>
+              </div>
+            </div>
+            <div id='realms'>
+              <h3 id="tituloVersiones">{t("realms")}</h3>
+              <div id="reinos">
+                {realms.map((realm, index) => (
+                  <div key={index} className="realm-row">
+                    <span className="realm-name">{realm.realm}</span>
+                    <span className="realm-online">{realm.online}</span>
+                    <span className='realm-status'>
+                      <i className={`fa-solid fa-circle ${realm.flag === 2 ? 'red-circle' : realm.flag === 0 ? 'green-circle' : ''}`}></i>
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </aside>
+          <div id='mainContent'>
+            {isModalVisible && (
+              <div id="modal">
+                <div id="modalContent">
+                  <h3>Ruta de la versión</h3>
+                  <form onSubmit={handleSubmit}>
+                    <label>
+                      <p>Nombre</p>
+                      <input
+                        type="text"
+                        value={versionName}
+                        onChange={(e) => setVersionName(e.target.value)}
+                        required
+                      />
+                    </label>
+                    <label className="inputGroup">
+                      <p>Ruta</p>
+                      <button
+                        id="seleccionarExe"
+                        type="button"
+                        onClick={handleFileSelect}
+                      >
+                        Pulsa para seleccionar el ejecutable
+                      </button>
+                      <p id="exeSeleccionado">
+                        {route && `Seleccionado: ${route.split("\\").pop()}`}
+                      </p>
+                    </label>
+                    <label className="inputGroup">
+                      <p>Ruta de Addons</p>
+                      <button
+                        id="seleccionarAddons"
+                        type="button"
+                        onClick={handleAddonSelect}
+                      >
+                        Pulsa para seleccionar la carpeta de addons
+                      </button>
+                      <p id="addonsSeleccionado">
+                        {addonsPath && `Seleccionado: ${addonsPath}`}
+                      </p>
+                    </label>
+                    <button className="modelButtonA" type="button" onClick={toggleModal}>
+                      Cancelar
+                    </button>
+                    <button className="modelButton" type="submit">
+                      Añadir
+                    </button>
+                    <button
+                      className="modelButtonDelete"
+                      type="button"
+                      onClick={handleDeleteVersion}
+                    >
+                      Eliminar
+                    </button>
+                  </form>
+                </div>
+              </div>
+            )}
+            {isSettingsModalVisible && (
+              <div id="modal">
+                <div id="modalContent">
+                  <h3>Configuración de Config.wtf</h3>
+                  <div className="config-options-container">
+                    <form>
+                      {Object.entries(configSettings).map(([key, value]) => (
+                        <div key={key}>
+                          <label>
+                            <p>{key}</p>
+                            <input
+                              type="text"
+                              name={key}
+                              value={value}
+                              onChange={handleConfigChange}
+                            />
+                          </label>
                         </div>
-                        {/* REINOS */}
-                        <div id='realms'>
-                            <h3 id="tituloVersiones">{t("realms")}</h3>
-                            <div id="reinos">
-                                {realms.map((realm, index) => (
-                                    <div key={index} className="realm-row">
-                                        <span className="realm-name">{realm.realm}</span>
-                                        <span className="realm-online">{realm.online}</span>
-                                        <span className='realm-status'>
-                                            <i className={`fa-solid fa-circle ${realm.flag === 2 ? 'red-circle' : realm.flag === 0 ? 'green-circle' : ''}`}></i>
-                                        </span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </aside>
-
-                    <div id='mainContent'>
-                            {isModalVisible && (
-                              <div id="modal">
-                                <div id="modalContent">
-                                  <h3>Ruta de la versión</h3>
-                                  <form onSubmit={handleSubmit}>
-                                    <label>
-                                      <p>Nombre</p>
-                                      <input
-                                        type="text"
-                                        value={versionName}
-                                        onChange={(e) => setVersionName(e.target.value)}
-                                        required
-                                      />
-                                    </label>
-
-                                    <label className="inputGroup">
-                                      <p>Ruta</p>
-                                      <button
-                                        id="seleccionarExe"
-                                        type="button"
-                                        onClick={handleFileSelect}
-                                      >
-                                        Pulsa para seleccionar el ejecutable
-                                      </button>
-                                      <p id="exeSeleccionado">
-                                        {route && `Seleccionado: ${route.split("\\").pop()}`}
-                                      </p>
-                                    </label>
-
-                                  {/* Parte de los addons */}
-                                    <label className="inputGroup">
-                                      <p>Ruta de Addons</p>
-                                      <button
-                                        id="seleccionarAddons"
-                                        type="button"
-                                        onClick={handleAddonSelect}
-                                      >
-                                        Pulsa para seleccionar la carpeta de addons
-                                      </button>
-                                      <p id="addonsSeleccionado">
-                                        {addonsPath && `Seleccionado: ${addonsPath}`}
-                                      </p>
-                                    </label>
-
-
-                                    <button className="modelButtonA" type="button" onClick={toggleModal}>
-                                      Cancelar
-                                    </button>
-                                    <button className="modelButton" type="submit">
-                                      Añadir
-                                    </button>
-                                    <button
-                                      className="modelButtonDelete"
-                                      type="button"
-                                      onClick={handleDeleteVersion}
-                                    >
-                                      Eliminar
-                                    </button>
-                                  </form>
-                                </div>
-                              </div>
-                            )}
-                
-                        {/* Modal de configuración */}
-                        {isSettingsModalVisible && (
-                            <div id="modal">
-                                <div id="modalContent">
-                                    <h3>Configuración</h3>
-                                    <div className="config-options-container">
-                                        <form>
-                                            {Object.entries(configSettings).map(([key, value]) => (
-                                                <div key={key}>
-                                                    <label>
-                                                        <p>{key}</p>
-                                                        <input
-                                                            type="text"
-                                                            name={key}
-                                                            value={value}
-                                                            onChange={handleConfigChange}
-                                                        />
-                                                    </label>
-                                                </div>
-                                            ))}
-                                            <button type="button" onClick={closeSettingsModal}>Cancelar</button>
-                                            <button type="button" onClick={saveConfigSettings}>Guardar</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
+                      ))}
+                      <button type="button" onClick={closeSettingsModal}>Cancelar</button>
+                      <button type="button" onClick={saveConfigSettings}>Guardar</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            )}
             <div className='newsArea'>
               <div className='mainNewsArea' onClick={() => { window.location.href = '/newsScreen'; }}>
                 <img className='mainNew' src={mainNew.image} alt="Patch" />

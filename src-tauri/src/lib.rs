@@ -29,6 +29,9 @@ use api::{
     list_addons::unzip_and_move,
     list_addons::open_folder,
     buy::buy_shop_item,
+
+    configFile::read_config_wtf,
+    configFile::write_config_wtf,
 };
 
 // --- Entry Point ---
@@ -86,6 +89,10 @@ pub fn run() {
             tickets::complete_ticket,
             tickets::update_ticket_response,
             tickets::delete_ticket,
+
+            // Config File
+            read_config_wtf,
+            write_config_wtf,
             
 
         ])
