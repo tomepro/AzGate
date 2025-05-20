@@ -10,52 +10,54 @@ import { open } from '@tauri-apps/plugin-dialog';
 
 
 function HomeScreen() {
-    const { t } = useTranslation("common");
+  const { t } = useTranslation("common");
 
-    const [customVersions, setCustomVersions] = useState([]);
-    const [newVersionName, setNewVersionName] = useState("");
+  const [customVersions, setCustomVersions] = useState([]);
+  const [newVersionName, setNewVersionName] = useState("");
 
-    const [coins, setCoins] = useState(0);
-    const [points, setPoints] = useState(0);
+  const [coins, setCoins] = useState(0);
+  const [points, setPoints] = useState(0);
 
     const [addonsPath, setAddonsPath] = useState("");
 
-    const [selectedVersion, setSelectedVersion] = useState(null);
-    const [backgroundImage, setBackgroundImage] = useState('');
 
-    const [mainNew, setMainNew] = useState('Last News');
-    const [firstNew, setFirstNew] = useState('Last News');
-    const [secondNew, setSecondNew] = useState('Last News');
-    const [thirdNew, setThirdNew] = useState('Last News');
+  const [selectedVersion, setSelectedVersion] = useState(null);
+  const [backgroundImage, setBackgroundImage] = useState('');
 
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [versionName, setVersionName] = useState('');
-    const [route, setRoute] = useState('');
-    const [isEditing, setIsEditing] = useState(false);
-    const [editingIndex, setEditingIndex] = useState(null);
-    const [originalName, setOriginalName] = useState(null);
+  const [mainNew, setMainNew] = useState('Last News');
+  const [firstNew, setFirstNew] = useState('Last News');
+  const [secondNew, setSecondNew] = useState('Last News');
+  const [thirdNew, setThirdNew] = useState('Last News');
 
 
-    // Estados para la configuración
-    const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
-    const [configSettings, setConfigSettings] = useState({
-        locale: "esES",
-        gxRefresh: "60",
-        Gamma: "1.000000",
-        Sound_MusicVolume: "0.40000000596046",
-        Sound_AmbienceVolume: "0.60000002384186",
-        groundEffectDensity: "64",
-        projectedTextures: "1",
-        gxResolution: "1920x1080",
-        shadowLevel: "0",
-        groundEffectDist: "140",
-        environmentDetail: "1.5",
-        extShadowQuality: "5",
-        weatherDensity: "3",
-    });
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [versionName, setVersionName] = useState('');
+  const [route, setRoute] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [originalName, setOriginalName] = useState(null);
 
-    const openEditModal = (index) => {
+
+  // Estados para la configuración
+  const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
+  const [configSettings, setConfigSettings] = useState({
+    locale: "esES",
+    gxRefresh: "60",
+    Gamma: "1.000000",
+    Sound_MusicVolume: "0.40000000596046",
+    Sound_AmbienceVolume: "0.60000002384186",
+    groundEffectDensity: "64",
+    projectedTextures: "1",
+    gxResolution: "1920x1080",
+    shadowLevel: "0",
+    groundEffectDist: "140",
+    environmentDetail: "1.5",
+    extShadowQuality: "5",
+    weatherDensity: "3",
+  });
+
+
+  const openEditModal = (index) => {
     const version = customVersions[index];
     setVersionName(version.name);
     setRoute(version.path);
@@ -64,29 +66,31 @@ function HomeScreen() {
     setSelectedVersion(version);
     setOriginalName(version.name); // aquí está el truco
     toggleModal();
+    // };
 
-};
+  };
 
 
-    const handlePlay = () => {
-      if (selectedVersion) {
-        invoke("launch_version", { name: selectedVersion })
-          .then(() => console.log("Juego lanzado"))
-          .catch((err) => console.error("Error al lanzar versión:", err));
-      }
-    };
+  const handlePlay = () => {
+    if (selectedVersion) {
+      invoke("launch_version", { name: selectedVersion })
+        .then(() => console.log("Juego lanzado"))
+        .catch((err) => console.error("Error al lanzar versión:", err));
+    }
+  };
 
-    const toggleModal = () => {
-        setIsModalVisible(!isModalVisible);
-    };
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
 
-    const handleDeleteVersion = async () => {
-  try {
-    await invoke('delete_version', { name: selectedVersion.name });
 
-    toggleModal();
-    // refreshVersions();
-    invoke("get_all_versions")
+  const handleDeleteVersion = async () => {
+    try {
+      await invoke('delete_version', { name: selectedVersion.name });
+
+      toggleModal();
+      // refreshVersions();
+      invoke("get_all_versions")
         .then((loadedVersions) => {
           const versionsWithImages = loadedVersions.map((v) => ({
             ...v,
@@ -112,16 +116,16 @@ const handleAddonSelect = async () => {
   }
 };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  if (versionName.trim() !== "" && route.trim() !== "") {
-    try {
-      // OBTENER EXPANSIÓN DESDE EL BACKEND
-      const result = await invoke("get_version", { path: route });
-      console.log("Resultado del backend:", result); 
+    if (versionName.trim() !== "" && route.trim() !== "") {
+      try {
+        // OBTENER EXPANSIÓN DESDE EL BACKEND
+        const result = await invoke("get_version", { path: route });
+        console.log("Resultado del backend:", result);
 
-      const expansion = result.expansion;
+        const expansion = result.expansion;
 
       const newVersion = {
         name: versionName,
@@ -130,28 +134,28 @@ const handleSubmit = async (e) => {
         addons_path: addonsPath,
       };
 
-      console.log("Versión final a guardar:", newVersion);
+        console.log("Versión final a guardar:", newVersion);
 
-      if (isEditing && originalName) {
-        // ESTÁS EDITANDO UNA VERSIÓN EXISTENTE
-        try {
-          await invoke("update_version", {
-            oldName: originalName,  // nombre original antes de editar
-            newVersion: newVersion, // nueva versión a guardar
-          });
-          console.log("Versión actualizada correctamente.");
-        } catch (error) {
-          console.error("Error al actualizar versión:", error);
+        if (isEditing && originalName) {
+          // ESTÁS EDITANDO UNA VERSIÓN EXISTENTE
+          try {
+            await invoke("update_version", {
+              oldName: originalName,  // nombre original antes de editar
+              newVersion: newVersion, // nueva versión a guardar
+            });
+            console.log("Versión actualizada correctamente.");
+          } catch (error) {
+            console.error("Error al actualizar versión:", error);
+          }
+        } else {
+          // ESTÁS AÑADIENDO UNA NUEVA VERSIÓN
+          try {
+            await invoke("save_version_to_file", { version: newVersion });
+            console.log("Versión guardada en JSON.");
+          } catch (error) {
+            console.error("Error al guardar versión:", error);
+          }
         }
-      } else {
-        // ESTÁS AÑADIENDO UNA NUEVA VERSIÓN
-        try {
-          await invoke("save_version_to_file", { version: newVersion });
-          console.log("Versión guardada en JSON.");
-        } catch (error) {
-          console.error("Error al guardar versión:", error);
-        }
-      }
 
       // LIMPIAR Y CERRAR MODAL
       setVersionName("");
@@ -163,67 +167,66 @@ const handleSubmit = async (e) => {
       setOriginalName(null); // Limpiamos el originalName también
       toggleModal();
 
-      // RECARGAR VERSIONES
-      invoke("get_all_versions")
-        .then((loadedVersions) => {
-          const versionsWithImages = loadedVersions.map((v) => ({
-            ...v,
-            image: getImageForVersion(v.version),
-          }));
-          setCustomVersions(versionsWithImages);
-        })
-        .catch((error) => {
-          console.error("Error al cargar versiones:", error);
-        });
-
-    } catch (error) {
-      console.error("Error al obtener la versión:", error);
-    }
-  }
-};
-
-
-    
-      const handleFileSelect = async () => {
-        const filePath = await open({
-          multiple: false,
-          filters: [{ name: "Ejecutables", extensions: ["exe"] }],
-        });
-    
-        if (filePath) {
-          setRoute(filePath);
-        }
-      };
-
-    const [changelog, setChangelog] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-      readNews()
-      // Cargar el changelog
-      invoke("fetch_changelog")
-          .then((data) => {
-              setChangelog(data);
-          })
-          .catch((error) => {
-              console.error("Error al cargar changelog:", error);
-          })
-          .finally(() => {
-              setLoading(false);
-          });
-  
-      // Cargar versiones desde el JSON
-      invoke("get_all_versions")
+        // RECARGAR VERSIONES
+        invoke("get_all_versions")
           .then((loadedVersions) => {
-              const versionsWithImages = loadedVersions.map((v) => ({
-                  ...v,
-                  image: getImageForVersion(v.version),
-              }));
-              setCustomVersions(versionsWithImages);
+            const versionsWithImages = loadedVersions.map((v) => ({
+              ...v,
+              image: getImageForVersion(v.version),
+            }));
+            setCustomVersions(versionsWithImages);
           })
           .catch((error) => {
-              console.error("Error al cargar versiones:", error);
+            console.error("Error al cargar versiones:", error);
           });
+
+      } catch (error) {
+        console.error("Error al obtener la versión:", error);
+      }
+    }
+  };
+
+  const handleFileSelect = async () => {
+    const filePath = await open({
+      multiple: false,
+      filters: [{ name: "Ejecutables", extensions: ["exe"] }],
+    });
+
+    if (filePath) {
+      setRoute(filePath);
+    }
+  };
+
+  const [changelog, setChangelog] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+    readNews()
+    // Cargar el changelog
+    invoke("fetch_changelog")
+      .then((data) => {
+        setChangelog(data);
+      })
+      .catch((error) => {
+        console.error("Error al cargar changelog:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+
+    // Cargar versiones desde el JSON
+    invoke("get_all_versions")
+      .then((loadedVersions) => {
+        const versionsWithImages = loadedVersions.map((v) => ({
+          ...v,
+          image: getImageForVersion(v.version),
+        }));
+        setCustomVersions(versionsWithImages);
+      })
+      .catch((error) => {
+        console.error("Error al cargar versiones:", error);
+      });
   }, []);
 
   useEffect(() => {
@@ -266,80 +269,80 @@ const handleSubmit = async (e) => {
     }
   };
 
-  
-
-    const formatDate = (dateString) => {
-        if (!dateString) return '';
-
-        const date = new Date(dateString);
-        if (isNaN(date.getTime())) return '';
-
-        const day = String(date.getDate()).padStart(2, "0");
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const year = date.getFullYear();
-        const hours = String(date.getHours()).padStart(2, "0");
-        const minutes = String(date.getMinutes()).padStart(2, "0");
-
-        return `${day}/${month}/${year} ${hours}:${minutes}`;
-    };
-
-    const getShortText = (text) => {
-        if (!text) return '';
-        return text.slice(0, 30);
-    };
-
-    const [realms, setRealms] = useState(null);
-
-    useEffect(() => {
-        invoke("fetch_realms")
-            .then((data) => {
-                console.log("Realms data:", data);
-                setRealms(data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error("Error invoking fetch_realms:", error);
-                setLoading(false);
-            });
-    }, []);
-
-    const openSettingsModal = () => {
-        setIsSettingsModalVisible(true);
-    };
-
-    const closeSettingsModal = () => {
-        setIsSettingsModalVisible(false);
-    };
-
-    const handleConfigChange = (e) => {
-        const { name, value } = e.target;
-        setConfigSettings(prevSettings => ({
-            ...prevSettings,
-            [name]: value
-        }));
-    };
-
-    const saveConfigSettings = () => {
-        console.log("Configuración guardada:", configSettings);
-        closeSettingsModal();
-        alert("Configuración guardada");
-    };
-
-    if (loading) {
-        return <p>Loading...</p>;
-    }
-
-    if (!changelog) {
-        return <p>No changelog data available.</p>;
-    }
-
-    if (!realms) {
-        return <p>No realms data available.</p>;
-    }
 
 
-async function obtenerMonedas(token) {
-  try {
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return '';
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+  };
+
+  const getShortText = (text) => {
+    if (!text) return '';
+    return text.slice(0, 30);
+  };
+
+  const [realms, setRealms] = useState(null);
+
+  useEffect(() => {
+    invoke("fetch_realms")
+      .then((data) => {
+        console.log("Realms data:", data);
+        setRealms(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error invoking fetch_realms:", error);
+        setLoading(false);
+      });
+  }, []);
+
+  const openSettingsModal = () => {
+    setIsSettingsModalVisible(true);
+  };
+
+  const closeSettingsModal = () => {
+    setIsSettingsModalVisible(false);
+  };
+
+  const handleConfigChange = (e) => {
+    const { name, value } = e.target;
+    setConfigSettings(prevSettings => ({
+      ...prevSettings,
+      [name]: value
+    }));
+  };
+
+  const saveConfigSettings = () => {
+    console.log("Configuración guardada:", configSettings);
+    closeSettingsModal();
+    alert("Configuración guardada");
+  };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!changelog) {
+    return <p>No changelog data available.</p>;
+  }
+
+  if (!realms) {
+    return <p>No realms data available.</p>;
+  }
+
+
+  async function obtenerMonedas(token) {
+    try {
       const response = await invoke('fetch_coins', { token });
 
       console.log(`Monedas: ${response.coins}`);
@@ -347,63 +350,63 @@ async function obtenerMonedas(token) {
 
       setCoins(response.coins);
       setPoints(response.points);
-  } catch (error) {
+    } catch (error) {
       console.error("Error al obtener las monedas:", error);
+    }
   }
-}
 
 
 
-const launchVersion = async (name) => {
-  try {
-    await invoke("launch_version", { name });
-    console.log(`Versión "${name}" ejecutada.`);
-  } catch (error) {
-    console.error("Error al ejecutar la versión:", error);
-  }
-};
+  const launchVersion = async (name) => {
+    try {
+      await invoke("launch_version", { name });
+      console.log(`Versión "${name}" ejecutada.`);
+    } catch (error) {
+      console.error("Error al ejecutar la versión:", error);
+    }
+  };
 
-const getBackgroundByVersion = (versionCode) => {
-  const img = new Image();
-  switch (versionCode) {
-    case 'VA':
-      img.src = 'classic.webp';
-      return 'classic.webp';
-    case 'TBC':
-      img.src = 'tbc.webp';
-      return 'tbc.webp';
-    case 'LK':
-      img.src = 'wotlk_wallpaper.webp';
-      return 'wotlk_wallpaper.webp';
-    case 'CATA':
-      img.src = 'cata.webp';
-      return 'cata.webp';
-    case 'MOP':
-      img.src = 'mop.webp';
-      return 'mop.webp';
-    case 'WOD':
-      img.src = 'wod.webp';
-      return 'wod.webp';
-    case 'LG':
-      img.src = 'legion.webp';
-      return 'legion.webp';
-    case 'BFA':
-      img.src = 'bfa.webp';
-      return 'bfa.webp';
-    case 'SL':
-      img.src = 'shadowlands.webp';
-      return 'shadowlands.webp';
-    case 'DF':
-      img.src = 'df.webp';
-      return 'df.webp';
-    case 'TWW':
-      img.src = 'tww.webp';
-      return 'tww.webp';
-    default:
-      img.src = 'classic.webp';
-      return 'classic.webp'; // fondo por defecto
-  }
-};
+  const getBackgroundByVersion = (versionCode) => {
+    const img = new Image();
+    switch (versionCode) {
+      case 'VA':
+        img.src = 'classic.webp';
+        return 'classic.webp';
+      case 'TBC':
+        img.src = 'tbc.webp';
+        return 'tbc.webp';
+      case 'LK':
+        img.src = 'wotlk_wallpaper.webp';
+        return 'wotlk_wallpaper.webp';
+      case 'CATA':
+        img.src = 'cata.webp';
+        return 'cata.webp';
+      case 'MOP':
+        img.src = 'mop.webp';
+        return 'mop.webp';
+      case 'WOD':
+        img.src = 'wod.webp';
+        return 'wod.webp';
+      case 'LG':
+        img.src = 'legion.webp';
+        return 'legion.webp';
+      case 'BFA':
+        img.src = 'bfa.webp';
+        return 'bfa.webp';
+      case 'SL':
+        img.src = 'shadowlands.webp';
+        return 'shadowlands.webp';
+      case 'DF':
+        img.src = 'df.webp';
+        return 'df.webp';
+      case 'TWW':
+        img.src = 'tww.webp';
+        return 'tww.webp';
+      default:
+        img.src = 'classic.webp';
+        return 'classic.webp'; // fondo por defecto
+    }
+  };
 
 const handleVersionSelect = (version) => {
   setSelectedVersion(version.name);
@@ -423,11 +426,11 @@ const crearJsonVacio = async () => {
       console.error("Error al crear JSON vacío:", error);
     }
   };
-  
+
   // Función para agregar una nueva versión
   const addVersion = async (name, path) => {
     const newVersion = { name, path };
-  
+
     try {
       const response = await invoke("save_version_to_file", { version: newVersion });
       console.log(response);  // Mensaje de éxito
@@ -443,7 +446,7 @@ const crearJsonVacio = async () => {
   };
 
 
-  
+
   async function readNews() {
     try {
       const response = await invoke('fetch_news');
@@ -608,58 +611,58 @@ const crearJsonVacio = async () => {
                             </div>
                         )}
 
-                        <div className='newsArea'>
-                            <div className='mainNewsArea' onClick={() => { window.location.href = '/newsScreen'; }}>
-                                <img className='mainNew' src={mainNew.image} alt="Patch" />
-                                <button className='mainNewText'><h2>{mainNew.title}</h2></button>
-                            </div>
-                            <div className='microNewArea'>
-                                <div className='new1' onClick={() => { window.location.href = '/newsScreen'; }}>
-                                    <img className='microNew' src={firstNew.image} alt="Music" />
-                                    <button className='microNewText'><p>{firstNew.title}</p></button>
-                                </div>
-                                <div className='new2' onClick={() => { window.location.href = '/newsScreen'; }}>
-                                    <img className='microNew' src={secondNew.image} alt="News" />
-                                    <button className='microNewText'><p>{secondNew.title}</p></button>
-                                </div>
-                                <div className='new3' onClick={() => { window.location.href = '/newsScreen'; }}>
-                                    <img className='microNew' src={thirdNew.image} alt="Blizzcon" />
-                                    <button className='microNewText'><p>{thirdNew.title}</p></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <aside className='rightSidebar'>
-                        <div className='changelog'>
-                            <h3 className='changelog_title'>{t("changelog")}</h3>
-                            <div id='headChange'>
-                                <span id='numChangelog'>Changelog: {changelog.id}</span>
-                                <span>{formatDate(changelog.created_at)}</span>
-                            </div>
-                            {getShortText(changelog.text)}
-                            <button className='readMore'><Link to="/changelogScreen">{t("read_more")}</Link></button>
-                        </div>
-                        <div id="tiendaMonedas">
-                            <h3 className='shop_title'>Tienda</h3>
-                            <img className='monedaDona' src='/moneda_donacion.png' alt="Donación" />
-                            <img className='monedaVota' src='/moneda_votacion.png' alt="Votación" />
-                            <p id='donacionMoneda'>{coins}</p><p id='puntosDonacion'>P.D</p>
-                            <p id='votacionMoneda'>{points}</p><p id='puntosVotacion'>P.V</p>
-                            <button className='verTienda'>{t("read_more")}</button>
-                        </div>
-                        <div id="estadoServer">
-                        <i className="fa-solid fa-circle green"></i>                  
-                        <p id='estadoActualServer'>Online</p>
-                        </div>
-                        <div className='button_container'>
-                            <button className='play_button' onClick={() => handlePlay(selectedVersion)}>{t("play")}</button>
-                            <button className='settings_button' onClick={openSettingsModal}><i className="fa-solid fa-gear"></i></button>
-                        </div>
-                    </aside>
+            <div className='newsArea'>
+              <div className='mainNewsArea' onClick={() => { window.location.href = '/newsScreen'; }}>
+                <img className='mainNew' src={mainNew.image} alt="Patch" />
+                <button className='mainNewText'><h2>{mainNew.title}</h2></button>
+              </div>
+              <div className='microNewArea'>
+                <div className='new1' onClick={() => { window.location.href = '/newsScreen'; }}>
+                  <img className='microNew' src={firstNew.image} alt="Music" />
+                  <button className='microNewText'><p>{firstNew.title}</p></button>
                 </div>
+                <div className='new2' onClick={() => { window.location.href = '/newsScreen'; }}>
+                  <img className='microNew' src={secondNew.image} alt="News" />
+                  <button className='microNewText'><p>{secondNew.title}</p></button>
+                </div>
+                <div className='new3' onClick={() => { window.location.href = '/newsScreen'; }}>
+                  <img className='microNew' src={thirdNew.image} alt="Blizzcon" />
+                  <button className='microNewText'><p>{thirdNew.title}</p></button>
+                </div>
+              </div>
             </div>
-        </main>
-    );
+          </div>
+          <aside className='rightSidebar'>
+            <div className='changelog'>
+              <h3 className='changelog_title'>{t("changelog")}</h3>
+              <div id='headChange'>
+                <span id='numChangelog'>Changelog: {changelog.id}</span>
+                <span>{formatDate(changelog.created_at)}</span>
+              </div>
+              {getShortText(changelog.text)}
+              <button className='readMore'><Link to="/changelogScreen">{t("read_more")}</Link></button>
+            </div>
+            <div id="tiendaMonedas">
+              <h3 className='shop_title'>Tienda</h3>
+              <img className='monedaDona' src='/moneda_donacion.png' alt="Donación" />
+              <img className='monedaVota' src='/moneda_votacion.png' alt="Votación" />
+              <p id='donacionMoneda'>{coins}</p><p id='puntosDonacion'>P.D</p>
+              <p id='votacionMoneda'>{points}</p><p id='puntosVotacion'>P.V</p>
+              <button className='verTienda'>{t("read_more")}</button>
+            </div>
+            <div id="estadoServer">
+              <i className="fa-solid fa-circle green"></i>
+              <p id='estadoActualServer'>Online</p>
+            </div>
+            <div className='button_container'>
+              <button className='play_button' onClick={() => handlePlay(selectedVersion)}>{t("play")}</button>
+              <button className='settings_button' onClick={openSettingsModal}><i className="fa-solid fa-gear"></i></button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+  );
 }
 
 export default HomeScreen;

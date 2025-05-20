@@ -1,0 +1,140 @@
+import React, { useEffect, useState } from 'react';
+import { invoke } from '@tauri-apps/api/core';
+import styles from './TicketsScreen.module.css';
+import Titlebar from './components/Titlebar';
+import NavBar from './components/NavBar';
+
+function TicketsScreen() {
+    const [tickets, setTickets] = useState([]);
+    const [isGM, setIsGM] = useState(false);
+    const [ticketResponses, setTicketResponses] = useState({});
+    const token = localStorage.getItem("token");
+
+    useEffect(() => {
+        if (token) {
+            fetchTickets(token);
+        }
+    }, [token]);
+
+    useEffect(() => {
+        const initialResponses = {};
+        tickets.forEach(ticket => {
+            initialResponses[ticket.id] = ticket.response || "";
+        });
+        setTicketResponses(initialResponses);
+    }, [tickets]);
+
+    async function fetchTickets(token) {
+        try {
+            const response = await invoke('fetch_tickets', { token });
+            console.log('test')
+            setTickets(response.tickets || []);
+            setIsGM(response.gm);
+        } catch (error) {
+            console.error("Error fetching tickets:", error);
+        }
+    }
+
+    function handleResponseChange(ticketId, value) {
+        setTicketResponses(prev => ({
+            ...prev,
+            [ticketId]: value
+        }));
+    }
+
+    async function handleRespond(ticketId) {
+        try {
+            const responseText = ticketResponses[ticketId];
+            await invoke('update_ticket_response', { ticketId: ticketId, responseMsg: responseText, token: token });
+            fetchTickets(token); 
+        } catch (error) {
+            console.error("Failed to respond to ticket:", error);
+        }
+    }
+
+    async function handleClose(ticketId) {
+        try {
+            await invoke('complete_ticket', { ticketId:ticketId, token });
+            fetchTickets(token); 
+        } catch (error) {
+            console.error("Failed to close ticket:", error);
+        }
+    }
+
+    async function handleDelete(ticketId) {
+        try {
+            console.log(ticketId)
+            await invoke('delete_ticket', {ticketId:ticketId, token:token});
+            fetchTickets(token); 
+        } catch (error) {
+            console.error("Failed to delete ticket:", error);
+        }
+    }
+
+    return (
+        <div className={styles.ticketsContainer}>
+            <Titlebar />
+            <NavBar />
+
+            <div className={styles.ticketsContent}>
+                <div className={styles.ticketsList}>
+                    {tickets.length === 0 ? (
+                        <p className={styles.notickets}>No tickets found.</p>
+                    ) : (
+                        tickets.map((ticket) => (
+                            <div className={styles.ticketCard} key={ticket.id}>
+                                <img
+                                    className={styles.playerImage}
+                                    src={`/races/${ticket.race}/${ticket.gender}.webp`}
+                                    alt={`${ticket.race} ${ticket.gender}`}
+                                />
+
+                                <div className={styles.ticketDetails}>
+                                    <div className={styles.ticketMeta}>
+                                        <div className={styles.ticketName}>{ticket.name}</div>
+                                        <div>{new Date(ticket.createTime * 1000).toLocaleDateString()}</div>
+                                        <div>{new Date(ticket.createTime * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                        <div className={ticket.completed ? styles.completed : styles.notCompleted}>
+                                            {ticket.completed ? "COMPLETE" : "PENDING"}
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.ticketInfo}>
+                                        <label className={styles.label}>Description:</label>
+                                        <textarea
+                                            className={styles.descriptionBox}
+                                            value={ticket.description}
+                                            disabled
+                                        />
+
+                                        <label className={styles.label}>Response:</label>
+                                        <textarea
+                                            className={styles.responseBox}
+                                            value={ticketResponses[ticket.id] || ""}
+                                            onChange={(e) => handleResponseChange(ticket.id, e.target.value)}
+                                            disabled={!isGM || ticket.completed}
+                                            placeholder=""
+                                        />
+
+                                        <div className={styles.buttonRow}>
+                                            {isGM && !ticket.completed && (
+                                                <button className={styles.respondButton} onClick={() => handleRespond(ticket.id)}>Responder</button>
+                                            )}
+                                            {isGM && !ticket.completed && (
+                                                <button className={styles.closeButton} onClick={() => handleClose(ticket.id)}>Completar</button>
+                                            )}
+                                            <button className={styles.deleteButton} onClick={() => handleDelete(ticket.id)}>Eliminar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        ))
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default TicketsScreen;
