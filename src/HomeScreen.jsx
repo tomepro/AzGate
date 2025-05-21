@@ -619,7 +619,7 @@ function HomeScreen() {
               <img className='monedaVota' src='/moneda_votacion.png' alt="Votación" />
               <p id='donacionMoneda'>{coins}</p><p id='puntosDonacion'>P.D</p>
               <p id='votacionMoneda'>{points}</p><p id='puntosVotacion'>P.V</p>
-              <button className='verTienda'>{t("read_more")}</button>
+              <button className='verTienda'><Link to="/shopScreen">{t("watch_shop")}</Link></button>
             </div>
             <div id="estadoServer">
               <i className="fa-solid fa-circle green"></i>
