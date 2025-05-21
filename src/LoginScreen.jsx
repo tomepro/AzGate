@@ -23,6 +23,8 @@ function LoginScreen() {
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
 
+const [claseFondo, setClaseFondo] = useState('');
+
   async function login() {
     try {
       setLoading(true);
@@ -115,8 +117,58 @@ function LoginScreen() {
     fetchJWT();
   }, []);
 
+  useEffect(() => {
+    const hoy = new Date();
+
+    const esEntre = (fecha, inicioMes, inicioDia, finMes, finDia) => {
+      const anio = fecha.getFullYear();
+      const inicio = new Date(anio, inicioMes - 1, inicioDia);
+      const fin = new Date(anio, finMes - 1, finDia);
+      if (fin < inicio) {
+        if (fecha >= inicio) return true;
+        const inicioProxAnio = new Date(anio + 1, inicioMes - 1, inicioDia);
+        const finProxAnio = new Date(anio + 1, finMes - 1, finDia);
+        return fecha >= new Date(anio, 0, 1) && fecha <= finProxAnio;
+      } else {
+        return fecha >= inicio && fecha <= fin;
+      }
+    };
+
+    if (esEntre(hoy, 1, 23, 2, 5)) {
+      setClaseFondo('fondo-ancestros');
+    } else if (esEntre(hoy, 2, 7, 2, 20)) {
+      setClaseFondo('fondo-enamorados');
+    } else if (esEntre(hoy, 4, 12, 4, 18)) {
+      setClaseFondo('fondo-pascua');
+    } else if (esEntre(hoy, 4, 30, 5, 6)) {
+      setClaseFondo('fondo-ninos');
+    } else if (esEntre(hoy, 6, 21, 7, 4)) {
+      setClaseFondo('fondo-solsticio');
+    // } else if (esEntre(hoy, 3, 19, 7, 4)) {
+    //   setClaseFondo('fondo-solsticio');
+    } else if (hoy.getMonth() + 1 === 9 && hoy.getDate() === 19) {
+      setClaseFondo('fondo-piratas');
+    } else if (esEntre(hoy, 9, 20, 10, 5)) {
+      setClaseFondo('fondo-cerveza');
+    } else if (esEntre(hoy, 10, 18, 10, 31)) {
+      setClaseFondo('fondo-halloween');
+    } else if (esEntre(hoy, 11, 1, 11, 2)) {
+      setClaseFondo('fondo-muertos');
+    } else if (esEntre(hoy, 11, 22, 11, 28)) {
+      setClaseFondo('fondo-pelegrino');
+    } else if (
+      (hoy.getMonth() + 1 === 12 && hoy.getDate() >= 15) ||
+      (hoy.getMonth() + 1 === 1 && hoy.getDate() <= 2)
+    ) {
+      setClaseFondo('fondo-navidad');
+    } else {
+      setClaseFondo('fondo-df-molino'); // clase por defecto sin fondo
+    }
+  }, []);
+
   return (
-    <main className="containerLoginScreen">
+    // <main className="containerLoginScreen">
+    <main className={`containerLoginScreen ${claseFondo}`}>
       <Titlebar />
       <LoaderSpinner visible={loading} />
       <div className="loginBox">

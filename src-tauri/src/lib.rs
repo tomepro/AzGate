@@ -31,6 +31,8 @@ use api::{
     send_password_reset::send_password_email,
     shop::fetch_shop_items,
     tickets,
+    configFile::read_config_wtf,
+    configFile::write_config_wtf,
 };
 
 // --- Entry Point ---
@@ -69,6 +71,7 @@ pub fn run() {
             crear_json_vacio,
             save_version_to_file,
             get_all_versions,
+            fetch_coins,
             launch_version,
             update_version,
             delete_version,
@@ -83,6 +86,10 @@ pub fn run() {
             tickets::complete_ticket,
             tickets::update_ticket_response,
             tickets::delete_ticket,
+
+            // Config File
+            read_config_wtf,
+            write_config_wtf,
             update_presence
         ])
             .setup(|_app| {

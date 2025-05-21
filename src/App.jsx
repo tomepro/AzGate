@@ -30,8 +30,8 @@ function App() {
         <Route path="/changelogScreen" element={<ChangelogScreen />} />
         <Route path="/newsScreen" element={<NewsScreen />} />
         <Route path="/newPassword" element={<NewPassword />} />
-        <Route path="/shopScreen" element={<ShopScreen />} />
         <Route path="/addonsScreen" element={<AddonsScreen />} />
+        <Route path="/shopScreen" element={<ShopScreen />} />
         <Route path="/shoppingCartScreen" element={<ShoppingCartScreen />} />
       </Routes>
     </Router>

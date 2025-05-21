@@ -13,3 +13,4 @@ pub mod list_addons;
 pub mod shop;
 pub mod buy;
 pub mod tickets;
+pub mod configFile;
