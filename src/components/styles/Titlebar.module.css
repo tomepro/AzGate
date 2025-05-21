@@ -8,9 +8,10 @@
     align-items: center;           
     padding: 5px;
     color: white;
-    -webkit-app-region: drag;     
+    -webkit-app-region: drag;
     cursor: none;                  
     z-index: 1000;
+    
   }
 
 

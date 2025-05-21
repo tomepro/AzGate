@@ -88,11 +88,7 @@ function Shop() {
                                 to={`/shoppingCartScreen?id=${item.id}`} // Pasamos el id como parámetro GET
                                 className={`item-card ${item.isVoteItem ? 'vote-item' : 'donation-item'}`}
                             >
-                                {item.isVoteItem === 1 && (
-                                    <span className='vote-badge'>
-                                        Vote Item
-                                    </span>
-                                )}
+                                
                                 <img src={item.icon_link} alt={item.title} className="item-icon" />
                                 <h2 className="item-title">{item.title}</h2>
                                 <p className={priceClass}>

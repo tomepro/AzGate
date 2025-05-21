@@ -33,7 +33,7 @@ export default function CustomCursor() {
         height: "32px",
         pointerEvents: "none",
         transform: "translate(0,0)", // Centers the cursor
-        zIndex: 9999, // Keeps it above everything
+        zIndex: 99999999999, // Keeps it above everything
       }}
     />
   );

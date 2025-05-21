@@ -8,9 +8,10 @@
     padding: 0;
     display: flex;
     flex-direction: column;
+    z-index: 1;
 }
 
-#changelog-content {
+.changelog-content {
     height: 441px;
     width: 960px;
     margin-top: 13px;
@@ -18,10 +19,14 @@
     margin-bottom: 20px;
     margin-right: 32px;
     max-width: 100%;
+    
     overflow: auto;
     padding: 10px;
     box-sizing: border-box;
-    backdrop-filter: blur(6px);
+    
+
+    
+    /* backdrop-filter: blur(6px); */
 }
 
 .changelog-entry {

@@ -97,7 +97,7 @@ const NavBar = () => {
         </div>
       </div>
 
-      {/* Modal */}
+{/* Modal */}
       {isModalOpen && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
@@ -129,6 +129,7 @@ const NavBar = () => {
           </div>
         </div>
       )}
+      
 
       <button><Link className={styles.navButton} to="/home">{t("home")}</Link></button>
       <button><Link className={styles.navButton} to="/newsScreen">{t("news")}</Link></button>

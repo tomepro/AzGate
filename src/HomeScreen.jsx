@@ -459,12 +459,49 @@ function updateDiscord(version) {
     return <p>No realms data available.</p>;
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <main className='containerHomeScreen'>
+    <Titlebar version={loading}/>
+    <NavBar />
       <div className='launcherBackground' style={{ backgroundImage: `url(${backgroundImage})` }}>
-        <Titlebar version={loading}/>
-        <NavBar />
-        <div className='contentArea'>
+      
+        <div id='contentArea'>
           <aside className='sidebar'>
             <h3 id="tituloVersiones">{t("versions")}</h3>
             <div className='versions'>

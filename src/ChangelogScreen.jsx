@@ -1,19 +1,3 @@
-// import React, { useState } from 'react';
-// import './ChangelogScreen.css';  // Asegúrate de tener la ruta correcta
-// import Titlebar from "./components/Titlebar";
-// import NavBar from './components/navBar';
-
-// function ChangelogScreen() {
-//   return (
-//     <div className="changelog-container">
-//         <Titlebar />
-//         <NavBar />
-//       <div id='changelog-content'></div>
-//     </div>
-//   );
-// }
-
-// export default ChangelogScreen;
 import React, { useEffect, useState } from 'react';
 import './ChangelogScreen.css';
 import Titlebar from "./components/Titlebar";
@@ -55,7 +39,7 @@ function ChangelogScreen() {
     <div className="changelog-container">
       <Titlebar />
       <NavBar />
-      <div id="changelog-content">
+      <div className="changelog-content">
         {loading ? (
           <p>Loading changelog...</p>
         ) : changelog ? (

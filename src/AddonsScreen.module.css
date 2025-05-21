@@ -32,7 +32,7 @@
 
 .addon{
     background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(6px);
+    /* backdrop-filter: blur(6px); */
     display: flex;
     border-radius: 20px 0 20px 0;
     justify-content: space-between;
@@ -51,7 +51,7 @@
     margin-top: 69px;
     border-radius: 0 20px 0 20px;
     background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(6px);
+    /* backdrop-filter: blur(6px); */
     text-align: center;
 }
 
@@ -78,7 +78,7 @@
     height: 80px;
     width: 106px;
     background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(6px);
+    /* backdrop-filter: blur(6px); */
     margin-top: 30px;
     padding-left: 0px;
     padding-top: 15px;

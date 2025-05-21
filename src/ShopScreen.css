@@ -36,7 +36,7 @@
     text-decoration: none;
     color: white;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    position: relative;
+    position:inherit;
     overflow: hidden;
 }
 
@@ -60,24 +60,24 @@
 .item-price {
     font-size: 1.1em;
     margin-bottom: 0;
-    align-items: center; /* Centrar verticalmente precio e imagen */
-    display: flex; /* Añadido para alinear precio e imagen */
+    align-items: center;
+    display: flex; 
 }
 
 .vote-item-price {
     font-size: 1.1em;
     color: #828282;
     margin-bottom: 0;
-    display: flex; /* Añadido para alinear precio e imagen */
-    align-items: center; /* Centrar verticalmente precio e imagen */
+    display: flex; 
+    align-items: center; 
 }
 
 .donation-item-price {
     font-size: 1.1em;
     color: #ffd900;
     margin-bottom: 0;
-    display: flex; /* Añadido para alinear precio e imagen */
-    align-items: center; /* Centrar verticalmente precio e imagen */
+    display: flex; 
+    align-items: center; 
 }
 
 .no-items {
