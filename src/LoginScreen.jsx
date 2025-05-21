@@ -14,6 +14,7 @@ function LoginScreen() {
   const { t } = useTranslation("common");
 
   const [username, setName] = useState("");
+  const [started, setStarted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [finalMessage, setFinalMessage] = useState(null);
   const [password, setPassword] = useState("");
@@ -60,6 +61,29 @@ const [claseFondo, setClaseFondo] = useState('');
     }
   }
 
+// async function trySetPresence(maxRetries = 5) {
+//   for (let attempt = 1; attempt <= maxRetries; attempt++) {
+//     try {
+//       console.log(`Attempt ${attempt} to set Rich Presence...`);
+//       const result = invoke("set_rich_presence", { stateText: "default" });
+//       console.log("Rich Presence set:", result);
+//       return;
+//     } catch (e) {
+//       console.warn(`Attempt ${attempt} failed: ${e}`);
+//       await new Promise((r) => setTimeout(r, 1000)); // Wait 1 sec before retry
+//     }
+//   }
+//   console.error("All attempts to set Rich Presence failed.");
+// }
+
+// async function startDiscordRPC() {
+//   await invoke("start_discord");
+// }
+
+// useEffect(() => {
+//   startDiscordRPC();
+// }, []); 
+
   useEffect(() => {
     async function fetchJWT() {
       try {
@@ -76,9 +100,9 @@ const [claseFondo, setClaseFondo] = useState('');
             // Optionally show popup for JWT login failure
             setPopupMessage(
               jwtLoginMessage.message?.[0] ||
-                jwtLoginMessage.error ||
-                t("jwtLoginError") ||
-                "JWT login failed"
+              jwtLoginMessage.error ||
+              t("jwtLoginError") ||
+              "JWT login failed"
             );
             setPopupOpen(true);
           }

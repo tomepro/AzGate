@@ -386,15 +386,25 @@ function HomeScreen() {
     }
   };
 
-  const handleVersionSelect = (version) => {
+  const handleVersionSelect = async (version) => {
     setSelectedVersion(version.name);
     setSelectedVersionPath(version.path);
     localStorage.setItem("nameAddons", version.addons_path);
     localStorage.setItem("versionSelected", version.version);
     localStorage.setItem("config", version.addons_path);
-    const bg = getBackgroundByVersion(version.version);
+  
+  const bg = getBackgroundByVersion(version.version);
     setBackgroundImage(bg);
-  };
+  
+  // Call without blocking the UI
+  updateDiscord(version.version);
+};
+
+function updateDiscord(version) {
+  setTimeout(() => {
+    invoke('update_presence', { version:version }).catch(console.error);
+  }, 0);
+}
 
   const crearJsonVacio = async () => {
     try {
@@ -619,7 +629,7 @@ function HomeScreen() {
               <img className='monedaVota' src='/moneda_votacion.png' alt="Votación" />
               <p id='donacionMoneda'>{coins}</p><p id='puntosDonacion'>P.D</p>
               <p id='votacionMoneda'>{points}</p><p id='puntosVotacion'>P.V</p>
-              <button className='verTienda'>{t("read_more")}</button>
+              <button className='verTienda'><Link to="/shopScreen">{t("watch_shop")}</Link></button>
             </div>
             <div id="estadoServer">
               <i className="fa-solid fa-circle green"></i>
