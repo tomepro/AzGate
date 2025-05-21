@@ -40,5 +40,7 @@
     "newPassword":"Nueva contraseña",
     "confirmNewPassword":"Confirmar Nueva Contraseña",
     "codverificacion": "Código de verificación",
-    "tengocodigo": "Ya he recibido mí código"
+    "tengocodigo": "Ya he recibido mí código",
+    "enviarcodigo": "Enviar código",
+    "online":"En línea"
 }

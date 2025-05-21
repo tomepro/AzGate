@@ -614,7 +614,7 @@ function HomeScreen() {
               <button className='readMore'><Link to="/changelogScreen">{t("read_more")}</Link></button>
             </div>
             <div id="tiendaMonedas">
-              <h3 className='shop_title'>Tienda</h3>
+              <h3 className='shop_title'>{t("shop")}</h3>
               <img className='monedaDona' src='/moneda_donacion.png' alt="Donación" />
               <img className='monedaVota' src='/moneda_votacion.png' alt="Votación" />
               <p id='donacionMoneda'>{coins}</p><p id='puntosDonacion'>P.D</p>
@@ -623,7 +623,7 @@ function HomeScreen() {
             </div>
             <div id="estadoServer">
               <i className="fa-solid fa-circle green"></i>
-              <p id='estadoActualServer'>Online</p>
+              <p id='estadoActualServer'>{t("online")}</p>
             </div>
             <div className='button_container'>
               <button className='play_button' onClick={() => handlePlay(selectedVersion)}>{t("play")}</button>
