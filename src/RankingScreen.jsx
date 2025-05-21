@@ -3,7 +3,7 @@ import "./RankingScreen.css";
 import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
 import Titlebar from './components/Titlebar';
-import NavBar from './components/navBar';
+import NavBar from './components/NavBar';
     
 
 function RankingIframe() {

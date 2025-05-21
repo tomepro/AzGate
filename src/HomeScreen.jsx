@@ -448,15 +448,15 @@ function HomeScreen() {
   }
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p>{t("loading")}</p>;
   }
 
   if (!changelog) {
-    return <p>No changelog data available.</p>;
+    return <p>{t("no_changelogdata")}</p>;
   }
 
   if (!realms) {
-    return <p>No realms data available.</p>;
+    return <p>{t("no_realmsdata")}</p>;
   }
 
   return (
@@ -513,10 +513,10 @@ function HomeScreen() {
             {isModalVisible && (
               <div id="modal">
                 <div id="modalContent">
-                  <h3>Ruta de la versión</h3>
+                  <h3>{t("version_route")}</h3>
                   <form onSubmit={handleSubmit}>
                     <label>
-                      <p>Nombre</p>
+                      <p>{t("name_version")}</p>
                       <input
                         type="text"
                         value={versionName}
@@ -525,43 +525,43 @@ function HomeScreen() {
                       />
                     </label>
                     <label className="inputGroup">
-                      <p>Ruta</p>
+                      <p>{t("route")}</p>
                       <button
                         id="seleccionarExe"
                         type="button"
                         onClick={handleFileSelect}
                       >
-                        Pulsa para seleccionar el ejecutable
+                        {t("select_exe")}
                       </button>
                       <p id="exeSeleccionado">
                         {route && `Seleccionado: ${route.split("\\").pop()}`}
                       </p>
                     </label>
                     <label className="inputGroup">
-                      <p>Ruta de Addons</p>
+                      <p>{t("addons_route")}</p>
                       <button
                         id="seleccionarAddons"
                         type="button"
                         onClick={handleAddonSelect}
                       >
-                        Pulsa para seleccionar la carpeta de addons
+                        {t("select_addons")}
                       </button>
                       <p id="addonsSeleccionado">
                         {addonsPath && `Seleccionado: ${addonsPath}`}
                       </p>
                     </label>
                     <button className="modelButtonA" type="button" onClick={toggleModal}>
-                      Cancelar
+                      {t("cancel")}
                     </button>
                     <button className="modelButton" type="submit">
-                      Añadir
+                      {t("add")}
                     </button>
                     <button
                       className="modelButtonDelete"
                       type="button"
                       onClick={handleDeleteVersion}
                     >
-                      Eliminar
+                      {t("delete")}
                     </button>
                   </form>
                 </div>
@@ -571,7 +571,7 @@ function HomeScreen() {
             {isSettingsModalVisible && (
               <div id="modal">
                 <div id="modalContent">
-                  <h3>Configuración de Config.wtf</h3>
+                  <h3>{t("config")}</h3>
                   <div className="config-options-container">
                     <form>
                       {Object.entries(configSettings).map(([key, value]) => (
@@ -587,8 +587,8 @@ function HomeScreen() {
                           </label>
                         </div>
                       ))}
-                      <button type="button" onClick={closeSettingsModal}>Cancelar</button>
-                      <button type="button" onClick={saveConfigSettings}>Guardar</button>
+                      <button type="button" onClick={closeSettingsModal}>{t("cancel")}</button>
+                      <button type="button" onClick={saveConfigSettings}>{t("save")}</button>
                     </form>
                   </div>
                 </div>
@@ -620,23 +620,23 @@ function HomeScreen() {
             <div className='changelog'>
               <h3 className='changelog_title'>{t("changelog")}</h3>
               <div id='headChange'>
-                <span id='numChangelog'>Changelog: {changelog.id}</span>
+                <span id='numChangelog'>{t("changelog")}: {changelog.id}</span>
                 <span>{formatDate(changelog.created_at)}</span>
               </div>
               {getShortText(changelog.text)}
               <button className='readMore'><Link to="/changelogScreen">{t("read_more")}</Link></button>
             </div>
             <div id="tiendaMonedas">
-              <h3 className='shop_title'>Tienda</h3>
+              <h3 className='shop_title'>{t("shop")}</h3>
               <img className='monedaDona' src='/moneda_donacion.png' alt="Donación" />
               <img className='monedaVota' src='/moneda_votacion.png' alt="Votación" />
-              <p id='donacionMoneda'>{coins}</p><p id='puntosDonacion'>P.D</p>
-              <p id='votacionMoneda'>{points}</p><p id='puntosVotacion'>P.V</p>
-              <button className='verTienda'><Link to="/shopScreen">{t("watch_shop")}</Link></button>
+              <p id='donacionMoneda'>{coins}</p><p id='puntosDonacion'>{t("pd")}</p>
+              <p id='votacionMoneda'>{points}</p><p id='puntosVotacion'>{t("pv")}</p>
+              <button className='verTienda'><Link to="/shopScreen">{t("shop")}</Link></button>
             </div>
             <div id="estadoServer">
               <i className="fa-solid fa-circle green"></i>
-              <p id='estadoActualServer'>Online</p>
+              <p id='estadoActualServer'>{t("online")}</p>
             </div>
             <div className='button_container'>
               <button className='play_button' onClick={() => handlePlay(selectedVersion)}>{t("play")}</button>

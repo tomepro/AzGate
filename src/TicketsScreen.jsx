@@ -3,12 +3,15 @@ import { invoke } from '@tauri-apps/api/core';
 import styles from './TicketsScreen.module.css';
 import Titlebar from './components/Titlebar';
 import NavBar from './components/NavBar';
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
 function TicketsScreen() {
     const [tickets, setTickets] = useState([]);
     const [isGM, setIsGM] = useState(false);
     const [ticketResponses, setTicketResponses] = useState({});
     const token = localStorage.getItem("token");
+    const { t } = useTranslation("common");
 
     useEffect(() => {
         if (token) {
@@ -79,7 +82,7 @@ function TicketsScreen() {
             <div className={styles.ticketsContent}>
                 <div className={styles.ticketsList}>
                     {tickets.length === 0 ? (
-                        <p className={styles.notickets}>No tickets found.</p>
+                        <p className={styles.notickets}>{t("no_tickets")}</p>
                     ) : (
                         tickets.map((ticket) => (
                             <div className={styles.ticketCard} key={ticket.id}>
@@ -93,21 +96,21 @@ function TicketsScreen() {
                                     <div className={styles.ticketMeta}>
                                         <div className={styles.ticketName}>{ticket.name}</div>
                                         <div>{new Date(ticket.createTime * 1000).toLocaleDateString()}</div>
-                                        <div>{new Date(ticket.createTime * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                        <div>{new Date(ticket.createTime * 1000).toLocaleTimeString([], { [t("hour")]: '2-digit', [t("minute")]: '2-digit' })}</div>
                                         <div className={ticket.completed ? styles.completed : styles.notCompleted}>
-                                            {ticket.completed ? "COMPLETE" : "PENDING"}
+                                            {ticket.completed ? t("complete_status") : t("pending_status")}
                                         </div>
                                     </div>
 
                                     <div className={styles.ticketInfo}>
-                                        <label className={styles.label}>Description:</label>
+                                        <label className={styles.label}>{t("description")}:</label>
                                         <textarea
                                             className={styles.descriptionBox}
                                             value={ticket.description}
                                             disabled
                                         />
 
-                                        <label className={styles.label}>Response:</label>
+                                        <label className={styles.label}>{t("response")}:</label>
                                         <textarea
                                             className={styles.responseBox}
                                             value={ticketResponses[ticket.id] || ""}
@@ -118,12 +121,12 @@ function TicketsScreen() {
 
                                         <div className={styles.buttonRow}>
                                             {isGM && !ticket.completed && (
-                                                <button className={styles.respondButton} onClick={() => handleRespond(ticket.id)}>Responder</button>
+                                                <button className={styles.respondButton} onClick={() => handleRespond(ticket.id)}>{t("answer")}</button>
                                             )}
                                             {isGM && !ticket.completed && (
-                                                <button className={styles.closeButton} onClick={() => handleClose(ticket.id)}>Completar</button>
+                                                <button className={styles.closeButton} onClick={() => handleClose(ticket.id)}>{t("complete")}</button>
                                             )}
-                                            <button className={styles.deleteButton} onClick={() => handleDelete(ticket.id)}>Eliminar</button>
+                                            <button className={styles.deleteButton} onClick={() => handleDelete(ticket.id)}>{t("delete")}</button>
                                         </div>
                                     </div>
                                 </div>

@@ -5,7 +5,8 @@ import { invoke } from '@tauri-apps/api/core';
 import Titlebar from "./components/Titlebar";
 import NavBar from './components/NavBar';
 import './ShoppingCartScreen.css'; // Asegúrate de crear este archivo CSS
-import { s } from 'framer-motion/client';
+import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 const ShoppingCartScreen = () => {
     const [searchParams] = useSearchParams();
@@ -18,6 +19,7 @@ const ShoppingCartScreen = () => {
     const [loadingCharacters, setLoadingCharacters] = useState(true);
     const [errorCharacters, setErrorCharacters] = useState(null);
     const token = localStorage.getItem("token");
+    const { t } = useTranslation("common");
 
     useEffect(() => {
         async function getShopItemById(id) {
@@ -112,7 +114,7 @@ const ShoppingCartScreen = () => {
                     <Titlebar version={false} />
                     <NavBar />
                     <div className='contentArea'>
-                        <p>Cargando item...</p>
+                        <p>{t("loading")}</p>
                     </div>
                 </div>
             </main>
@@ -127,7 +129,7 @@ const ShoppingCartScreen = () => {
                     <NavBar />
                     <div className='contentArea'>
                         <p className="error">{errorItem}</p>
-                        <Link to="/shopScreen">Volver a la tienda</Link>
+                        <Link to="/shopScreen">{t("back_shop")}</Link>
                     </div>
                 </div>
             </main>
@@ -141,8 +143,8 @@ const ShoppingCartScreen = () => {
                     <Titlebar version={false} />
                     <NavBar />
                     <div className='contentArea'>
-                        <p>No se ha seleccionado ningún item.</p>
-                        <Link to="/shopScreen">Volver a la tienda</Link>
+                        <p>{t("no_item_selected")}</p>
+                        <Link to="/shopScreen">{t("back_shop")}</Link>
                     </div>
                 </div>
             </main>
@@ -156,7 +158,7 @@ const ShoppingCartScreen = () => {
                     <Titlebar version={false} />
                     <NavBar />
                     <div className='contentArea'>
-                        <p>Cargando personajes...</p>
+                        <p>{t("loading")}</p>
                     </div>
                 </div>
             </main>
@@ -171,7 +173,7 @@ const ShoppingCartScreen = () => {
                     <NavBar />
                     <div className='contentArea'>
                         <p className="error">{errorCharacters}</p>
-                        <Link to="/shop">Volver a la tienda</Link>
+                        <Link to="/shop">{t("back_shop")}</Link>
                     </div>
                 </div>
             </main>
@@ -196,20 +198,20 @@ const ShoppingCartScreen = () => {
                             )}
                         </div>
                         <div className="character-selection">
-                            <label htmlFor="character">Seleccionar Personaje:</label>
+                            <label htmlFor="character">{t("select_character")}:</label>
                             <select className='character-selector' id="character" value={selectedCharacter} onChange={handleCharacterChange}>
-                                <option value="">-- Seleccionar --</option>
+                                <option value="">-- {t("select")} --</option>
                                 {characters.map((character) => (
                                     <option key={character.guid} value={character.guid}>
-                                        {character.name} (Nivel {character.level})
+                                        {character.name} ({t("level")} {character.level})
                                     </option>
                                 ))}
                             </select>
                         </div>
-                        <button className='payButton' onClick={handleBuyItem} disabled={!selectedCharacter}>Pagar</button>
+                        <button className='payButton' onClick={handleBuyItem} disabled={!selectedCharacter}>{t("pay")}</button>
                         <br />
                         <br />
-                        <Link className='backButton' to="/shopScreen">Volver a la tienda</Link>
+                        <Link className='backButton' to="/shopScreen">{t("back_shop")}</Link>
                     </div>
                 </div>
             </div>

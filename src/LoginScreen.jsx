@@ -134,36 +134,26 @@ const [claseFondo, setClaseFondo] = useState('');
       }
     };
 
-    if (esEntre(hoy, 1, 23, 2, 5)) {
-      setClaseFondo('fondo-ancestros');
-    } else if (esEntre(hoy, 2, 7, 2, 20)) {
-      setClaseFondo('fondo-enamorados');
-    } else if (esEntre(hoy, 4, 12, 4, 18)) {
-      setClaseFondo('fondo-pascua');
-    } else if (esEntre(hoy, 4, 30, 5, 6)) {
-      setClaseFondo('fondo-ninos');
-    } else if (esEntre(hoy, 6, 21, 7, 4)) {
-      setClaseFondo('fondo-solsticio');
-    // } else if (esEntre(hoy, 3, 19, 7, 4)) {
-    //   setClaseFondo('fondo-solsticio');
-    } else if (hoy.getMonth() + 1 === 9 && hoy.getDate() === 19) {
-      setClaseFondo('fondo-piratas');
-    } else if (esEntre(hoy, 9, 20, 10, 5)) {
-      setClaseFondo('fondo-cerveza');
-    } else if (esEntre(hoy, 10, 18, 10, 31)) {
-      setClaseFondo('fondo-halloween');
-    } else if (esEntre(hoy, 11, 1, 11, 2)) {
-      setClaseFondo('fondo-muertos');
-    } else if (esEntre(hoy, 11, 22, 11, 28)) {
-      setClaseFondo('fondo-pelegrino');
-    } else if (
+    const fondoMap = [
+      { key: 'fondo-ancestros', check: () => esEntre(hoy, 1, 23, 2, 5) },
+      { key: 'fondo-enamorados', check: () => esEntre(hoy, 2, 7, 2, 20) },
+      { key: 'fondo-pascua', check: () => esEntre(hoy, 4, 12, 4, 18) },
+      { key: 'fondo-ninos', check: () => esEntre(hoy, 4, 30, 5, 6) },
+      { key: 'fondo-solsticio', check: () => esEntre(hoy, 6, 21, 7, 4) },
+      // { key: 'fondo-solsticio', check: () => esEntre(hoy, 3, 19, 7, 4) },
+      { key: 'fondo-piratas', check: () => hoy.getMonth() + 1 === 9 && hoy.getDate() === 19 },
+      { key: 'fondo-cerveza', check: () => esEntre(hoy, 9, 20, 10, 5) },
+      { key: 'fondo-halloween', check: () => esEntre(hoy, 10, 18, 10, 31) },
+      { key: 'fondo-muertos', check: () => esEntre(hoy, 11, 1, 11, 2) },
+      { key: 'fondo-pelegrino', check: () => esEntre(hoy, 11, 22, 11, 28) },
+      { key: 'fondo-navidad', check: () =>
       (hoy.getMonth() + 1 === 12 && hoy.getDate() >= 15) ||
       (hoy.getMonth() + 1 === 1 && hoy.getDate() <= 2)
-    ) {
-      setClaseFondo('fondo-navidad');
-    } else {
-      setClaseFondo('fondo-df-molino'); // clase por defecto sin fondo
-    }
+      },
+    ];
+
+    const found = fondoMap.find(f => f.check());
+    setClaseFondo(found ? found.key : 'fondo-df-molino');
   }, []);
 
   return (
