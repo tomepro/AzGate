@@ -408,13 +408,23 @@ const handleAddonSelect = async () => {
     }
   };
 
-const handleVersionSelect = (version) => {
+const handleVersionSelect = async (version) => {
   setSelectedVersion(version.name);
   localStorage.setItem("nameAddons", version.addons_path);
   localStorage.setItem("versionSelected", version.version);
+
   const bg = getBackgroundByVersion(version.version);
   setBackgroundImage(bg);
+
+  // Call without blocking the UI
+  updateDiscord(version.version);
 };
+
+function updateDiscord(version) {
+  setTimeout(() => {
+    invoke('update_presence', { version:version }).catch(console.error);
+  }, 0);
+}
 
     //PARTE GUARDAR DATOS EN EL JS
     // Función para crear el archivo JSON vacío si no existe
