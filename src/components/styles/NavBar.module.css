@@ -57,7 +57,7 @@
     position: absolute;
     top: 28px;
     left: 37px;
-    z-index: 2;
+    z-index: 0;
     border-radius: 5px;
   }
   
@@ -104,17 +104,16 @@
 
   /* MODAL CSS */
   .modal {
-    position: absolute;
+    position: fixed;
     margin-top: 429px;
     margin-left: -15px;
-    width: 100vw;  /* Asegúrate de que cubra toda la ventana */
-    height: 100vh; /* Asegúrate de que cubra toda la altura de la ventana */
+    width: 100vw;  
+    height: 100vh; 
     background-color: rgba(0, 0, 0, 0.5);
-    
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 99999; /* Asegúrate de que el modal esté por encima de otros elementos */
+
   }
 
   .cuadradoInterior{
@@ -216,8 +215,7 @@
     width: 353px;
     height: 482px;
     text-align: center;
-    position: relative¡; /* Asegúrate de que el contenido del modal esté bien posicionado */
-    z-index: 9999999;
+    position: relative;
   }
   
   .closeButton {

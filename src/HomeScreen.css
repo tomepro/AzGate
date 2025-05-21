@@ -14,6 +14,7 @@ html{
     flex-direction: column;
     height: 100vh;
     width: 100vw;
+    z-index: 1;
     
 }
 
@@ -111,14 +112,7 @@ body {
 
 
 #contentArea {
-    z-index: 0;
-    /* display: grid;
-    grid-template-columns: 200px 1fr 300px;
-    padding: 13px; */
-    /* position: fixed; */
-    /* margin-top: 100px; */
-
-    
+   z-index: -1; 
 }
 
 /*VERSIONES*/
@@ -367,12 +361,14 @@ body {
 .newsArea {
     margin-left: 256px;
     margin-top: -448px;
-    position: absolute;
+    position:absolute;
     height: 218px;
     width: 493px;
     align-items: center;
     justify-content: center;
     color: white;
+    z-index: 10;
+    
 }
 
 .mainNewsArea{
@@ -589,7 +585,7 @@ ul{
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 11;
 }
 
 /* Contenido del modal */
@@ -597,7 +593,7 @@ ul{
     margin-left: 25%;
     margin-right: 25%;
     border-radius: 20px 0 20px 0;
-    /* backdrop-filter: blur(6px); */
+    backdrop-filter: blur(6px);
     background-color: rgba(51, 51, 51, 0.685);
     padding: 40px ;
     width: auto;
@@ -605,6 +601,7 @@ ul{
     display: flex;
     flex-direction: column;
     align-items: center;
+
 }
 
 #exeSelecionado{

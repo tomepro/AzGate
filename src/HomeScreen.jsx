@@ -392,19 +392,19 @@ function HomeScreen() {
     localStorage.setItem("nameAddons", version.addons_path);
     localStorage.setItem("versionSelected", version.version);
     localStorage.setItem("config", version.addons_path);
-  
-  const bg = getBackgroundByVersion(version.version);
-    setBackgroundImage(bg);
-  
-  // Call without blocking the UI
-  updateDiscord(version.version);
-};
 
-function updateDiscord(version) {
-  setTimeout(() => {
-    invoke('update_presence', { version:version }).catch(console.error);
-  }, 0);
-}
+    const bg = getBackgroundByVersion(version.version);
+    setBackgroundImage(bg);
+
+    // Call without blocking the UI
+    updateDiscord(version.version);
+  };
+
+  function updateDiscord(version) {
+    setTimeout(() => {
+      invoke('update_presence', { version: version }).catch(console.error);
+    }, 0);
+  }
 
   const crearJsonVacio = async () => {
     try {
@@ -459,48 +459,11 @@ function updateDiscord(version) {
     return <p>No realms data available.</p>;
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
     <main className='containerHomeScreen'>
-    <Titlebar version={loading}/>
-    <NavBar />
       <div className='launcherBackground' style={{ backgroundImage: `url(${backgroundImage})` }}>
-      
+        <Titlebar version={loading} />
+        <NavBar />
         <div id='contentArea'>
           <aside className='sidebar'>
             <h3 id="tituloVersiones">{t("versions")}</h3>
@@ -546,6 +509,7 @@ function updateDiscord(version) {
             </div>
           </aside>
           <div id='mainContent'>
+
             {isModalVisible && (
               <div id="modal">
                 <div id="modalContent">
@@ -603,6 +567,7 @@ function updateDiscord(version) {
                 </div>
               </div>
             )}
+
             {isSettingsModalVisible && (
               <div id="modal">
                 <div id="modalContent">
@@ -630,6 +595,7 @@ function updateDiscord(version) {
               </div>
             )}
             <div className='newsArea'>
+
               <div className='mainNewsArea' onClick={() => { window.location.href = '/newsScreen'; }}>
                 <img className='mainNew' src={mainNew.image} alt="Patch" />
                 <button className='mainNewText'><h2>{mainNew.title}</h2></button>
