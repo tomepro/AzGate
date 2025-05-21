@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import './NewsScreen.css';
 import Titlebar from "./components/Titlebar";
-import NavBar from './components/navBar';
+import NavBar from './components/NavBar';
 import { invoke } from '@tauri-apps/api/core';
+import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 function NewsScreen() {
   const [news, setNews] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedNews, setSelectedNews] = useState(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const { t } = useTranslation("common");
+  
 
   useEffect(() => {
     invoke("fetch_news")
@@ -49,7 +53,7 @@ function NewsScreen() {
         <Titlebar />
         <NavBar />
         <div id="news-content">
-          <p>Loading news...</p>
+          <p>{t("loading")}</p>
         </div>
       </div>
     );
@@ -64,11 +68,11 @@ function NewsScreen() {
           <div className="expanded-news-header">
             <h2 className="expanded-news-title">{selectedNews.title}</h2>
             <span className="expanded-news-date">{formatDate(selectedNews.created_at)}</span>
-            <span className="expanded-news-author">By: {selectedNews.author}</span>
+            <span className="expanded-news-author">{t("by")}: {selectedNews.author}</span>
           </div>
           {selectedNews.image && <img src={selectedNews.image} alt={selectedNews.title} className="expanded-news-image" />}
           <div className="expanded-news-text">{selectedNews.text}</div>
-          <button className="go-back-button" onClick={handleGoBack}>Volver atrás</button>
+          <button className="go-back-button" onClick={handleGoBack}>{t("back")}</button>
         </div>
       </div>
     );
@@ -88,7 +92,7 @@ function NewsScreen() {
             </div>
           ))
         ) : (
-          <p className='errorMessage'>No news data available.</p>
+          <p className='errorMessage'>{t("no_newsdata")}</p>
         )}
       </div>
     </div>

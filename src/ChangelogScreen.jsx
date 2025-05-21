@@ -19,8 +19,11 @@ import './ChangelogScreen.css';
 import Titlebar from "./components/Titlebar";
 import NavBar from './components/navBar';
 import { invoke } from '@tauri-apps/api/core';
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
 function ChangelogScreen() {
+  const { t } = useTranslation("common");
   const [changelog, setChangelog] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -42,6 +45,8 @@ function ChangelogScreen() {
     const date = new Date(dateString);
     if (isNaN(date.getTime())) return ''; // Si no es una fecha válida, retornar vacío
 
+    
+
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
@@ -57,11 +62,11 @@ function ChangelogScreen() {
       <NavBar />
       <div id="changelog-content">
         {loading ? (
-          <p>Loading changelog...</p>
+          <p>{t("loading")}</p>
         ) : changelog ? (
           <div className="changelog-entry">
             <div className="changelog-header">
-              <span id='numChangelog'>Changelog: {changelog.id}</span>
+              <span id='numChangelog'>{t("changelog")}: {changelog.id}</span>
               <span>{formatDate(changelog.created_at)}</span>
             </div>
             <div className="changelog-text">
@@ -69,7 +74,7 @@ function ChangelogScreen() {
             </div>
           </div>
         ) : (
-          <p>No changelog data available.</p> 
+          <p>{t("no_changelogdata")}</p>
         )}
       </div>
     </div>

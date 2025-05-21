@@ -2,7 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 import { join } from '@tauri-apps/api/path';
 
-
+import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import styles from './AddonsScreen.module.css';
 import Titlebar from "./components/Titlebar";
 import NavBar from './components/NavBar';
@@ -12,6 +13,7 @@ import { invoke } from '@tauri-apps/api/core';
 function AddonsScreen() {
   const [addons, setAddons] = useState([]);
   const [error, setError] = useState(null);
+  const { t } = useTranslation("common");
 
   const storedPath = localStorage.getItem("nameAddons");
   const path = localStorage.getItem("nameAddons");
@@ -139,7 +141,7 @@ const onDrop = useCallback(async (event) => {
         {/* Contenido de la seccion */}
         <div className={styles.addonsContent}>
             <div className={styles.addonsUnzip}>
-              <h1 className={styles.titlezip}>¡Arrastra tu addon aquí!</h1>
+              <h1 className={styles.titlezip}>{t("drag_addon")}</h1>
               <div className={styles.addonsUnzipBox} onDrop={onDrop} onDragOver={onDragOver}><i class="fa-solid fa-arrow-up-from-bracket fa-2x"></i></div>
               <h1 className={styles.usezip}>(.zip)</h1>
             </div>
