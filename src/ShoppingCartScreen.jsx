@@ -95,29 +95,29 @@ const ShoppingCartScreen = () => {
                 // Aquí puedes manejar la respuesta, mostrar un mensaje de éxito o error al usuario
                 if (purchaseResult?.message) {
 
-                    setPopupMessage("purchaseResult.message");
+                    setPopupMessage(t("purchaseResult_success", { item: item.title }));
                     setPopupOpen(true);
                     // alert(purchaseResult.message);
                     // Redirigir a una página de éxito o limpiar el carrito
                 } else if (purchaseResult?.error) {
                     // alert(`Error al comprar el item: ${purchaseResult.error}`);
-                    setPopupMessage(`Error al comprar el item: ${purchaseResult.error}`);
+                    setPopupMessage(t("purchaseResult_error", { error: purchaseResult.error }));
                     setPopupOpen(true);
                 } else {
                     // alert("Error desconocido al intentar comprar el item.");
-                    setPopupMessage("Error desconocido al intentar comprar el item");
+                    setPopupMessage(t("purchaseResult_unknown"));
                     setPopupOpen(true);
                 }
 
             } catch (error) {
                 console.error("Error al invocar buy_shop_item:", error);
                 // alert(`Error al intentar comprar el item: ${error}`);
-                setPopupMessage(`Error al intentar comprar el item: ${error}`);
+                setPopupMessage(t("purchaseResult_unknown", { error: error.message }));
                 setPopupOpen(true);
             }
         } else {
             // alert('Por favor, selecciona un personaje.');
-            setPopupMessage("Por favor, selecciona un personaje");
+            setPopupMessage(t("select_character"));
             setPopupOpen(true);
         }
     };

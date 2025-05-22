@@ -78,5 +78,21 @@
     "no_selected_version": "No se ha seleccionado ninguna versión",
     "saved_config": "Configuración guardada correctamente",
     "saved_config_error": "Error al guardar la configuración. Asegúrate de que la ruta de la versión es correcta y tienes permisos de escritura",
-    "no_selected_version_config": "No hay una versión seleccionada para guardar la configuración"
+    "no_selected_version_config": "No hay una versión seleccionada para guardar la configuración",
+    "purchaseResult_success": "Compra realizada correctamente",
+    "purchaseResult_error": "Error al realizar la compra. Asegúrate de que tienes suficientes puntos",
+    "purchaseResult_unknown": "Error desconocido al realizar la compra. Asegúrate de que tienes suficientes puntos",
+    "response_success": "Respondido correctamente",
+    "response_error": "Error al responder",
+    "closed_success": "Ticket cerrado correctamente",
+    "closed_error": "Error al cerrar el ticket",
+    "deleted_success": "Ticket eliminado correctamente",
+    "deleted_error": "Error al eliminar el ticket",
+    "loginError": "Error al iniciar sesión. Asegúrate de que el nombre de usuario y la contraseña son correctos",
+    "jwtLoginError": "Error al iniciar sesión. Asegúrate de que el nombre de usuario y la contraseña son correctos",
+    "passwordResetSuccess": "Contraseña restablecida correctamente.",
+    "passwordResetError": "Error al restablecer la contraseña.",
+    "emailSentSuccess": "Correo electrónico enviado correctamente.",
+    "emailSentError": "Error al enviar el correo electrónico.",
+    "tengoCodigo": "Tengo un código"
 }
