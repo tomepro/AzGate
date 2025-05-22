@@ -102,7 +102,7 @@ function HomeScreen() {
         // console.error("Error al leer Config.wtf:", error);
         // alert("No se pudo leer el archivo Config.wtf. Asegúrate de que la ruta de la versión es correcta y la carpeta WTF existe.");
         console.error("Error reading WTF file")
-        setPopupMessage("No se pudo leer el archivo Config.wtf. Asegúrate de que la ruta de la versión es correcta y la carpeta WTF existe.");
+        setPopupMessage(t("no_read_config"));
         setPopupOpen(true);
         // Si hay un error, inicializamos con un objeto vacío
         setConfigSettings({});
@@ -111,7 +111,7 @@ function HomeScreen() {
     } else {
       // alert("Por favor, selecciona una versión del juego primero.");
       console.error("No version selected")
-      setPopupMessage("No hay una versión seleccionada");
+      setPopupMessage(t("no_selected_version"));
       setPopupOpen(true);
     }
   };
@@ -328,19 +328,19 @@ function HomeScreen() {
         closeSettingsModal();
         // alert("Configuración guardada correctamente.");
         console("Configuración guardada correctamente")
-        setPopupMessage("Configuración guardada correctamente");
+        setPopupMessage(t("saved_config"));
         setPopupOpen(true);
       } catch (error) {
         console.error("Error al guardar la configuración de Config.wtf:", error);
         // alert("Error al guardar la configuración. Asegúrate de que la ruta de la versión es correcta y tienes permisos de escritura.");
         console.error("Error al guardar la configuración")
-        setPopupMessage("Error al guardar la configuración. Asegúrate de que la ruta de la versión es correcta y tienes permisos de escritura");
+        setPopupMessage(t("saved_config_error"));
         setPopupOpen(true);
       }
     } else {
       // alert("No hay una versión seleccionada para guardar la configuración.");
       console.error("No hay una versión seleccionada")
-      setPopupMessage("No hay una versión seleccionada para guardar la configuración");
+      setPopupMessage(t("no_selected_version_config"));
       setPopupOpen(true);
     }
   };

@@ -73,5 +73,10 @@
     "minute": "Minuto",
     "complete_status": "COMPLETADO",
     "pending_status": "PENDIENTE",
-    "tickets": "Tickets"
+    "tickets": "Tickets",
+    "no_read_config": "No se pudo leer el archivo Config.wtf. Asegúrate de que la ruta de la versión es correcta y la carpeta WTF existe.",
+    "no_selected_version": "No se ha seleccionado ninguna versión",
+    "saved_config": "Configuración guardada correctamente",
+    "saved_config_error": "Error al guardar la configuración. Asegúrate de que la ruta de la versión es correcta y tienes permisos de escritura",
+    "no_selected_version_config": "No hay una versión seleccionada para guardar la configuración"
 }
