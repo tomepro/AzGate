@@ -7,9 +7,16 @@ import Titlebar from "./components/Titlebar";
 import NavBar from './components/NavBar';
 import { motion } from "framer-motion";
 import { open } from '@tauri-apps/plugin-dialog';
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+
+
 
 function HomeScreen() {
   const { t } = useTranslation("common");
+
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
 
   const [customVersions, setCustomVersions] = useState([]);
   const [newVersionName, setNewVersionName] = useState("");
@@ -92,14 +99,20 @@ function HomeScreen() {
         setConfigSettings(parsedConfig);
         setIsSettingsModalVisible(true);
       } catch (error) {
-        console.error("Error al leer Config.wtf:", error);
-        alert("No se pudo leer el archivo Config.wtf. Asegúrate de que la ruta de la versión es correcta y la carpeta WTF existe.");
+        // console.error("Error al leer Config.wtf:", error);
+        // alert("No se pudo leer el archivo Config.wtf. Asegúrate de que la ruta de la versión es correcta y la carpeta WTF existe.");
+        console.error("Error reading WTF file")
+        setPopupMessage("No se pudo leer el archivo Config.wtf. Asegúrate de que la ruta de la versión es correcta y la carpeta WTF existe.");
+        setPopupOpen(true);
         // Si hay un error, inicializamos con un objeto vacío
         setConfigSettings({});
         setIsSettingsModalVisible(true);
       }
     } else {
-      alert("Por favor, selecciona una versión del juego primero.");
+      // alert("Por favor, selecciona una versión del juego primero.");
+      console.error("No version selected")
+      setPopupMessage("No hay una versión seleccionada");
+      setPopupOpen(true);
     }
   };
 
@@ -313,13 +326,22 @@ function HomeScreen() {
         await invoke("write_config_wtf", { gamePath: selectedVersionPath, content: configString });
         console.log("Configuración guardada:", configSettings);
         closeSettingsModal();
-        alert("Configuración guardada correctamente.");
+        // alert("Configuración guardada correctamente.");
+        console("Configuración guardada correctamente")
+        setPopupMessage("Configuración guardada correctamente");
+        setPopupOpen(true);
       } catch (error) {
         console.error("Error al guardar la configuración de Config.wtf:", error);
-        alert("Error al guardar la configuración. Asegúrate de que la ruta de la versión es correcta y tienes permisos de escritura.");
+        // alert("Error al guardar la configuración. Asegúrate de que la ruta de la versión es correcta y tienes permisos de escritura.");
+        console.error("Error al guardar la configuración")
+        setPopupMessage("Error al guardar la configuración. Asegúrate de que la ruta de la versión es correcta y tienes permisos de escritura");
+        setPopupOpen(true);
       }
     } else {
-      alert("No hay una versión seleccionada para guardar la configuración.");
+      // alert("No hay una versión seleccionada para guardar la configuración.");
+      console.error("No hay una versión seleccionada")
+      setPopupMessage("No hay una versión seleccionada para guardar la configuración");
+      setPopupOpen(true);
     }
   };
 
@@ -645,6 +667,18 @@ function HomeScreen() {
           </aside>
         </div>
       </div>
+
+      <Popup
+              open={popupOpen}
+              onClose={() => setPopupOpen(false)}
+              modal
+              closeOnDocumentClick
+            >
+              <div className="pwrs-popup-content">
+                <p>{popupMessage}</p>
+                <button onClick={() => setPopupOpen(false)}>{t("close")}</button>
+              </div>
+            </Popup>
     </main>
   );
 }
