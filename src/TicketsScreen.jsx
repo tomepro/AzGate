@@ -90,11 +90,11 @@ function TicketsScreen() {
             const responseText = ticketResponses[ticketId];
             await invoke('update_ticket_response', { ticketId: ticketId, responseMsg: responseText, token: token });
             fetchTickets(token);
-            setPopupMessage("Respondido correctamente");
+            setPopupMessage(t("response_success"));
             setPopupOpen(true);
         } catch (error) {
             console.error("Failed to respond to ticket:", error);
-            setPopupMessage("Error al responder al ticket");
+            setPopupMessage(t("response_error"));
             setPopupOpen(true);
         }
     }
@@ -103,11 +103,11 @@ function TicketsScreen() {
         try {
             await invoke('complete_ticket', { ticketId:ticketId, token });
             fetchTickets(token);
-            setPopupMessage("Cerrado correctamente");
+            setPopupMessage(t("closed_success"));
             setPopupOpen(true);
         } catch (error) {
             console.error("Failed to close ticket:", error);
-            setPopupMessage("Error al cerrar al ticket");
+            setPopupMessage(t("closed_error"));
             setPopupOpen(true);
         }
     }
@@ -117,11 +117,11 @@ function TicketsScreen() {
             console.log(ticketId)
             await invoke('delete_ticket', {ticketId:ticketId, token:token});
             fetchTickets(token);
-            setPopupMessage("Borrado correctamente");
+            setPopupMessage(t("deleted_success"));
             setPopupOpen(true);
         } catch (error) {
             console.error("Failed to delete ticket:", error);
-            setPopupMessage("Error al borrar al ticket");
+            setPopupMessage(t("deleted_error"));
             setPopupOpen(true);
         }
     }

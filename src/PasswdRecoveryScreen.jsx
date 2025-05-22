@@ -54,7 +54,7 @@ function RegisterScreen() {
             <br />
           </form>
           <div className="recoveryBackDiv">
-            <Link to="/newPassword">{t("tengocodigo")}</Link>
+            <Link to="/newPassword">{t("tengoCodigo")}</Link>
             <br />
             <br />
             <Link to="/">{t("back")}</Link>
