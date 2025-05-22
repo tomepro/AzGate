@@ -118,8 +118,8 @@ function Shop() {
                                 className={`item-card ${item.isVoteItem ? 'vote-item' : 'donation-item'}`}
                             >
                                 {item.isVoteItem === 1 && (
-                                    <span className='vote-badge'>
-                                        {t("vote_item")}
+                                    <span>
+                                        
                                     </span>
                                 )}
                                 {/* If wowhead_link exists, wrap the image in an <a> tag for the tooltip */}
