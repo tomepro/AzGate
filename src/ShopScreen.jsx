@@ -141,7 +141,7 @@ function Shop() {
                 className={`item-card ${item.isVoteItem ? 'vote-item' : 'donation-item'}`}
               >
                 {item.isVoteItem === 1 && (
-                  <span className='vote-badge'>{t("vote_item")}</span>
+                  <span></span>
                 )}
                 {wowheadLink ? (
                   <a href={wowheadLink} data-wh-icon-size="small" className="q">
