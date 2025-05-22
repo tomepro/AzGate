@@ -5,8 +5,12 @@ import Titlebar from './components/Titlebar';
 import NavBar from './components/NavBar';
 import { useTranslation } from 'react-i18next';
 import { t } from 'i18next';
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
 function TicketsScreen() {
+    const [popupOpen, setPopupOpen] = useState(false);
+    const [popupMessage, setPopupMessage] = useState("");
     const [tickets, setTickets] = useState([]);
     const [isGM, setIsGM] = useState(false);
     const [ticketResponses, setTicketResponses] = useState({});
@@ -136,6 +140,17 @@ function TicketsScreen() {
                     )}
                 </div>
             </div>
+            <Popup
+                                      open={popupOpen}
+                                      onClose={() => setPopupOpen(false)}
+                                      modal
+                                      closeOnDocumentClick
+                                    >
+                                      <div className="pwrs-popup-content">
+                                        <p>{popupMessage}</p>
+                                        <button onClick={() => setPopupOpen(false)}>{t("close")}</button>
+                                      </div>
+                                    </Popup>
         </div>
     );
 }
