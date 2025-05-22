@@ -17,6 +17,42 @@ function TicketsScreen() {
     const token = localStorage.getItem("token");
     const { t } = useTranslation("common");
 
+    
+  const version = localStorage.getItem("versionSelected");
+
+  console.log(version)
+
+    const getImageForVersion = (version) => {
+    switch (version.toUpperCase()) {
+    case 'VA':
+      return 'classic.webp';
+    case 'TBC':
+      return 'tbc.webp';
+    case 'LK':
+      return 'wotlk_wallpaper.webp';
+    case 'CATA':
+      return 'cata.webp';
+    case 'MOP':
+      return 'mop.webp';
+    case 'WOD':
+      return 'wod.webp';
+    case 'LG':
+      return 'legion.webp';
+    case 'BFA':
+      return 'bfa.webp';
+    case 'SL':
+      return 'shadowlands.webp';
+    case 'DF':
+      return 'df.webp';
+    case 'TWW':
+      return 'tww.webp';
+    default:
+      return 'classic.webp'; // fondo por defecto
+  }
+  };
+
+  const backgroundImage = getImageForVersion(version);
+
     useEffect(() => {
         if (token) {
             fetchTickets(token);
@@ -91,7 +127,7 @@ function TicketsScreen() {
     }
 
     return (
-        <div className={styles.ticketsContainer}>
+        <div className={styles.ticketsContainer} style={{ backgroundImage: `url(${backgroundImage})` }}>
             <Titlebar />
             <NavBar />
 

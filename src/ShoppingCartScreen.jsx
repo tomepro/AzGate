@@ -25,6 +25,42 @@ const ShoppingCartScreen = () => {
     const token = localStorage.getItem("token");
     const { t } = useTranslation("common");
 
+    
+  const version = localStorage.getItem("versionSelected");
+
+  console.log(version)
+
+    const getImageForVersion = (version) => {
+    switch (version.toUpperCase()) {
+    case 'VA':
+      return 'classic.webp';
+    case 'TBC':
+      return 'tbc.webp';
+    case 'LK':
+      return 'wotlk_wallpaper.webp';
+    case 'CATA':
+      return 'cata.webp';
+    case 'MOP':
+      return 'mop.webp';
+    case 'WOD':
+      return 'wod.webp';
+    case 'LG':
+      return 'legion.webp';
+    case 'BFA':
+      return 'bfa.webp';
+    case 'SL':
+      return 'shadowlands.webp';
+    case 'DF':
+      return 'df.webp';
+    case 'TWW':
+      return 'tww.webp';
+    default:
+      return 'classic.webp'; // fondo por defecto
+  }
+  };
+
+  const backgroundImage = getImageForVersion(version);
+
     useEffect(() => {
         async function getShopItemById(id) {
             setLoadingItem(true);
@@ -125,7 +161,7 @@ const ShoppingCartScreen = () => {
     if (loadingItem) {
         return (
             <main className='containerHomeScreen'>
-                <div className='launcherBackground'>
+                <div className='launcherBackground' style={{ backgroundImage: `url(${backgroundImage})` }}>
                     <Titlebar version={false} />
                     <NavBar />
                     <div className='contentArea'>
@@ -139,7 +175,7 @@ const ShoppingCartScreen = () => {
     if (errorItem) {
         return (
             <main className='containerHomeScreen'>
-                <div className='launcherBackground'>
+                <div className='launcherBackground' style={{ backgroundImage: `url(${backgroundImage})` }}>
                     <Titlebar version={false} />
                     <NavBar />
                     <div className='contentArea'>
@@ -154,7 +190,7 @@ const ShoppingCartScreen = () => {
     if (!item) {
         return (
             <main className='containerHomeScreen'>
-                <div className='launcherBackground'>
+                <div className='launcherBackground' style={{ backgroundImage: `url(${backgroundImage})` }}>
                     <Titlebar version={false} />
                     <NavBar />
                     <div className='contentArea'>
@@ -169,7 +205,7 @@ const ShoppingCartScreen = () => {
     if (loadingCharacters) {
         return (
             <main className='containerHomeScreen'>
-                <div className='launcherBackground'>
+                <div className='launcherBackground' style={{ backgroundImage: `url(${backgroundImage})` }}>
                     <Titlebar version={false} />
                     <NavBar />
                     <div className='contentArea'>
@@ -183,7 +219,7 @@ const ShoppingCartScreen = () => {
     if (errorCharacters) {
         return (
             <main className='containerHomeScreen'>
-                <div className='launcherBackground'>
+                <div className='launcherBackground' style={{ backgroundImage: `url(${backgroundImage})` }}>
                     <Titlebar version={false} />
                     <NavBar />
                     <div className='contentArea'>
@@ -197,7 +233,7 @@ const ShoppingCartScreen = () => {
 
     return (
         <main className='containerHomeScreen'>
-            <div className='launcherBackground'>
+            <div className='launcherBackground' style={{ backgroundImage: `url(${backgroundImage})` }}>
                 <Titlebar version={false} />
                 <NavBar />
                 <div className='contentArea'>

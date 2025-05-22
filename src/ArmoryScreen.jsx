@@ -3,12 +3,47 @@ import "./ArmoryScreen.css";
 import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
 import Titlebar from './components/Titlebar';
-import NavBar from './components/navBar';
+import NavBar from './components/NavBar';
     
 
 function ArmoryIframe() {
   const [resizeSetup, setResizeSetup] = useState(false);
 
+
+  const version = localStorage.getItem("versionSelected");
+
+  console.log(version)
+
+    const getImageForVersion = (version) => {
+    switch (version.toUpperCase()) {
+    case 'VA':
+      return 'classic.webp';
+    case 'TBC':
+      return 'tbc.webp';
+    case 'LK':
+      return 'wotlk_wallpaper.webp';
+    case 'CATA':
+      return 'cata.webp';
+    case 'MOP':
+      return 'mop.webp';
+    case 'WOD':
+      return 'wod.webp';
+    case 'LG':
+      return 'legion.webp';
+    case 'BFA':
+      return 'bfa.webp';
+    case 'SL':
+      return 'shadowlands.webp';
+    case 'DF':
+      return 'df.webp';
+    case 'TWW':
+      return 'tww.webp';
+    default:
+      return 'classic.webp'; // fondo por defecto
+  }
+  };
+
+  const backgroundImage = getImageForVersion(version);
 
   const { t } = useTranslation("common");
   useEffect(() => {
@@ -44,7 +79,7 @@ function ArmoryIframe() {
   }, [resizeSetup]);
 
   return (
-    <main className='containerHomeScreen'>
+    <main className='containerHomeScreen' style={{ backgroundImage: `url(${backgroundImage})` }}>
       <Titlebar/>
       <NavBar />
       {/* <div className='homeNavBar'>
