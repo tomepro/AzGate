@@ -7,8 +7,12 @@ import NavBar from './components/NavBar';
 import './ShoppingCartScreen.css'; // Asegúrate de crear este archivo CSS
 import { t } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
 const ShoppingCartScreen = () => {
+    const [popupOpen, setPopupOpen] = useState(false);
+    const [popupMessage, setPopupMessage] = useState("");
     const [searchParams] = useSearchParams();
     const itemId = searchParams.get('id'); // Obtenemos el id del parámetro GET
     const [item, setItem] = useState(null);
@@ -90,20 +94,31 @@ const ShoppingCartScreen = () => {
                 console.log("Resultado de la compra:", purchaseResult);
                 // Aquí puedes manejar la respuesta, mostrar un mensaje de éxito o error al usuario
                 if (purchaseResult?.message) {
-                    alert(purchaseResult.message);
+
+                    setPopupMessage("purchaseResult.message");
+                    setPopupOpen(true);
+                    // alert(purchaseResult.message);
                     // Redirigir a una página de éxito o limpiar el carrito
                 } else if (purchaseResult?.error) {
-                    alert(`Error al comprar el item: ${purchaseResult.error}`);
+                    // alert(`Error al comprar el item: ${purchaseResult.error}`);
+                    setPopupMessage(`Error al comprar el item: ${purchaseResult.error}`);
+                    setPopupOpen(true);
                 } else {
-                    alert("Error desconocido al intentar comprar el item.");
+                    // alert("Error desconocido al intentar comprar el item.");
+                    setPopupMessage("Error desconocido al intentar comprar el item");
+                    setPopupOpen(true);
                 }
 
             } catch (error) {
                 console.error("Error al invocar buy_shop_item:", error);
-                alert(`Error al intentar comprar el item: ${error}`);
+                // alert(`Error al intentar comprar el item: ${error}`);
+                setPopupMessage(`Error al intentar comprar el item: ${error}`);
+                setPopupOpen(true);
             }
         } else {
-            alert('Por favor, selecciona un personaje.');
+            // alert('Por favor, selecciona un personaje.');
+            setPopupMessage("Por favor, selecciona un personaje");
+            setPopupOpen(true);
         }
     };
 
@@ -215,6 +230,17 @@ const ShoppingCartScreen = () => {
                     </div>
                 </div>
             </div>
+                  <Popup
+                          open={popupOpen}
+                          onClose={() => setPopupOpen(false)}
+                          modal
+                          closeOnDocumentClick
+                        >
+                          <div className="pwrs-popup-content">
+                            <p>{popupMessage}</p>
+                            <button onClick={() => setPopupOpen(false)}>{t("close")}</button>
+                          </div>
+                        </Popup>
         </main>
     );
 };

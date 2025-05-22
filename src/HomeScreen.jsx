@@ -239,6 +239,14 @@ function HomeScreen() {
 
   const [changelog, setChangelog] = useState(null);
   const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+  const savedBackground = localStorage.getItem("backgroundImage");
+  if (savedBackground) {
+    setBackgroundImage(savedBackground);
+  }
+}, []);
+
 
   useEffect(() => {
     readNews();
@@ -417,6 +425,7 @@ function HomeScreen() {
 
     const bg = getBackgroundByVersion(version.version);
     setBackgroundImage(bg);
+    localStorage.setItem("backgroundImage", bg);
 
     // Call without blocking the UI
     updateDiscord(version.version);

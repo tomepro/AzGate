@@ -5,8 +5,12 @@ import Titlebar from './components/Titlebar';
 import NavBar from './components/NavBar';
 import { useTranslation } from 'react-i18next';
 import { t } from 'i18next';
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
 function TicketsScreen() {
+    const [popupOpen, setPopupOpen] = useState(false);
+    const [popupMessage, setPopupMessage] = useState("");
     const [tickets, setTickets] = useState([]);
     const [isGM, setIsGM] = useState(false);
     const [ticketResponses, setTicketResponses] = useState({});
@@ -49,18 +53,26 @@ function TicketsScreen() {
         try {
             const responseText = ticketResponses[ticketId];
             await invoke('update_ticket_response', { ticketId: ticketId, responseMsg: responseText, token: token });
-            fetchTickets(token); 
+            fetchTickets(token);
+            setPopupMessage("Respondido correctamente");
+            setPopupOpen(true);
         } catch (error) {
             console.error("Failed to respond to ticket:", error);
+            setPopupMessage("Error al responder al ticket");
+            setPopupOpen(true);
         }
     }
 
     async function handleClose(ticketId) {
         try {
             await invoke('complete_ticket', { ticketId:ticketId, token });
-            fetchTickets(token); 
+            fetchTickets(token);
+            setPopupMessage("Cerrado correctamente");
+            setPopupOpen(true);
         } catch (error) {
             console.error("Failed to close ticket:", error);
+            setPopupMessage("Error al cerrar al ticket");
+            setPopupOpen(true);
         }
     }
 
@@ -68,9 +80,13 @@ function TicketsScreen() {
         try {
             console.log(ticketId)
             await invoke('delete_ticket', {ticketId:ticketId, token:token});
-            fetchTickets(token); 
+            fetchTickets(token);
+            setPopupMessage("Borrado correctamente");
+            setPopupOpen(true);
         } catch (error) {
             console.error("Failed to delete ticket:", error);
+            setPopupMessage("Error al borrar al ticket");
+            setPopupOpen(true);
         }
     }
 
@@ -136,6 +152,17 @@ function TicketsScreen() {
                     )}
                 </div>
             </div>
+            <Popup
+                                      open={popupOpen}
+                                      onClose={() => setPopupOpen(false)}
+                                      modal
+                                      closeOnDocumentClick
+                                    >
+                                      <div className="pwrs-popup-content">
+                                        <p>{popupMessage}</p>
+                                        <button onClick={() => setPopupOpen(false)}>{t("close")}</button>
+                                      </div>
+                                    </Popup>
         </div>
     );
 }
