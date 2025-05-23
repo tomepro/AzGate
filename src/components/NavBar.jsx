@@ -163,7 +163,7 @@ const NavBar = () => {
 
   // Estado para almacenar los datos del perfil
   const [profile, setProfile] = useState({
-    name: 'Sin personaje',
+    name: '???',
     race: 1,
     gender: 0,
     class: 1,
@@ -182,7 +182,7 @@ const NavBar = () => {
         if (data.length === 0) {
           // No hay personajes: mantener personaje por defecto
           setProfile({
-            name: 'Sin personaje',
+            name: '???',
             race: 1,
             gender: 0,
             class: 1,
@@ -205,7 +205,7 @@ const NavBar = () => {
       .catch(error => {
         console.error("Error al obtener perfil:", error);
         setProfile({
-          name: 'Sin personaje',
+          name: '???',
           race: 1,
           gender: 0,
           class: 1,
