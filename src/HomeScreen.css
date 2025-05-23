@@ -700,6 +700,14 @@ ul{
 
 }
 
+#seleccionarExe{
+    background-color: #3a3a3a;
+}
+
+#seleccionarAddons{
+    background-color: #3a3a3a;
+}
+
 /* Texto de eliminar versión */
 #modalContent #deleteText {
     color: red;
