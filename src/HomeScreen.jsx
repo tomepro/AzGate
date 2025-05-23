@@ -564,9 +564,9 @@ function HomeScreen() {
                       >
                         {t("select_exe")}
                       </button>
-                      <p id="exeSeleccionado">
+                      {/* <p id="exeSeleccionado">
                         {route && `Seleccionado: ${route.split("\\").pop()}`}
-                      </p>
+                      </p> */}
                     </label>
                     <label className="inputGroup">
                       <p>{t("addons_route")}</p>
@@ -577,9 +577,9 @@ function HomeScreen() {
                       >
                         {t("select_addons")}
                       </button>
-                      <p id="addonsSeleccionado">
+                      {/* <p id="addonsSeleccionado">
                         {addonsPath && `Seleccionado: ${addonsPath}`}
-                      </p>
+                      </p> */}
                     </label>
                     <button className="modelButtonA" type="button" onClick={toggleModal}>
                       {t("cancel")}
