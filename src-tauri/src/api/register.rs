@@ -5,22 +5,6 @@ use serde_json::json;
 use std::env;
 
 #[derive(Debug, Deserialize)]
-#[allow(dead_code)]
-#[serde(untagged)] // Allows handling multiple response types
-enum AuthResponse {
-    Success {
-        status: String,
-        token: String,
-        account: Account,
-    },
-    Error {
-        status_code: u16,
-        message: Vec<String>,
-        error: String,
-    },
-}
-
-#[derive(Debug, Deserialize)]
 struct Account {
     id: u32,
     username: String,
@@ -70,23 +54,11 @@ pub async fn register_user(
         .await
         .map_err(|err| err.to_string())?;
 
+    // Just deserialize to generic JSON value
     let body = response
-        .json::<AuthResponse>()
+        .json::<serde_json::Value>()
         .await
         .map_err(|err| err.to_string())?;
-    match body {
-        AuthResponse::Success { token, account, .. } => Ok(json!({
-            "status": "success",
-            "token": token,
-            "account": {
-                "id": account.id,
-                "username": account.username,
-                "reg_mail": account.reg_mail
-            }
-        })),
-        AuthResponse::Error { message, .. } => Ok(json!({
-            "status": "error",
-            "message": message.join(", ")
-        })),
-    }
+
+    Ok(body)
 }
