@@ -93,5 +93,7 @@
     "passwordResetSuccess": "密码重置成功。",
     "passwordResetError": "密码重置失败。",
     "emailSentSuccess": "电子邮件发送成功。",
-    "emailSentError": "电子邮件发送失败。"
+    "emailSentError": "电子邮件发送失败。",
+    "success_register": "注册成功"
+
 }

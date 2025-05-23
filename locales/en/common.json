@@ -93,5 +93,7 @@
     "passwordResetSuccess": "Password reset successfully.",
     "passwordResetError": "Error resetting password.",
     "emailSentSuccess": "Email sent successfully.",
-    "emailSentError": "Error sending email."
+    "emailSentError": "Error sending email.",
+    "success_register": "Successfully registered"
+
 }

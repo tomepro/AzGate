@@ -93,5 +93,6 @@
     "passwordResetSuccess": "Contrasenya restablerta correctament.",
     "passwordResetError": "Error en restablir la contrasenya.",
     "emailSentSuccess": "Correu electrònic enviat correctament.",
-    "emailSentError": "Error en enviar el correu electrònic."
+    "emailSentError": "Error en enviar el correu electrònic.",
+    "success_register": "Registrat amb èxit"
 }

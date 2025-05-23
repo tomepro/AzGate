@@ -94,5 +94,8 @@
     "passwordResetError": "Error al restablecer la contraseña.",
     "emailSentSuccess": "Correo electrónico enviado correctamente.",
     "emailSentError": "Error al enviar el correo electrónico.",
-    "tengoCodigo": "Tengo un código"
+    "tengoCodigo": "Tengo un código",
+    "success_register": "Registrado con éxito"
+
+
 }

@@ -6,9 +6,15 @@ import { Link } from "react-router-dom";
 import LanguagePopup from "./components/languagePopup";
 import './RegisterScreen.css';
 import Titlebar from "./components/Titlebar";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+import { message } from "@tauri-apps/plugin-dialog";
 
 function RegisterScreen() {
   const { t } = useTranslation("common");
+
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
 
   const [username, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -24,12 +30,19 @@ function RegisterScreen() {
       const message = await invoke('register_user', { username, password, firstName, lastName, passwordConfirm, email });
       console.log(message)
       setFinalMessage(message); // Save message to state
+      setPopupMessage(t(message.message));
+      setPopupOpen(true);
   
       if (message.status === "success") {
+        setPopupMessage(t("success_register"));
+        setPopupOpen(true);
         window.location.replace("/");
       }
     } catch (error) {
       console.error(error);
+      setPopupMessage(t(message.message));
+      setPopupOpen(true);
+
     } finally {
     }
   }
@@ -62,6 +75,17 @@ function RegisterScreen() {
           </div>
         </div>
       </div>
+      <Popup
+                    open={popupOpen}
+                    onClose={() => setPopupOpen(false)}
+                    modal
+                    closeOnDocumentClick
+                  >
+                    <div className="pwrs-popup-content">
+                      <p>{popupMessage}</p>
+                      <button onClick={() => setPopupOpen(false)}>{t("close")}</button>
+                    </div>
+                  </Popup>
     </main>
   );
 }
